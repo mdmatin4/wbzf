@@ -1,0 +1,279 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using wbzf.Model
+@using wbzf.Utility
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using wbzf.DataAccess.Repository.IRepository
+@inject IUnitOfWork Iunitofwork
+@{
+    var Company = Iunitofwork.company.GetCompany();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/images/favicon.png">
+    <!-- Title -->
+    <title>@ViewData["Title"] - @Company.name</title>
+
+     <!--select2 min css-->
+    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert -->
+    <link href="~/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+    <!-- App css -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/plugins/switchery/switchery.min.css">
+
+    <!-- DataTables -->
+    <link href="~/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- Sweet Alert -->
+    <link href="~/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css">
+    @await RenderSectionAsync("Styles", required: false)
+
+    <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script src="~/assets/js/modernizr.min.js"></script>
+
+</head>
+<body class="fixed-left">
+    @*<!-- page preloader -->
+        <div id="loading-area">
+        <div class="loader-box">
+        <div class="loader" id="loader-1"></div>
+        </div>
+        </div><!-- end loading -->*@
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        <div class="topbar">
+
+            <!-- LOGO -->
+            <div class="topbar-left">
+                @* <a href="index.html" class="logo"><span>Zir<span>cos</span></span><i class="mdi mdi-cube"></i></a>*@
+                <!-- Image logo -->
+                <a asp-for="/Index" class="logo">
+                    <span>
+                        @Company.company_short_name
+                       @* <img src="@Company.logo" alt="" height="30">*@
+                    </span>
+                    <i>
+                        <img src="@Company.logo" alt="" height="28">
+                    </i>
+                </a>
+            </div>
+
+            <!-- Button mobile view to collapse sidebar menu -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+
+                    <!-- Navbar-left -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <button class="button-menu-mobile open-left waves-effect waves-light">
+                                <i class="mdi mdi-menu"></i>
+                            </button>
+                        </li>
+                        
+
+                    </ul>
+
+                    
+
+                </div><!-- end container -->
+            </div><!-- end navbar -->
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- User detail -->
+                    <div class="user-details">
+                        <div class="overlay"></div>
+                        <div class="text-center">
+                            
+                                <img src="@Company.logo" alt="" class="thumb-md img-circle">
+                            
+
+                        </div>
+                        <div class="user-info">
+                            <div>
+                                @Company.name
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <ul>
+                        <li class="menu-title">Work Area</li>
+
+                        <li>
+                            <a asp-page="/scholarship" class="waves-effect"><i class="mdi mdi-application"></i> <span> Application for Scholarship </span> </a>
+
+                        </li>
+                        <li>
+                            <a asp-page="/coachingForm"  asp-route-exam="WBCS" class="waves-effect"><i class="mdi mdi-application"></i> <span> Application for WBCS Caoching </span> </a>
+
+                        </li>
+                        <li>
+                            <a asp-page="/coachingForm"  asp-route-exam="WBJS" class="waves-effect"><i class="mdi mdi-book-open"></i> <span> Application for WBJS Caoching </span> </a>
+
+                        </li>
+                        
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    @RenderBody()
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+
+            <footer class="footer text-right">
+                2022 © @Company.name
+            </footer>
+
+        </div>
+
+
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <div class="side-bar right-bar">
+            <a href="javascript:void(0);" class="right-bar-toggle">
+                <i class="mdi mdi-close-circle-outline"></i>
+            </a>
+            <h4 class="">Settings</h4>
+            <div class="setting-list nicescroll">
+                <div class="row m-t-20">
+                    <div class="col-xs-8">
+                        <h5 class="m-0">Notifications</h5>
+                        <p class="text-muted m-b-0"><small>Do you need them?</small></p>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <input type="checkbox" checked data-plugin="switchery" data-color="#7fc1fc" data-size="small" />
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-xs-8">
+                        <h5 class="m-0">API Access</h5>
+                        <p class="m-b-0 text-muted"><small>Enable/Disable access</small></p>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <input type="checkbox" checked data-plugin="switchery" data-color="#7fc1fc" data-size="small" />
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-xs-8">
+                        <h5 class="m-0">Auto Updates</h5>
+                        <p class="m-b-0 text-muted"><small>Keep up to date</small></p>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <input type="checkbox" checked data-plugin="switchery" data-color="#7fc1fc" data-size="small" />
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-xs-8">
+                        <h5 class="m-0">Online Status</h5>
+                        <p class="m-b-0 text-muted"><small>Show your status to all</small></p>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <input type="checkbox" checked data-plugin="switchery" data-color="#7fc1fc" data-size="small" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Right-bar -->
+
+    </div>
+    <!-- END wrapper -->
+
+
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/detect.js"></script>
+    <script src="~/assets/js/fastclick.js"></script>
+    <script src="~/assets/js/jquery.blockUI.js"></script>
+    <script src="~/assets/js/waves.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.js"></script>
+    <script src="~/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="~/plugins/switchery/switchery.min.js"></script>
+     
+    <!--select2 min css-->
+    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+        <!--date pciker-->
+    <script src="~/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="~/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/jquery.core.js"></script>
+    <script src="~/assets/js/jquery.app.js"></script>
+    <!-- Sweet-Alert  -->
+    <script src="~/plugins/bootstrap-sweetalert/sweet-alert.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables/dataTables.bootstrap.js"></script>
+     <script type="text/javascript">
+
+
+
+        $(document).ready(function () {
+            jQuery('.datepicker').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                todayHighlight: true
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

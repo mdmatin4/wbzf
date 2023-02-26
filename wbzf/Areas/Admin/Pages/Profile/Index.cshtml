@@ -1,0 +1,103 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class=card-box>
+    <partial name="_StatusMessages" for="StatusMessage" />
+    <div class="row">
+
+        <form id="profile-form" class="form-group" method="post" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="Input.UserName" class="form-control" />
+                    <label asp-for="Input.UserName" class="form-label"></label>
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Input.PhoneNumber" class="form-control" />
+                    <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"> <div class="form-group">
+                    <input asp-for="Input.Vill" class="form-control" />
+                    <label asp-for="Input.Vill" class="form-label"></label>
+                    <span asp-validation-for="Input.Vill" class="text-danger"></span>
+                </div></div>
+                    <div class="col-md-6"> <div class="form-group">
+                    <input asp-for="Input.PostOffice" class="form-control" />
+                    <label asp-for="Input.PostOffice" class="form-label"></label>
+                    <span asp-validation-for="Input.PostOffice" class="text-danger"></span>
+                </div></div>
+                    <div class="col-md-6"><div class="form-group">
+                    <input asp-for="Input.PoliceStation" class="form-control" />
+                    <label asp-for="Input.PoliceStation" class="form-label"></label>
+                    <span asp-validation-for="Input.PoliceStation" class="text-danger"></span>
+                </div></div>
+                    <div class="col-md-6"> <div class="form-group">
+                    <input asp-for="Input.District" class="form-control" />
+                    <label asp-for="Input.District" class="form-label"></label>
+                    <span asp-validation-for="Input.District" class="text-danger"></span>
+                </div></div>
+                    <div class="col-md-6"> <div class="form-group">
+                    <input asp-for="Input.State" class="form-control" />
+                    <label asp-for="Input.State" class="form-label"></label>
+                    <span asp-validation-for="Input.State" class="text-danger"></span>
+                </div></div>
+                    <div class="col-md-6"> <div class="form-group">
+                    <input asp-for="Input.PIN" class="form-control" />
+                    <label asp-for="Input.PIN" class="form-label"></label>
+                    <span asp-validation-for="Input.PIN" class="text-danger"></span>
+                </div></div>
+                </div>
+
+                <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                <label asp-for="Input.ImageUrl" style="width: 100%;"></label>
+                @if (Model.Input.ImageUrl != null)
+                {
+                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="@Model.Input.ImageUrl">
+                }
+                else
+                {
+                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
+                }
+                <input type="file"
+                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                       asp-for="Input.ImageUrl"
+                       class="form-control"
+                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="Input.ImageUrl" class="text-danger"></span>
+            </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,230 @@
+﻿@page
+@model wbzf.Pages.DonationModel
+@using wbzf.DataAccess.Repository.IRepository
+@inject IUnitOfWork Iunitofwork
+@{
+    ViewData["Title"]="Donation";
+    var Company = Iunitofwork.company.GetCompany();
+}
+@section Styles{
+<link rel="stylesheet" href="~/css/donation.css" asp-append-version="true" />
+<form method="post" name="razorpayForm">
+    <input id="razorpay_payment_id" type="hidden" name="razorpay_payment_id" />
+    <input id="razorpay_order_id" type="hidden" name="razorpay_order_id" />
+    <input id="razorpay_signature" type="hidden" name="razorpay_signature" />
+</form>
+}
+<section class="promo-primary">
+    <picture>
+        <source srcset="img/volunteer.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/volunteer.jpg" alt="img" />
+    </picture>
+    <div class="promo-primary__description"> <span>Donation</span></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">@Iunitofwork.company.GetCompany().company_short_name</span>
+                        <h1 class="promo-primary__title"><span>Become</span> <span>a Supporter</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section start-->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xl-5">
+                <div class="heading heading--primary" id="formheading">
+                    <span class="heading__pre-title">Fill Form and Beacame a Supporter</span>
+                    <h2 class="heading__title"><span>Complete</span> <span>the Form</span></h2>
+                </div>
+                <form class="form user-form" method="post">
+                    @* <input class="form__field" asp-for=Donation.amount onkeyup="updateamount(this);" placeholder="Amount of Donation" />
+                        <input class="form__field" asp-for=Donation.Name placeholder="Full Name" />
+                        <input class="form__field" asp-for=Donation.Email placeholder="E-mail" />
+                        <input class="form__field" asp-for=Donation.Mobile placeholder="Mobile Number" />
+                        <input class="form__field" asp-for=Donation.address placeholder="Full Address" />
+                        <textarea class="form__field form__message" asp-for=Donation.message placeholder="Leave a Special Note"></textarea>
+                    *@
+                    <input class="form__field" asp-for=InputModel.Full_Name placeholder="Full Name" />
+                    <span class="text-danger" asp-validation-for=InputModel.Full_Name></span>
+                    
+                    <input class="form__field" asp-for=InputModel.Mother_Name placeholder="Mother Name" />
+                    <span class="text-danger" asp-validation-for=InputModel.Mother_Name></span>
+
+                    <select asp-for="InputModel.Gender" class="form__field">
+                        <option class="option" selected disabled>---Select Gender---</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+
+                    </select>
+
+                    <input class="form__field" asp-for=InputModel.PhoneNumber placeholder="Mobile Number" />
+                    <span class="text-danger" asp-validation-for=InputModel.PhoneNumber></span>
+                    <input class="form__field" asp-for=InputModel.Email placeholder="E-mail" />
+                    <span class="text-danger" asp-validation-for=InputModel.Email></span>
+
+
+
+                    <select asp-for="InputModel.Occupation" asp-items="Model.professionList" class="form__field">
+                        <option disabled selected>--Please Select Your Occupation--</option>
+                    </select>
+                    <span asp-validation-for="InputModel.Occupation" class="text-danger"></span>
+
+                    <input class="form__field" asp-for=InputModel.Password placeholder="Password" />
+                    <span class="text-danger" asp-validation-for=InputModel.Password></span>
+
+                    <input class="form__field" asp-for=InputModel.ConfirmPassword placeholder="Re-type Password" />
+                    <span class="text-danger" asp-validation-for=InputModel.ConfirmPassword></span>
+
+
+                    <span class="text-danger">@TempData["warning"]</span>
+                    @*<button class="form__submit">Pay ₹<span id=lblpayingamount>0</span></button>*@
+                    <button class="form__submit">Register as a Donor</button>
+
+                </form>
+                <!-- user form end-->
+
+                <div id="status-section" style="display:none" class="status-success">
+                    <div id="status-section-container">
+                        <div class="mountain-top"></div>
+                        <div class="mountain-footer"></div>
+
+                        <div class="status-content">
+                            <div class="animoo status-icon">
+                                <div class="success-checkmark"></div>
+
+                            </div>
+                            <div class="title">₹ <label id="lblamount"></label>.<span class="amount-decimal" style="opacity: 0.7;">00</span></div>
+                            <div id="success-msg">Payment Successful!</div>
+
+                            <div id="share-details">
+                                @*<div>Share Your Experience</div><!---->
+                                    <div class="share-icons">
+                                    <a><span class="fa fa-facebook"></span></a>
+                                    <a><span class="fa fa-twitter"></span></a>
+                                    <a><span class="fa fa-whatsapp"></span></a>
+                                    </div>*@
+                            </div>
+
+                            <div class="success-footer">
+                                <div>
+                                    <div>Payment ID: <label id="lblpaymentid"></label></div>
+                                    <div>A confirmation email has been sent to you</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-xl-6 offset-xl-1">
+                <div class="heading heading--primary">
+                    <span class="heading__pre-title">What we Do</span>
+                    <h2 class="heading__title"><span>We Need</span> <span>Your Help</span></h2>
+                </div>
+                <p>We humbly invite you to pay a part or whole of your Zakat through West Bengal Zakat Foundation. This has been established as a self-governed organization with an aim to build awareness and bring conscious Muslims together in institutionalizing the collection and distribution of Zakat in an effective way. We welcome you to visit our office.</p>
+                <p>In our country the development potential of zakat is largely unrecognized and remained unexploited. Zakat can be a wonderful social security system that takes care of every individual in a Muslim society. As a prominent person in the society and conscious Muslim we seek your support and participation in promoting the mission of West Bengal Zakat Foundation solely to please Almighty Allah SWT.</p>
+                <p>May Allah guide us all in the right path and always shower his blessings.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end-->
+@section Scripts
+{
+@*<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+    var pay_amount;
+    $('#status-section').hide();
+    var donate_data;
+    function updateamount(e){
+    var amount=$(e).val();
+    if(amount==""){
+    amount="0";
+    }
+    document.getElementById('lblpayingamount').innerHTML=amount;
+    }
+    $(function () {
+
+
+    $('.form__submit').click(function (e) {
+    var form = $('.user-form')[0];
+    var data = new FormData(form);
+    e.preventDefault();
+    $(".form__submit").prop("disabled", true);
+    $.ajax({
+    type: 'post',
+    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+    url: '?handler=Payment',
+    data: data,
+    contentType: false,
+    processData: false
+    }).done(function (result) {
+    pay_amount=result.donation.amount;
+    var options = {
+    "name": "@Company.name",
+    "description": "@Company.address",
+    "order_id": result.donation.payment_gateway_orderid,
+    "image": "@Company.logo",
+    "callback_url":"@Company.payment_url/Donation",
+    "redirect":false,
+    "prefill": {
+    "name": result.donation.name,
+    "email": result.donation.email,
+    "contact": result.donation.mobile,
+    },
+    "notes": {
+    "address": "Hello World"
+    },
+    "theme": {
+    "color": "#3399cc"
+    }
+    }
+    // Boolean whether to show image inside a white frame. (default: true)
+    options.theme.image_padding = false;
+    options.handler = function (response) {
+
+    $('#status-section').show();
+    $('.user-form').hide();
+    $('#formheading').hide();
+    document.getElementById('lblamount').innerHTML = pay_amount;
+    document.getElementById('lblpaymentid').innerHTML = response.razorpay_payment_id;
+    //document.getElementById('razorpay_signature').value = response.razorpay_signature;
+
+    };
+    options.modal = {
+    ondismiss: function () {
+    console.log("Payment cancelled by the user");
+    },
+    // Boolean indicating whether pressing escape key
+    // should close the checkout form. (default: true)
+    escape: true,
+    // Boolean indicating whether clicking translucent blank
+    // space outside checkout form should close the form. (default: false)
+    backdropclose: false
+    };
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response){
+    alert(response.error.code);
+
+    alert(response.error.reason);
+    });
+    rzp.open();
+    form.reset();
+    }).fail(function (xhdr, statusText, errorText) {
+    console.log(JSON.stringify(xhdr));
+
+    form.reset();
+    });
+    })
+    })
+    </script>*@
+@{
+    <partial name="_ValidationScriptsPartial" />
+}
+}

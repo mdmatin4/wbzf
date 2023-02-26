@@ -1,0 +1,55 @@
+﻿@page
+@using wbzf.Utility
+@model wbzf.Areas.Admin.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    @if (Model.showData)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
+                <i class="mdi mdi-account pull-right text-dark"></i>
+                <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBCS Applicant</h6>
+                <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbcs_applicant</span></h2>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
+                <i class="mdi mdi-account pull-right text-dark"></i>
+                <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBJS Applicant</h6>
+                <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbjs_applicant</span></h2>
+            </div>
+        </div>
+       
+    }
+
+   
+
+</div>
+@section scripts{
+
+            @{
+    <partial name="_ValidationScriptsPartial" />
+            }
+
+            }

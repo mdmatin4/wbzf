@@ -1,0 +1,173 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Settings.PurposeModel
+@{
+    ViewData["Title"]="Purposes";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="col-md-6">
+        <div class="panel panel-color panel-primary">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @if (Model.purpose.Id==0)
+                    {
+                        <span>Add New Purpose</span>
+                    }
+                    else
+                    {
+                        <span>Edit Purpose</span>
+                    }
+                </h3>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.purpose.Id" />
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <label asp-for="@Model.purpose.Name">Purpose Name <span class="text-danger">*</span></label>
+                            <input type="text" asp-for="@Model.purpose.Name" class="form-control" placeholder="Enter Course Profession Name" />
+                            <span asp-validation-for="@Model.purpose.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Default Purpose (If the purpose is not selected by the donor, this will be the default )</label>
+                            <select asp-for=@Model.purpose.IsDefault class="form-control select-options">
+                                <option value=true>Yes</option>
+                                <option value=false selected="selected">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Display Order<span class="text-danger"></span></label>
+                            <input type="number" asp-for=@Model.purpose.Order rows="3" class="form-control" />
+                            <span asp-validation-for=@Model.purpose.Order class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+<div class="col-lg-6">
+    <div class="panel panel-color panel-orange">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Purpose List</h3>
+        </div>
+
+
+        <div class="panel-body">
+
+            <!-- Contain Here -->
+
+            <div class="row">
+
+
+                <div class="table-responsive">
+
+
+                    <table class="table m-0 table-colored-bordered table-bordered-info  table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                     Name
+                                </th>
+                                <th>
+                                    Is Default
+                                </th>
+                                <th>
+                                    Display Order
+                                </th>
+
+                                <th width="25%"> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in Model.PurposeList)
+                            {
+                                <tr>
+                                    <td scope="row"> @obj.Name</td>
+                                    <td scope="row">
+                                        @if (obj.IsDefault == true)
+                                        {
+                                            <p>Yes</p>
+                                        }
+                                        else
+                                        {
+                                            <p> No</p>
+                                        }
+                                    </td>
+                                    <td scope="row"> @obj.Order</td>
+
+                                    <td>
+                                        <div class="w-75 btn-group" role="group">
+                                            <form method="post">
+                                                <button type="submit" class="btn btn-primary mx-2" asp-page-handler="Edit" asp-route-id="@obj.Id">
+                                                    <i class="fa fa-pencil-square"></i>
+                                                </button>
+
+                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+

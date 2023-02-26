@@ -1,0 +1,110 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Popup.IndexModel
+@{
+
+    ViewData["Title"] = "Popup";
+
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+
+
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <span style="color: red" asp-validation-summary="All"> </span>
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label asp-for="popup.enable" class="col-md-2 control-label"> Show Popup?</label>
+                            <div class="col-md-10">
+                                <select asp-for=popup.enable id="popup_stat" class="form-control select-options">
+                                    <option value=false selected="selected">No</option>
+                                    <option value=true>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="image_area">
+                            <div class="form-group row">
+                                <label asp-for="popup.link" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="popup.link" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="popup.link" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for=popup.imageLink class="col-sm-2 col-form-label">Upload Image </label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="files" id="uploadimage" />
+                                    <div id="dvPreview">
+                                    </div>
+                                </div>
+                                <span asp-validation-for="popup.imageLink" class="text-danger"></span>
+                            </div>
+                            @if (Model.popup.imageLink != null)
+                            {
+                                <img src="@Model.popup.imageLink" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                            }
+                        </div>
+                    </div>
+                    <div class="btn-group m-b-10 pull-right">
+                        @*  <button type="submit" class="btn btn-warning btn-group-lg waves-effect waves-light" asp-page-handler="Preview">Preview</button>*@
+                        <button type="submit" class="btn btn-info btn-group-lg waves-effect waves-light" asp-page-handler="Submit">Save</button>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var checkid = $('#popup_stat').val();
+            viewElement(checkid);
+
+
+            $('#popup_stat').change(function () {
+                viewElement($(this).val());
+            });
+
+        });
+
+        function viewElement(f) {
+            if (f == 'false') {
+                $('#image_area').hide();
+                return true;
+            }
+            else if (f === 'true') {
+                $('#image_area').show();
+                return true;
+            }
+        }
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+

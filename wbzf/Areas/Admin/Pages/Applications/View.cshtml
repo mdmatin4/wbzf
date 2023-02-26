@@ -1,0 +1,158 @@
+﻿@page "{id}"
+@using wbzf.Utility
+@model wbzf.Areas.Admin.Pages.Applications.ViewModel
+@{
+    ViewData["Title"] = "Application of " + @Model.coachingForm.Name;
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/Applications/Index" asp-route-exam="@Model.coachingForm.exam_name">All Applications</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div>
+                <button class='btnclipboard' data-source='stats'> Print the Application </button>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 border-right project-overview-left">
+                    <div class="row">
+                        <form method="post">
+                            <input type="hidden" asp-for=@Model.coachingForm.Id />
+                            <div class="col-md-12">
+                                <table class="table no-margin project-overview-table" id="stats">
+                                    @* <thead>
+                                        <tr>
+                                        <th>Tracking Id</th>
+                                        <th> @Model.caseModel.TrackingId</th>
+                                        </tr>
+                                        </thead>*@
+                                    <tbody>
+                                        <tr>
+                                            <td>Application Id</td>
+                                            <td> @Model.coachingForm.application_no</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.Name></label></td>
+                                            <td>
+
+                                                <input type="text" asp-for=coachingForm.Name />
+                                                <span asp-validation-for="coachingForm.Name" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.Mobile> Mobile No (Self)</label></td>
+                                            <td>
+
+                                                <input type="text" asp-for=coachingForm.Mobile />
+                                                <span asp-validation-for="coachingForm.Mobile" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.Whatsappno></label></td>
+                                            <td>
+
+                                                <input type="text" asp-for=coachingForm.Whatsappno />
+                                                <span asp-validation-for="coachingForm.Whatsappno" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.Email></label></td>
+                                            <td>
+
+                                                <input type="text" asp-for=coachingForm.Email />
+                                                <span asp-validation-for="coachingForm.Email" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.permanant_address></label></td>
+                                            <td>
+                                                <textarea asp-for=coachingForm.permanant_address></textarea>
+                                                <span asp-validation-for="coachingForm.permanant_address" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold"><label asp-for=@Model.coachingForm.present_address></label></td>
+                                            <td>
+                                                <textarea asp-for=coachingForm.present_address></textarea>
+                                                <span asp-validation-for="coachingForm.present_address" class="text-danger"></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="project-overview-status">
+                                            <td class="bold">Status</td>
+                                            <td>@Model.coachingForm.status</td>
+                                        </tr>
+                                        <tr class="project-overview-date-created">
+                                            <td class="bold">Date Created</td>
+                                            <td>@Model.coachingForm.created_at.ToString("yyyy-MM-dd HH:mm tt")</td>
+                                        </tr>
+                                        <tr class="project-overview-date-created">
+                                            <td class="bold">Last Updated</td>
+                                            <td>
+                                                @{
+                                                    DateTime? strDate = Model.coachingForm.updated_at;
+                                                    if (Model.coachingForm.updated_at.HasValue)
+                                                    {
+                                                        strDate.Value.ToString("yyyy-MM-dd HH:mm tt");
+                                                    }
+                                                    else
+                                                    {
+                                                        <label>No update yet</label>
+                                                    }
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                                <button type="submit" class="btn btn-info waves-effect waves-light">Update</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="col-md-6 project-overview-right">
+                    <div class="row">
+                        <div class="col-md-12 project-progress-bars">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<div class="row" style="text-align:center">
+    <form method="post">
+        <button type="submit" class="btn btn-success" asp-page-handler="Approve" asp-route-id="@Model.coachingForm.Id">Approve</button>
+        <button type="submit" class="btn btn-warning" asp-page-handler="Review" asp-route-id="@Model.coachingForm.Id">Review Application</button>
+        <button type="submit" class="btn btn-danger" asp-page-handler="Reject" asp-route-id="@Model.coachingForm.Id">Reject Application</button>
+    </form>
+
+</div>

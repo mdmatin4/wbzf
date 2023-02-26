@@ -1,0 +1,109 @@
+﻿@page
+@using wbzf.Utility
+@model wbzf.Areas.Admin.Pages.Donation.IndexModel
+@{
+
+    ViewData["Title"] = "Donations";
+
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<!-- end row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+
+            <div class="demo-box m-t-20">
+                <div class="col-6 text-end p-b-10">
+                    <a class="btn btn-primary">
+                        <i class="fa fa-plus-square"></i> &nbsp; Update all Transactions With Payment Gateway
+                    </a>
+                </div>
+
+                <form method="post">
+                    <div class="table-responsive">
+                        <table class="table m-0 table-colored-bordered table-bordered-inverse table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Mobile
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                    <th>
+                                        Payment Status
+                                    </th>
+                                    <th>
+                                        Utilization Status
+                                    </th>
+                                    <th>
+                                        Time
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var obj in Model.Donations)
+                                {
+                                    <tr>
+                                        <td scope="row">@obj.Name</td>
+                                        <td>@obj.Mobile</td>
+                                        <td>@obj.Email</td>
+                                        <td>@obj.amount</td>
+                                        <td>@obj.payment_status</td>
+                                        <td>@obj.status</td>
+                                        <td>@obj.created_at.ToString("dd-MM-yyyy hh:mm:ss tt")</td>
+                                        <td>
+                                            <div class="w-75 btn-group" role="group">
+                                                <form method="post">
+                                                    @if (obj.status==SD.notUtilized)
+                                                    {
+                                                        <button type="submit" asp-page-handler="ChangeStat" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                                            <i class="fa fa-pencil-square"></i> Mark as Utilized
+                                                        </button>
+                                                        <a asp-page="Create" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                                            <i class="fa fa-pencil-square"></i>
+                                                        </a>
+                                                    }
+                                                </form>
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

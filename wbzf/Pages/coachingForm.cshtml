@@ -1,0 +1,399 @@
+﻿@page
+@using wbzf.Utility
+@model coachingFormModel
+@{
+    Layout="_LayoutForm";
+    if (Model.coachingForm.exam_name!=null)
+    {
+        ViewData["Title"]="Application Form for " + Model.coachingForm.exam_name + " Coaching";
+    }
+    else
+    {
+
+        ViewData["Title"]="Application Form";
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<form method="post" id="student" enctype="multipart/form-data">
+
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="panel-body">
+
+                <div class="panel panel-color panel-teal">
+                    <div class="panel-heading">
+
+                        <h3 class="panel-title">Academic Details </h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <select asp-for=coachingForm.exam_name>
+                                <option class="option" selected disabled>---Select Examination---</option>
+                                <option class="option" value="@SD.WBCS">@SD.WBCS</option>
+                                <option class="option" value="@SD.WBJS">@SD.WBJS</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-color panel-teal">
+                    <div class="panel-heading">
+
+
+                        <h3 class="panel-title">Personal Details</h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Student Name <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for=coachingForm.Name class="form-control" requried="" placeholder="Enter Student's Name">
+                                    <span asp-validation-for="coachingForm.Name" class=" text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Guardian Name <span class="text-danger">*</span> </label>
+                                    <input type="text" asp-for=coachingForm.guardain_name class="form-control" requried="" placeholder="Enter Husband/Guardian Name">
+                                    <span asp-validation-for="coachingForm.guardain_name" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Guardian Occupation  <span class="text-danger">*</span></label>
+                                    <input type="text" asp-for=coachingForm.guardain_occupation class="form-control" requried="" placeholder="Enter Husband/Guardian's Occupation">
+                                    <span asp-validation-for="coachingForm.guardain_occupation" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Mobile No  <span class="text-danger">(self)</span></label>
+                                    <input type="text" asp-for=coachingForm.Mobile class="form-control" requried="" placeholder="Enter Your Mobile No">
+                                    <span asp-validation-for="coachingForm.Mobile" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Mobile No  <span class="text-danger">(Guardian's)</span></label>
+                                    <input type="text" asp-for=coachingForm.guardian_Mobile class="form-control" requried="" placeholder="Enter your Guardians's Mobile No">
+                                    <span asp-validation-for="coachingForm.guardian_Mobile" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Email<span class="text-danger">(*)</span></label>
+                                    <input type="text" asp-for=coachingForm.Email class="form-control" requried="" placeholder="Enter Your Email">
+                                    <span asp-validation-for="coachingForm.Email" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Whatsapp No</label>
+                                    <input type="text" asp-for=coachingForm.Whatsappno class="form-control" requried="" placeholder="Enter WhatsApp Number">
+                                    <span asp-validation-for="coachingForm.Whatsappno" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Aadhaar No</label>
+                                    <input asp-for="coachingForm.aadharno" type="number" maxlength="12" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" placeholder="Enter Aadhaar Number">
+                                    <span asp-validation-for="coachingForm.aadharno" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <select asp-for="coachingForm.Gender" class="form-control">
+                                        <option class="option" selected disabled>---Select Gender---</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
+
+                                    </select>
+                                    <span asp-validation-for="coachingForm.Gender" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <div>
+                                        <div class="input-group">
+                                            <input asp-for="coachingForm.DateOfBirth" type="text" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control datepicker" autocomplete="off">
+                                            <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                        </div>
+                                        <!-- input-group -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select asp-for="coachingForm.category" class="form-control">
+                                        <option selected="selected" value="@SD.GEN">@SD.GEN</option>
+                                        <option value="@SD.OBC_A">@SD.OBC_A</option>
+                                        <option value="@SD.OBC_B">@SD.OBC_B</option>
+                                        <option value="@SD.SC">@SD.SC</option>
+                                        <option value="@SD.ST">@SD.ST</option>
+
+                                    </select>
+                                    <span asp-validation-for="coachingForm.category" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="coachingForm.present_address">Present Address<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="coachingForm.present_address" class="form-control" style="width: 335px; height: 194px;" placeholder="Vill/Town/City, Post Office , Police Stattion"></textarea>
+                                    <span asp-validation-for="coachingForm.present_address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="coachingForm.present_address">Permanent Address<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="coachingForm.permanant_address" class="form-control" style="width: 335px; height: 194px;" placeholder="Vill/Town/City, Post Office , Police Stattion"></textarea>
+                                    <span asp-validation-for="coachingForm.permanant_address" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Total Family Income (Annually)</label>
+                                    <input type="text" asp-for="coachingForm.family_income" class="form-control" placeholder="Enter Your Familie's Annual Income">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>Presently Working As<span class="text-danger"> </span></label>
+                                    <input asp-for="coachingForm.currently_working" type="text" class="form-control">
+                                    <span asp-validation-for="coachingForm.currently_working" class=" text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Did you appeared at @Model.coachingForm.exam_name Before?</label>
+                                    <select asp-for=coachingForm.is_appeared_bafore id="popup_stat" class="form-control select-options">
+
+                                        <option value=true selected="selected">Yes</option>
+                                        <option value=false>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="image_area">
+
+                                <div class="form-group">
+                                    <label>Appeared in which year?<span class="text-danger"> </span></label>
+                                    <input asp-for="coachingForm.attempt_year" type="number" class="form-control">
+                                    <span asp-validation-for="coachingForm.attempt_year" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Courses will be provided from Zakat fund. Are you fall into the category of Zakat receiver?</label>
+                                    <select asp-for=coachingForm.is_from_zakat_category id="popup_stat" class="form-control select-options">
+
+                                        <option value=true selected="selected">Yes</option>
+                                        <option value=false>No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
+
+
+                <div class="panel panel-color panel-teal">
+                    <div class="panel-heading">
+
+
+                        <h3 class="panel-title">Academic Details</h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 table-responsive">
+                                <div class="form-group">
+                                    <label>Academic Qualifications</label>
+                                    <table id="tblCustomers" class="table table-bordered " cellpadding="0" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:50px">Examination Passed</th>
+                                                <th style="width:150px">Name of the Board/University </th>
+                                                <th style="width:30px">Year of Passing </th>
+                                                <th style="width:30px">% of marks Obtained </th>
+                                                <th style="width:150px">Subjects </th>
+                                                <th style="width:30px">Div./Class </th>
+                                                <th style="width:30px">Remarks </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Exam /></td>
+                                                <td><input type="text" asp-for="coachingForm.qualification1Board" /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Year /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Marks /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Sub /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Class /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification1Remarks /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Exam /></td>
+                                                <td><input type="text" asp-for="coachingForm.qualification2Board" /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Year /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Marks /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Sub /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Class /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification2Remarks /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Exam /></td>
+                                                <td><input type="text" asp-for="coachingForm.qualification3Board" /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Year /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Marks /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Sub /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Class /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification3Remarks /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Exam /></td>
+                                                <td><input type="text" asp-for="coachingForm.qualification4Board" /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Year /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Marks /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Sub /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Class /></td>
+                                                <td><input type="text" asp-for=coachingForm.qualification4Remarks /></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Any Other Qualification<span class="text-danger"> </span></label>
+                                    <input asp-for="coachingForm.other_qualification" type="text" class="form-control">
+                                    <span asp-validation-for="coachingForm.other_qualification" class=" text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-color panel-teal">
+                    <div class="panel-heading">
+
+
+                        <h3 class="panel-title">Upload Documents</h3>
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                @if (Model.coachingForm.imageUrl != null)
+                                {
+                                    <img id="studentPic" class="img-responsive user-img" src="@Model.coachingForm.imageUrl" style="height: 120px; width: 120px;" alt="image">
+
+                                }
+                                else
+                                {
+                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                                }
+
+                                <div class="caption">
+                                    <h3>Photo</h3>
+
+                                    <p>
+                                        <input type="file"
+                                               accept=".png,.jpg,.jpeg"
+                                               asp-for="coachingForm.imageUrl"
+                                               class="form-control"
+                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                                               onchange="photoSet(this,'studentPic')" />
+                                        <span asp-validation-for="coachingForm.imageUrl" class="text-danger"></span>
+
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-md-12">
+                            <div id="ContentPlaceHolder1_ContactUC2_divtermsandconditions" class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="checkbox checkbox-success">
+                                        <input id="terms" type="checkbox" name="terms">
+                                        <label for="terms">@Model.company_terms</label>
+                                    </div>
+                                    <span id="terms_error" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-3 pull-right">
+                            <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</form>
+
+@section scripts{
+<script src="~/js/coachingForm.js" asp-append-version="true"></script>
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+
+}

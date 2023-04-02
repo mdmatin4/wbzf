@@ -36,76 +36,122 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="post">
+                        <input asp-for="scheme.Id" type="hidden" />
+                        <div asp-validation-summary="All"></div>
+                        <div class="form-group">
+                            <label asp-for="scheme.Name" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="scheme.Name" class="form-control" />
+                                <span asp-validation-for="scheme.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="scheme.Description" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <textarea asp-for="scheme.Description" class="form-control"></textarea>
+                                <span asp-validation-for="scheme.Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" asp-for=scheme.IsStartEndVisible />
+                                        <label asp-for=scheme.IsStartEndVisible>Start and End Date Visible? </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divStartEndDate" style="display:none;padding-bottom:20px">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label asp-for="scheme.StartDate"></label>
 
-            <form class="form-horizontal" method="post">
-                <input asp-for="scheme.Id" type="hidden" />
-                <div asp-validation-summary="All"></div>
-                <div class="form-group">
-                    <label asp-for="scheme.Name" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="scheme.Name" class="form-control" />
-                        <span asp-validation-for="scheme.Name" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="scheme.Description" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <textarea asp-for="scheme.Description" class="form-control" ></textarea>
-                        <span asp-validation-for="scheme.Description" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="scheme.StartDate" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input type="date" asp-for="scheme.StartDate" class="form-control" />
-                        <span asp-validation-for="scheme.StartDate" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="scheme.EndDate" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input type="date" asp-for="scheme.EndDate" class="form-control" />
-                        <span asp-validation-for="scheme.EndDate" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Input Select</label>
-                    <div class="col-sm-10">
-                    <select asp-for="scheme.purposeId" asp-items="Model.purposes" class="form-control">
-                    </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="scheme.Form_Url" class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input asp-for="scheme.Form_Url" class="form-control" />
-                        <span asp-validation-for="scheme.Form_Url" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group m-b-0">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        @if (Model.scheme.Id==0)
-                        {
-                            <button type="submit" class="btn btn-info waves-effect waves-light">Create</button>
-                        }
-                        else
-                        {
-                            <button type="submit" class="btn btn-info waves-effect waves-light">Update</button>
-                        }
+                                    <input type="date" asp-for="scheme.StartDate" class="form-control" />
+                                    <span asp-validation-for="scheme.StartDate" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="scheme.EndDate"></label>
+                                    <input type="date" asp-for="scheme.EndDate" class="form-control" />
+                                    <span asp-validation-for="scheme.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
 
-                        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
 
-                    </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Purpose of this Scheme</label>
+                            <div class="col-sm-10">
+                                <select asp-for="scheme.purposeId" asp-items="Model.purposes" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="scheme.Form_Url" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="scheme.Eligibility" class="form-control" />
+                                <span asp-validation-for="scheme.Eligibility" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="scheme.Eligibility" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="scheme.Form_Url" class="form-control" />
+                                <span asp-validation-for="scheme.Form_Url" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                @if (Model.scheme.Id==0)
+                                {
+                                    <button type="submit" class="btn btn-info waves-effect waves-light">Create</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-info waves-effect waves-light">Update</button>
+                                }
+
+                                <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-
+            </div>
         </div>
     </div>
 </div>
 
-
 @section Scripts{
-	@{
+<script>
+            $(document).ready(function () {
+        var checkElement = document.getElementById('scheme_IsStartEndVisible');
+        viewElement(checkElement);
+
+
+        $('#scheme_IsStartEndVisible').click(function () {
+            viewElement(this);
+        });
+
+    });
+
+    function viewElement(f) {
+
+        if ($(f).is(":checked")) {
+            $('#divStartEndDate').show();
+            return true;
+        }
+        else {
+            console.log('not checked');
+            $('#divStartEndDate').hide();
+            return true;
+        }
+    }
+</script>
+        @{
     <partial name="_ValidationScriptsPartial" />
-	}
-}
+        }
+        }

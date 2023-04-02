@@ -62,9 +62,19 @@
                                                 <a asp-page="Create" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                                     <i class="fa fa-pencil-square"></i>
                                                 </a>
-                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
-                                                    <i class="fa fa-trash-o"></i>
-                                                </button>
+                                                @if (obj.IsActive==true)
+                                                {
+                                                    <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-success p-2" asp-page-handler="Active" asp-route-id="@obj.Id" onclick="return confirm('Are you sure to revive this scheme?')">
+                                                        <i class="fa fa-recycle"></i>
+                                                    </button>
+                                                }
+
 
                                             </div>
                                         </td>

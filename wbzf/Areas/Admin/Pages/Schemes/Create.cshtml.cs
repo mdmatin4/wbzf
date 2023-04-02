@@ -38,13 +38,15 @@ namespace wbzf.Areas.Admin.Pages.Schemes
             }
 
         }
-
+       
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
                 if (scheme.Id==0)
                 {
+                    scheme.IsActive=true;
+                    scheme.Created_at=DateTime.Now;
                     _unitOfWork.scheme.Add(scheme);
                     _unitOfWork.Save();
                     TempData["success"] = "Scheme created successfully";

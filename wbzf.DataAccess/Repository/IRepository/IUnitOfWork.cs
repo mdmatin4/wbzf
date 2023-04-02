@@ -12,13 +12,14 @@ namespace wbzf.DataAccess.Repository.IRepository
         IUsers users { get; }
         ICompanyConfiguraion company { get; }
         IcoachingApplicationRepository coachingApplication { get; }
-
         IDonationRepository donation { get; }
-
         IScholarshipApplicationRepository scholarshipApplication { get; }
         IprofessionRepository profession { get; }
         IPurposeRepository purpose { get; }
         ISchemeRepository scheme { get; }
+        IPaymentGatewayRepository paymentGateway { get; }
+        IAccountRepository account { get; }
+        IAccountGatewaySetupRepository accountGatewaySetup { get; }
         //IContactUsRepository contact_us { get; }
         void Save();
     }

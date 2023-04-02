@@ -33,6 +33,20 @@ namespace wbzf.Areas.Admin.Pages.Schemes
 
             return RedirectToPage();
         }
+        public async Task<IActionResult> OnPostActive(int id)
+        {
+            var scheme = _unitOfWork.scheme.GetFirstOrDefault(u => u.Id==id);
+            if (scheme == null)
+            {
+                return NotFound();
+
+            }
+
+            _unitOfWork.scheme.Activate(scheme);
+            _unitOfWork.Save();
+
+            return RedirectToPage();
+        }
         public void OnGet()
         {
             Schemes = _unitOfWork.scheme.GetAll(includeProperties: "Purpose", orderby: u => u.OrderByDescending(c => c.Created_at));

@@ -23,5 +23,8 @@ namespace wbzf.DataAccess.Data
         public DbSet<Profession> professions { get; set; }
         public DbSet<Purpose> purposes { get; set; }
         public DbSet<Scheme> Schemes { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<PaymentGateway> PaymentGateways { get; set; }
+        public DbSet<AccountGatewaySetup> accountGatewaySetups { get; set; }
     }
 }

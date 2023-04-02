@@ -1,0 +1,201 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Settings.PaymentGatewayModel
+@{
+    ViewData["Title"]="Payment Gateway";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="col-md-6">
+        <div class="panel panel-color panel-primary">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @if (Model.paymentGateway.Id==0)
+                    {
+                        <span>Add New @ViewData["Title"] </span>
+                    }
+                    else
+                    {
+                        <span>Edit @ViewData["Title"]</span>
+                    }
+                </h3>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <input type="hidden" asp-for="@Model.paymentGateway.Id" />
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <label asp-for="@Model.paymentGateway.Name">Payment Gateway Name <span class="text-danger">*</span></label>
+                            <input type="text" asp-for="@Model.paymentGateway.Name" class="form-control" placeholder="Enter Name" />
+                            <span asp-validation-for="@Model.paymentGateway.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for=paymentGateway.logo_url class="col-lg-5 col-md-5 col-sm-5 col-form-label">Upload Logo of the Gateway</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7">
+                            <input type="file" name="files" id="uploadimage" />
+                            <div id="dvPreview">
+                            </div>
+                        </div>
+                        <span asp-validation-for="paymentGateway.logo_url" class="text-danger"></span>
+                    </div>
+                    @if (Model.paymentGateway.logo_url != null)
+                    {
+                        <img src="@Model.paymentGateway.logo_url" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    }
+                    <div class="row p-b-10">
+                    </div>
+                    <div class="form-group p-b-10">
+                        <label asp-for=paymentGateway.intro_image_url class="col-lg-5 col-md-5 col-sm-5 col-form-label">An Intro Image of the Gateway</label>
+                        <div class="col-lg-7 col-md-7 col-sm-7">
+                            <input type="file" name="files" id="uploadimage2" />
+                            <div id="dvPreview2">
+                            </div>
+                        </div>
+                        <span asp-validation-for="paymentGateway.intro_image_url" class="text-danger"></span>
+                    </div>
+                    @if (Model.paymentGateway.intro_image_url != null)
+                    {
+                        <img src="@Model.paymentGateway.intro_image_url" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                    }
+
+                    <div class="col-md-12 p-b-10">
+                        <div class="form-group">
+                            <label>Is the payment Gateway Active?</label>
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" asp-for="paymentGateway.is_active" value="true" required="">
+                                <label asp-for=paymentGateway.is_active>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio radio-danger radio-inline">
+                                <input type="radio"  asp-for=paymentGateway.is_active value="false">
+                                <label asp-for=paymentGateway.is_active>
+                                    No
+                                </label>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+<div class="col-lg-6">
+    <div class="panel panel-color panel-orange">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">@ViewData["Title"] List</h3>
+        </div>
+
+
+        <div class="panel-body">
+
+            <!-- Contain Here -->
+
+            <div class="row">
+
+
+                <div class="table-responsive">
+
+
+                    <table class="table m-0 table-colored-bordered table-bordered-info  table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Is Active
+                                </th>
+
+
+                                <th width="25%"> Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in Model.PaymentGatewayList)
+                            {
+                                <tr>
+                                    <td scope="row"> @obj.Name</td>
+                                    <td scope="row">
+                                        @if (obj.is_active == true)
+                                        {
+                                            <p>Yes</p>
+                                        }
+                                        else
+                                        {
+                                            <p> No</p>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <div class="w-75 btn-group" role="group">
+                                            <form method="post">
+                                                <button type="submit" class="btn btn-primary mx-2" asp-page-handler="Edit" asp-route-id="@obj.Id">
+                                                    <i class="fa fa-pencil-square"></i>
+                                                </button>
+
+                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete, you cannot revert this?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+
+}

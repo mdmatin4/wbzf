@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wbzf.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using wbzf.DataAccess.Data;
 namespace wbzf.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230305142904_createAccountPaymentGatewaySetup")]
+    partial class createAccountPaymentGatewaySetup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,9 +255,6 @@ namespace wbzf.DataAccess.Migrations
 
                     b.Property<string>("ifsc")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("is_deleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("isvisibletoPublic")
                         .HasColumnType("bit");
@@ -572,9 +571,6 @@ namespace wbzf.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("is_deleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("logo_url")

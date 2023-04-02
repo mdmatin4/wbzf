@@ -17,13 +17,33 @@ namespace wbzf.DataAccess.Repository
             _db=db;
         }
 
-        public void update(Scheme profession)
+        public void update(Scheme scheme)
         {
-            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==profession.Id);
+            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==scheme.Id);
             if (objFromDb!=null)
             {
-                objFromDb.Name=profession.Name;
-                objFromDb.IsActive=profession.IsActive;
+                objFromDb.Name=scheme.Name;
+                if (scheme.Description!=null)
+                {
+                    objFromDb.Description=objFromDb.Description;
+                }
+                objFromDb.IsStartEndVisible=scheme.IsStartEndVisible;
+                if (scheme.StartDate!=null)
+                {
+                    objFromDb.StartDate=scheme.StartDate;
+                }
+                if (scheme.EndDate!=null)
+                {
+                    objFromDb.EndDate=scheme.EndDate;
+                }
+                if (scheme.Eligibility!=null)
+                {
+                    objFromDb.Eligibility=scheme.Eligibility;
+                }
+                if (scheme.Form_Url!=null)
+                {
+                    objFromDb.Form_Url=scheme.Form_Url;
+                }
                 objFromDb.updated_at=DateTime.Now;
             }
 
@@ -42,7 +62,7 @@ namespace wbzf.DataAccess.Repository
             var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==scheme.Id);
             if (objFromDb!=null)
             {
-                objFromDb.IsActive=false;
+                objFromDb.IsActive=true;
                 objFromDb.updated_at=DateTime.Now;
             }
         }

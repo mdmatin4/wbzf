@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wbzf.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using wbzf.DataAccess.Data;
 namespace wbzf.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230304102818_schemetableupdate")]
+    partial class schemetableupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,86 +226,6 @@ namespace wbzf.DataAccess.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("wbzf.Model.Account", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Account_no")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("bankName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("branchName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ifsc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("is_deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isvisibletoPublic")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("micr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("updated_at")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("wbzf.Model.AccountGatewaySetup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentGatewayId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecretName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("secretValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("updated_at")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("PaymentGatewayId");
-
-                    b.ToTable("accountGatewaySetups");
                 });
 
             modelBuilder.Entity("wbzf.Model.coachingForm", b =>
@@ -551,41 +473,6 @@ namespace wbzf.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("donations");
-                });
-
-            modelBuilder.Entity("wbzf.Model.PaymentGateway", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("intro_image_url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("is_active")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("is_deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("logo_url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("updated_at")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PaymentGateways");
                 });
 
             modelBuilder.Entity("wbzf.Model.Profession", b =>
@@ -1157,25 +1044,6 @@ namespace wbzf.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("wbzf.Model.AccountGatewaySetup", b =>
-                {
-                    b.HasOne("wbzf.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wbzf.Model.PaymentGateway", "PaymentGateway")
-                        .WithMany()
-                        .HasForeignKey("PaymentGatewayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("PaymentGateway");
                 });
 
             modelBuilder.Entity("wbzf.Model.Scheme", b =>

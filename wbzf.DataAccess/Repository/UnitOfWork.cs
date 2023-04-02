@@ -30,6 +30,9 @@ namespace wbzf.DataAccess.Repository
             profession=new ProfessionRepository(_db);
             purpose=new PurposeRepository(_db);
             scheme=new SchemeRepository(_db);
+            account=new AccountRepository(_db);
+            paymentGateway=new PaymentGatewayRepository(_db);
+            accountGatewaySetup=new AccountGatewaySetupRepository(_db);
             //contact_us = new ContactUsRepository(_db);
         }
         public ICompanyConfiguraion company { get; private set; }
@@ -40,6 +43,9 @@ namespace wbzf.DataAccess.Repository
         public IprofessionRepository profession { get; private set; }
         public IPurposeRepository purpose { get; private set; }
         public ISchemeRepository scheme { get; private set; }
+        public IAccountRepository account { get; private set; }
+        public IPaymentGatewayRepository paymentGateway { get; private set; }
+        public IAccountGatewaySetupRepository accountGatewaySetup { get; private set; }
         //public IContactUsRepository contact_us { get; private set; }
         public void Dispose()
         {

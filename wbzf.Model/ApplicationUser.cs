@@ -38,6 +38,8 @@ namespace wbzf.Model
         public string? bankIFSC { get; set; }
         public  string? bankBranchName { get; set; }
         public string? bankAcNo { get; set; }
+        public DateTime? created_at { get; set; }    
+        public DateTime? updated_at { get; set; }
 
 
 

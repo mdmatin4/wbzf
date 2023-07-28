@@ -24,7 +24,7 @@
 
 <div class="row">
 
-    @if (Model.showData)
+    @if (User.IsInRole(SD.Admin))
     {
         <div class="col-lg-3 col-md-6">
             <div class="card-box tilebox-two" style="border-left-color: #188ae2;">

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.Extensions.Configuration;
+using wbzf.Model.ViewModel;
 
 namespace wbzf.Utility
 {
@@ -43,6 +44,12 @@ namespace wbzf.Utility
             PopupSet popup = new PopupSet();
             ConfigurationBinder.Bind(_config, "Popup", popup);
             return popup;
+        }
+        public JWT getJWT()
+        {
+            JWT jwt = new ();
+            ConfigurationBinder.Bind(_config, "JWT", jwt);
+            return jwt;
         }
         public void update(Company company)
         {
@@ -126,6 +133,10 @@ namespace wbzf.Utility
             if (company.url != null)
             {
                 settingsUpdater.UpdateAppSetting("Company:url", company.url);
+            }
+            if (company.payment_url != null)
+            {
+                settingsUpdater.UpdateAppSetting("Company:payment_url", company.payment_url);
             }
             if (company.sms_name != null)
             {

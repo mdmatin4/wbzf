@@ -20,7 +20,15 @@ namespace wbzf.DataAccess.Repository.IRepository
         IPaymentGatewayRepository paymentGateway { get; }
         IAccountRepository account { get; }
         IAccountGatewaySetupRepository accountGatewaySetup { get; }
-        //IContactUsRepository contact_us { get; }
+        IGallery gallery { get; }
+        IGalleryCategoryRepository galleryCategory { get;}
+        IMembersforHomeRepository membersforHome { get; }
+        ITestimonialRepository testimonial { get; }
+        INewsLinkRepository newsLink { get; }
+        IQuoteRepository quote { get; }
+        IContactFormRepository contactForm { get; }
+        ISponsorRepository sponsor { get; }
+
         void Save();
     }
 }

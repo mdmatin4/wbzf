@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace wbzf.DataAccess.Repository.IRepository
     public interface IprofessionRepository: IRepository<Profession>
     {
         void update(Profession entity);
+        IEnumerable<SelectListItem> getProfessionforSelectItem();
     }
 }

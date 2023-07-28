@@ -1,0 +1,175 @@
+﻿@page
+@model wbzf.Pages.Contact_usModel
+@{
+    ViewData["Title"]="Contact Us";
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>Contact</span> <span>Us</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- section start-->
+<section class="section contacts">
+    <div class="container">
+        <div class="row offset-margin">
+            <div class="col-sm-6 col-lg-3">
+                <div class="icon-item">
+                    <div class="icon-item__img">
+                        <img class="img--layout" src="img/icon_1-1.png" alt="img" />
+                        <svg class="icon icon-item__icon icon--red">
+                            <use xlink:href="#location-pin"></use>
+                        </svg>
+                    </div>
+                    <div class="icon-item__text">
+                        <p>Adress: @Model.company.address</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="icon-item">
+                    <div class="icon-item__img">
+                        <img class="img--layout" src="img/icon_2-2.png" alt="img" />
+                        <svg class="icon icon-item__icon icon--orange">
+                            <use xlink:href="#phone-call"></use>
+                        </svg>
+                    </div>
+                    <div class="icon-item__text">
+                        <p>Phone: <a class="icon-item__link" href="tel:+91@Model.company.mobile">@Model.company.mobile</a> </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="icon-item">
+                    <div class="icon-item__img">
+                        <img class="img--layout" src="img/icon_3-3.png" alt="img" />
+                        <svg class="icon icon-item__icon icon--green">
+                            <use xlink:href="#envelope"></use>
+                        </svg>
+                    </div>
+                    <div class="icon-item__text">
+                        <p>Email: <a class="icon-item__link" href="mailto:@Model.company.email">@Model.company.email</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="icon-item">
+                    <div class="icon-item__img">
+                        <img class="img--layout" src="img/icon_4-4.png" alt="img" />
+                        <svg class="icon icon-item__icon icon--blue">
+                            <use xlink:href="#share"></use>
+                        </svg>
+                    </div>
+                    <div class="icon-item__text">
+                        <!-- socials start-->
+                        <ul class="socials">
+                            <li class="socials__item"><a class="socials__link" href="@Model.company.insta_link"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li class="socials__item"><a class="socials__link socials__link--active" href="@Model.company.youtube_link"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li class="socials__item"><a class="socials__link" href="@Model.company.fb_link"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        </ul>
+                        <!-- socials end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end-->
+<!-- contacts start-->
+<section class="section contacts no-padding-top">
+    <div class="contacts-wrapper">
+        <div class="container">
+            <div class="row justify-content-end">
+
+                <div class="col-xl-6">
+                    <div id="divform">
+                        <!--Contact Form-->
+                        <form method="post" class="form message-form" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                            <h6 class="form__title">Send Message</h6><span class="form__text">* The following info is required. The Foundation will wholeheartedly welcome your suggestions.</span>
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 form-group">
+                                    <input class="form__field" asp-for=@Model.contactform.Name placeholder="Full Name">
+                                    <span asp-validation-for="@Model.contactform.Name" class="text-danger"></span>
+                                </div><!-- end col-md-12 -->
+
+                                <div class="col-lg-6 col-sm-6 form-group">
+                                    <input class="form__field" asp-for=@Model.contactform.Email type="email" placeholder="Email Address">
+                                    <span asp-validation-for="@Model.contactform.Email" class="text-danger"></span>
+                                </div><!-- end col-md-12 -->
+
+                                <div class="col-lg-12 form-group">
+                                    <input class="form__field" asp-for=@Model.contactform.Mobile type="tel" placeholder="Phone Number">
+                                    <span asp-validation-for="@Model.contactform.Mobile" class="text-danger"></span>
+                                </div><!-- end col-md-12 -->
+
+                                <div class="col-lg-12 col-sm-12 form-group">
+                                    <textarea class="form__message form__field" asp-for=@Model.contactform.Message placeholder="Write a Message"></textarea>
+                                    <span asp-validation-for="@Model.contactform.Message" class="text-danger"></span>
+                                </div><!-- end col-md-12 -->
+
+                                <div class="col-lg-12 col-sm-12">
+                                    <button class="form__submit" type="submit">Send Message</button>
+                                </div><!-- end col-md-12 -->
+                            </div><!-- end row -->
+                        </form>
+                    </div><!-- end contact-form-action -->
+                    <div id="divsuccess" style="padding-bottom:initial">
+                        <form method="post" class="form message-form" data-ajax="true" data-ajax-method="post" data-ajax-complete="completed">
+                            <h6 class="form__title"><i class="fa fa-check-circle"></i></h6>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <i class="fa fa-check"></i> Your suggestion / opinion has been recorded successfully. Our team will get back to you if we need more advice from you. Thank you .
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="contacts-wrapper__map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.682763363939!2d88.36119687485593!3d22.553553479505293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0276e4b847d887%3A0x8b8874a23eae3e0d!2sASSOCIATION%20SNAP%20%2F%20WEST%20BENGAL%20ZAKAT%20FOUNDATION!5e0!3m2!1sen!2sin!4v1687204159163!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        
+    </div>
+</section>
+<!-- contacts end-->
+<!-- bottom bg start-->
+<section class="bottom-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bottom-background__img"><img src="img/bottom-bg.png" alt="img" /></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- bottom bg end-->
+@section Scripts{
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    $("#divsuccess").hide();
+    completed = () => {
+        $("#divform").hide();
+        $("#divsuccess").show();
+    };
+</script>
+	@{
+    <partial name="_ValidationScriptsPartial" />
+	}
+}

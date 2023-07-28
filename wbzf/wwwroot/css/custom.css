@@ -7,8 +7,8 @@
 @media only screen and (min-width: 992px) {
     .header-logo__img {
         max-height: 70px;
-        padding-top:0px;
-        padding-bottom:0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 }
 
@@ -19,3 +19,63 @@
         padding-bottom: 0px;
     }
 }
+
+.footer-menu__item {
+    list-style: none;
+    width: 100%;
+}
+
+
+
+
+/*ai genenrated code only for the home page. dont' use it for other page*/
+/* Make all boxes same height */
+
+.card-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+.card {
+   
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 20px;
+    height: 250px
+}
+
+.card-header {
+    background: #5584AC;
+    color: #fff;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Animation */
+.card {
+    transform: translateY(0);
+    transition: transform 0.4s ease;
+}
+
+    .card:hover {
+        transform: translateY(-20px);
+        height:300px
+    }

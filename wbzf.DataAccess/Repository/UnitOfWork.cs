@@ -33,6 +33,15 @@ namespace wbzf.DataAccess.Repository
             account=new AccountRepository(_db);
             paymentGateway=new PaymentGatewayRepository(_db);
             accountGatewaySetup=new AccountGatewaySetupRepository(_db);
+            membersforHome=new MembersforHomeRepository(_db);
+            testimonial=new TestimonialRepository(_db);
+            newsLink=new NewsLinkRepository(_db);
+            quote=new QuoteRepository(_db);
+            contactForm=new ContactFormRepository(_db);
+            gallery=new galleryRepository(_db);
+            galleryCategory=new GalleryCategoryRepository(_db);
+            sponsor=new SponsorRepository(_db);
+            
             //contact_us = new ContactUsRepository(_db);
         }
         public ICompanyConfiguraion company { get; private set; }
@@ -46,7 +55,14 @@ namespace wbzf.DataAccess.Repository
         public IAccountRepository account { get; private set; }
         public IPaymentGatewayRepository paymentGateway { get; private set; }
         public IAccountGatewaySetupRepository accountGatewaySetup { get; private set; }
-        //public IContactUsRepository contact_us { get; private set; }
+        public IMembersforHomeRepository membersforHome { get; private set; }
+        public ITestimonialRepository testimonial { get; private set; }
+        public INewsLinkRepository newsLink { get; private set; }
+        public IQuoteRepository quote { get; private set; }
+        public IContactFormRepository contactForm { get; private set; }
+        public IGallery gallery { get; private set; }
+        public IGalleryCategoryRepository galleryCategory { get; private set; }
+        public ISponsorRepository sponsor { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

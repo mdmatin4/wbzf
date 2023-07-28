@@ -1,0 +1,175 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Gallery.createModel
+@{
+
+    if (Model.galleryitem.Id==0)
+    {
+        ViewData["Title"] = "Create New Gallery Item";
+    }
+    else
+    {
+        ViewData["Title"] = "Update Gallery Item";
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/gallery/Index">Gallery</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data">
+            <input asp-for=galleryitem.Id hidden />
+            <div class="panel panel-color panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> @ViewData["Title"]</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <span style="color: red" asp-validation-summary="All"> </span>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label asp-for="galleryitem.Title" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="galleryitem.Title" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="galleryitem.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="galleryitem.CategoryId" class="col-md-2 control-label"> Choose Media Category</label>
+                                <div class="col-md-10">
+                                    <select asp-items="Model.DropDownCategories" asp-for=galleryitem.CategoryId class="form-control select-options">
+                                      
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="galleryitem.filetypeId" class="col-md-2 control-label"> Choose File type</label>
+                                <div class="col-md-10">
+                                    <select asp-for=galleryitem.filetypeId class="form-control select-options">
+                                        <option value=1 selected="selected">Image</option>
+                                        <option value=2>Video</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @* video area*@
+                            <div id="video_area">
+                                <div class="form-group row">
+                                    <label asp-for="galleryitem.VideoUrl" class="col-md-2 control-label"></label>
+                                    <div class="col-md-10">
+                                        <input asp-for="galleryitem.VideoUrl" class="form-control" autocomplete="off" />
+
+                                        <span asp-validation-for="galleryitem.VideoUrl" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label asp-for=galleryitem.ThumbnailUrl class="col-sm-2 col-form-label">Upload Video Thumbnail</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="files" id="uploadimage" />
+                                        <div id="dvPreview">
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="galleryitem.ThumbnailUrl" class="text-danger"></span>
+                                </div>
+                                @if (Model.galleryitem.ThumbnailUrl != null)
+                                {
+                                    <img src="@Model.galleryitem.ThumbnailUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                                }
+                            </div>
+
+                            @*image area*@
+                            <div id="image_area">
+                                <div class="form-group row">
+                                    <label asp-for=galleryitem.ImageUrl class="col-sm-2 col-form-label">Upload Image </label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="files" id="uploadimage" />
+                                        <div id="dvPreview">
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="galleryitem.ImageUrl" class="text-danger"></span>
+                                </div>
+                                @if (Model.galleryitem.ImageUrl != null)
+                                {
+                                    <img src="@Model.galleryitem.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                                }
+
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="galleryitem.Description" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <textarea asp-for=galleryitem.Description class="form-control" autocomplete="off"></textarea>
+
+                                    <span asp-validation-for="galleryitem.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group m-b-10 pull-right">
+                            @*  <button type="submit" class="btn btn-warning btn-group-lg waves-effect waves-light" asp-page-handler="Preview">Preview</button>*@
+                            <button type="submit" class="btn btn-info btn-group-lg waves-effect waves-light" >Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+</div>
+
+
+
+@section scripts{
+<script>
+        $(document).ready( function() {
+            var checkid=$('#galleryitem_filetypeId').val();
+        viewElement(checkid);
+
+
+        $('#galleryitem_filetypeId').change(function(){
+            viewElement($(this).val());
+        });
+
+    });
+
+    function viewElement(f){
+            if(f==1){
+                $('#video_area').hide();
+                $('#image_area').show();
+                return true;
+            }
+            else if(f==2){
+                $('#image_area').hide();
+                $('#video_area').show();
+                return true;
+            }
+        }
+</script>
+    @{
+    <partial name="_ValidationScriptsPartial" />
+	}
+
+}

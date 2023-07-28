@@ -1,44 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using wbzf.Model;
+using wbzf.DataAccess.Repository.IRepository;
 
 namespace wbzf.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
-        public IList<Customer> customerList;
-        public IndexModel(ILogger<IndexModel> logger)
+        private IUnitOfWork _unitOfWork;
+
+        public Company company { get; set; }
+        public IEnumerable<Sponsor> sponsors { get; set; }
+
+        public IndexModel(IUnitOfWork unitOfWork)
         {
-            _logger = logger;
+            _unitOfWork = unitOfWork;
         }
-
-        public void OnGet()
+        
+        public async Task<IActionResult> OnGet()
         {
-            customerList = new List<Customer>();
+            company=_unitOfWork.company.GetCompany();
+            sponsors=_unitOfWork.sponsor.GetAll(orderby: u => u.OrderBy(u => u.displayOrder));
+            return Page();
         }
-        public async Task<IActionResult> OnPostInsertCustomers([FromBody] List<Customer> customers)
-        {
-            int numberofCustomer = 0;
-            //Check for NULL.
-            if (customers == null)
-            {
-                customers = new List<Customer>();
-            }
-
-            //Loop and insert records.
-            foreach (var customer in customers)
-            {
-                numberofCustomer++;
-            }
-
-            return Content(numberofCustomer.ToString());
-        }
-    }
-
-    public class Customer
-    {
-        public string Name { get; set; }
-        public string Country { get; set; }
+        
     }
 }

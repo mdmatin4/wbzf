@@ -1,0 +1,148 @@
+﻿@page
+@model wbzf.Pages.VideoModel
+@{
+    ViewData["Title"]="Videos";
+
+}
+@section Styles{
+<style>
+    
+
+        .gallery-masonry__item i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    .video-trigger i {
+        color: #343877;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        background-color: #fff;
+        margin-left: 20px;
+        -webkit-transition: background-color .3s;
+        -o-transition: background-color .3s;
+        transition: background-color .3s;
+    }
+</style>
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>@ViewData["Title"]</span> </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- gallery start-->
+<section class="section gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- filter panel start-->
+                <ul class="filter-panel">
+                    <li class="filter-panel__item filter-panel__item--active" data-filter="*"><span>All Categories</span></li>
+                    @foreach (var item in Model.categories)
+                    {
+                        <li class="filter-panel__item" data-filter=".@item.Id"><span>@item.Name</span></li>
+                    }
+
+                </ul>
+                <!-- filter panel end-->
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters gallery-masonry">
+        @foreach (var item in Model.galleries)
+        {
+            <div class="col-6 col-md-4 gallery-masonry__item @item.CategoryId">
+                <a class="gallery-masonry__img gallery-masonry__item--height-2 video-trigger" href="@item.VideoUrl">
+                    <img class="img--bg" src="@item.ThumbnailUrl" alt="image" />
+
+                    <h6 class="gallery-masonry__description">@item.Title</h6>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                </a>
+            </div>
+
+
+        }
+
+    </div>
+    <div class="container">
+        <div class="row">
+        <div class="col-12 text-center"><a class="button gallery__button button--primary" id="loadMoreBtn" href="#">More Videos</a></div>
+        </div>
+        </div>
+</section>
+<!-- gallery end-->
+<!-- gallery end-->
+@section Scripts {
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        var pageNumber = 2; // Initialize the page number for loading more images
+        var pageSize = parseInt(@Model.pageSize); // Set the page size
+
+        // Check if the initial response length is less than the page size
+        if (@Model.galleries.Count() < pageSize) {
+
+            $('#loadMoreBtn').hide(); // Hide the button
+        }
+
+        $('#loadMoreBtn').click(function (e) {
+             e.preventDefault();
+            var btn = $(this); // Store the button reference
+
+            // Send an AJAX request to load more images
+            $.ajax({
+                url: '/api/gallery/2/'+pageNumber+'/'+pageSize,
+                type: 'GET',
+                success: function (response) {
+                    var html = '';
+                    // Iterate over the loaded images and append them to the HTML string
+                    response.forEach(function (image) {
+                        html += '<div class="col-6 col-md-4 gallery-masonry__item ' + image.categoryId + '">';
+                        html += '<a class="gallery-masonry__img gallery-masonry__item--height-2 video-trigger" href="' + image.videoUrl + '">';
+                        html += '<img class="img--bg" src="' + image.thumbnailUrl + '" alt="' + image.title + '" />';
+                        html += '<h6 class="gallery-masonry__description">' + image.title + '</h6>';
+                        html += '<i class="fa fa-play" aria-hidden="true"></i>';
+                        html += '</a>';
+                        html += '</div>';
+                    });
+
+                    // Append the HTML string to the image container
+                    var gallery = $('.gallery-masonry');
+                   //gallery.append(html);
+                   gallery.isotope("insert",$(html));
+                    // Check if the response length is less than the page size
+                    if (response.length < pageSize) {
+                        btn.hide(); // Hide the button
+                    }
+
+                    pageNumber++; // Increment the page number for the next load
+                }
+            });
+        });
+    });
+</script>
+
+}

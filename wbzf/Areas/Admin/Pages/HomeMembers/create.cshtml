@@ -1,0 +1,138 @@
+﻿@page
+@using wbzf.Utility
+@model wbzf.Areas.Admin.Pages.HomeMembers.createModel
+
+@{
+    var type = Model.usertype;
+    var usertype = "";
+    if (type==SD.OurTeamMembers)
+    {
+        usertype=SD.OurTeamMembers;
+    }
+    else if (type==SD.OurAdvisoryCommitte)
+    {
+        usertype = SD.OurAdvisoryCommitte;
+    }
+    else if (type==SD.OurLegalExpert)
+    {
+        usertype = SD.OurLegalExpert;
+    }
+    else if (type==SD.OurAuditor)
+    {
+        usertype = SD.OurAuditor;
+    }
+    else if (type==SD.OurMufti)
+    {
+        usertype = SD.OurMufti;
+    }
+    else if (type==SD.OurMembers)
+    {
+        usertype = SD.OurMembers;
+    }
+    ViewData["type"]=usertype;
+    if (Model.member.Id==0)
+    {
+        ViewData["Title"] = "Create New " + ViewData["type"];
+    }
+    else
+    {
+        ViewData["type"]=Model.member.role;
+        ViewData["Title"] = "Update " + Model.member.role;
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/HomeMembers/Index" asp-route-type=@ViewData["type"]>  @ViewData["type"]  </a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for=member.Id hidden />
+    <input asp-for=member.role hidden />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-color panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> @ViewData["Title"]</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <span style="color: red" asp-validation-summary="All"> </span>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label asp-for="member.Name" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="member.Name" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="member.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="member.Designation" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="member.Designation" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="member.Designation" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="member.displayOrder" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="member.displayOrder" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="member.displayOrder" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label asp-for=member.ImageUrl class="col-sm-2 col-form-label">Upload Image (170*170)</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="files" id="uploadimage" />
+                                    <div id="dvPreview">
+                                    </div>
+                                </div>
+                                <span asp-validation-for="member.ImageUrl" class="text-danger"></span>
+                            </div>
+                            @if (Model.member.Id != 0)
+                            {
+                                <img src="@Model.member.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                            }
+
+                        </div>
+                        <div class="btn-group m-b-10 pull-right">
+                            @*  <button type="submit" class="btn btn-warning btn-group-lg waves-effect waves-light" asp-page-handler="Preview">Preview</button>*@
+                            <button type="submit" class="btn btn-info btn-group-lg waves-effect waves-light" asp-page-hadnler="Save">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section scripts{
+
+    @{
+    <partial name="_ValidationScriptsPartial" />
+	}
+
+}

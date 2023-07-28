@@ -26,5 +26,16 @@ namespace wbzf.DataAccess.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<PaymentGateway> PaymentGateways { get; set; }
         public DbSet<AccountGatewaySetup> accountGatewaySetups { get; set; }
+        public DbSet<Videos> videos { get; set; }
+        public DbSet<gallery> gallery { get; set; }
+        public DbSet<galleryCategory> galleryCategories { get; set; }
+        public DbSet<testimonial> testimonials { get; set; }
+        public DbSet<newslink> newslinks { get; set; }
+        public DbSet<quote> quotes { get; set; }
+        public DbSet<MembersforHome> membersforHome { get; set; }
+        public DbSet<contactform> contactforms { get; set; }
+        public DbSet<Sponsor> sponsors { get; set; }
+
+
     }
 }

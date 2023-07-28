@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "mssql1": {
-      "secretStore": null,
+      "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/wbzf-test-db/databases/wbzf",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection"

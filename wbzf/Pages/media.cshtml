@@ -1,0 +1,144 @@
+﻿@page
+@model wbzf.Pages.mediaModel
+@{
+    ViewData["Title"] = "News Update";
+}
+
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>News</span> <span>Update</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section causes-inner">
+    <div class="container">
+        <div class="row offset-margin">
+            @foreach (var item in Model.newslinks)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="causes-item causes-item--primary">
+                        <div class="causes-item__body">
+                            <div class="causes-item__top">
+                                <h6 class="causes-item__title"> <a href="cause-details.html">@item.Title</a></h6>
+
+                            </div>
+                            <div class="causes-item__img">
+                                <img class="img--bg" src="@item.ImageUrl" alt="img" />
+                            </div>
+                            <div class="causes-item__lower">
+                                <p>Media Organization : @item.NewsOrganizationName</p>
+                                <div class="causes-item__details-holder">
+                                    @if (item.NewsLink!=null)
+                                    {
+                                        <a href="@item.NewsLink" target="_blank" class="button button--primary">Read More</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="NewsDetails" asp-route-id="@item.Id" class="button button--primary">Read More</a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center"><a class="button gallery__button button--primary" id="loadMoreBtn" href="#">Load More News</a></div>
+        </div>
+    </div>
+</section>
+<!-- causes inner end-->
+@section Scripts {
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        var pageNumber = 2; // Initialize the page number for loading more images
+        var pageSize = parseInt(@Model.pageSize); // Set the page size
+
+        // Check if the initial response length is less than the page size
+        if (@Model.newslinks.Count() < pageSize) {
+
+            $('#loadMoreBtn').hide(); // Hide the button
+        }
+
+        $('#loadMoreBtn').click(function (e) {
+             e.preventDefault();
+            var btn = $(this); // Store the button reference
+
+            // Send an AJAX request to load more images
+            $.ajax({
+                url: '/api/news/'+pageNumber+'/'+pageSize,
+                type: 'GET',
+                success: function (response) {
+                    console.log(pageSize);
+                    console.log(response);
+                    console.log(pageNumber);
+                    var html = '';
+                    // Iterate over the loaded images and append them to the HTML string
+                    response.forEach(function (item) {
+                        html += '<div class="col-md-6 col-lg-4">';
+                        html += '<div class="causes-item causes-item--primary">';
+                        html += '<div class="causes-item__body">';
+                        html += '<div class="causes-item__top">';
+                        html += '<h6 class="causes-item__title"><a href="cause-details.html">' + item.title + '</a></h6>';
+                        html += '</div>';
+                        html += '<div class="causes-item__img">';
+                        html += '<img class="img--bg" src="' + item.imageUrl + '" alt="img" />';
+                        html += '</div>';
+                        html += '<div class="causes-item__lower">';
+                        html += '<p>Media Organization: ' + item.newsOrganizationName + '</p>';
+                        html += '<div class="causes-item__details-holder">';
+                        if (item.newsLink != null) {
+                            html += '<a href="' + item.newsLink + '" class="button button--primary">Read More</a>';
+                        } else {
+                            html += '<a href="/NewsDetails/' + item.id + '" class="button button--primary">Read More</a>';
+                        }
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+
+                    });
+
+                    // Append the HTML string to the image container
+                    var gallery = $('.offset-margin');
+                   gallery.append(html);
+                    // Check if the response length is less than the page size
+                    if (response.length < pageSize) {
+                        btn.hide(); // Hide the button
+                    }
+
+                    pageNumber++; // Increment the page number for the next load
+                }
+            });
+        });
+    });
+</script>
+
+}

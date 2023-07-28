@@ -16,7 +16,7 @@ namespace wbzf.DataAccess.Repository.IRepository
         void RemoveRange(IEnumerable<T> entity);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null,
-            string? includeProperties = null);
+            string? includeProperties = null, int pageNumber = 0, int pageSize = 0);
         T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
     }
 }

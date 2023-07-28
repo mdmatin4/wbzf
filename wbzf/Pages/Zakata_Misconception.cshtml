@@ -1,0 +1,97 @@
+﻿@page
+@model wbzf.Pages.Zakata_MisconceptionModel
+@{
+    ViewData["Title"]="Zakat Misconceptions";
+}
+@section Styles{
+<style>
+    ol.continued {
+        counter-reset: none;
+    }
+    /* To prove a point */
+    ol ::marker {
+        color: grey;
+        content: "[" counters(list-item, ".") "] ";
+    }
+</style>
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>Zakat</span> <span>Misconceptions</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section  storie-details">
+    <div class="container">
+        <div class="row offset-margin text-filled">
+            <div class="col-sm-12 col-lg-6">
+                <ol id=zakat>
+                    <li href="#1">Zakat needs to be paid during Ramadan only</li>
+                    <li>Paying Zakat purifies all wealth, including haram money such as interest</li>
+                    <li>Zakat only needs to be paid on gold</li>
+                    <li>The husband has to pay Zakat for the wife’s gold/silver/jewellery</li>
+                </ol>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <ol id=zakat class="continued" start="5">
+                    <li>Zakat only needs to be paid on wealth that is over the nisab</li>
+                    <li>I cannot give Zakat to my poor relatives</li>
+                    <li>Zakat is the same as Sadqatul-Fitr (Fitrana)</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <ol>
+                    <li>
+                        <h6 class="storie-details__title">Zakat needs to be paid during Ramadan only</h6>
+                        <p>This is not always true. Zakat can be due at any time of the year; it depends on the Muslim’s individual circumstances. On the day that a Muslim becomes Sahib-un-Nisab (owner of the minimum amount of wealth that makes Zakat payable) they must calculate and pay their Zakat exactly one lunar year from this day.  Many people choose to pay their Zakat during Ramadan because of the increased reward, but this can sometimes cause people to delay paying it. Zakat is an obligation and it is not permissible to postpone payment when it  is due.</p>
+                    </li>
+                    <li>
+                        <h6 class="storie-details__title">Paying Zakat purifies all wealth, including haram money such as interest</h6>
+                        <p>A Muslim cannot expect that paying Zakat will purify the wealth that has been earned through haram means; instead if haram money is donated as Zakat, then a Muslim will <u>not</u> be rewarded.</p>
+                    </li> 
+                    <li>
+                        <h6 class="storie-details__title">Zakat only needs to be paid on gold</h6>
+                        <p>Zakat needs to be paid on many types of wealth. This includes: gold, silver, any jewelry containing 50% or more of gold or silver, cash in the bank or at home, business stock, shares  and pensions, property (other than that in which one resides) and money lent to other people.</p>
+                    </li> 
+                    <li>
+                        <h6 class="storie-details__title">The husband has to pay Zakat for the wife’s gold/silver/jewellery</h6>
+                        <p>Each person has to pay Zakat on his/her  own wealth; therefore if the jewellery belongs to the wife, then she must pay for it herself. If she does not have money, then she must sell some of her jewellery to pay the Zakat. Nevertheless, if the husband willingly pays on her behalf, then this is ok.</p>
+                    </li> 
+                    <li>
+                        <h6 class="storie-details__title">Zakat only needs to be paid on wealth that is over the nisab</h6>
+                        <p>If a Muslim’s wealth exceeds the Nisab, then  he/she must pay Zakat on his/her total wealth. It is not acceptable to pay Zakat on  the excess wealth only. The Nisab is equivalent to the monetary value of 87.48 grams of gold or 612.36 grams of silver. The value of nisab changes every day, so it is important to check this before paying Zakat.</p>
+                    </li>
+                    <li>
+                        <h6 class="storie-details__title">I cannot give Zakat to my poor relatives</h6>
+                        <p>You can in fact give Zakat to your relatives provided they aren’t members of your immediate family, such as your parents, siblings, spouse, or children. You can give Zakat to your  extended family as this is both an act of charity and upholds family ties. The Prophet  said: “Charity given to the poor is charity and charity given to a relative is charity and upholding of family ties”</p>
+                        <p>[<a href="http://sunnah.com/tirmidhi/3">Ahmad, al-Nasaa’i</a>].</p>
+                    </li> 
+                    <li>
+                        <h6 class="storie-details__title">Zakat is the same as Sadqatul-Fitr (Fitrana)</h6>
+                        <p>Sadqatul-Fitr is <u>NOT</u> the same as Zakat. These are two separate entities and whoever paid Zakat is NOT relieved of paying Sadqatul-Fitr and vice-versa.</p>
+                        <p>Sadqatul-Fitr is generally paid at the end of Ramadan to pay for food for those who are poor and needy. This should be paid before the Eid prayer, for each member of your family. </p>
+                    </li>
+                </ol>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+

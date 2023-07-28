@@ -2,28 +2,27 @@
 @using wbzf.Utility
 @model wbzf.Pages.scholarshipModel
 @{
-    Layout="_LayoutForm";
-    ViewData["Title"]="Application for Scholarship";
+    ViewData["Title"]="Scholarship";
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="page-title-box">
-            <h4 class="page-title"> @ViewData["Title"] </h4>
-            <ol class="breadcrumb p-0 m-0">
-                <li>
-                    <a asp-area="" asp-page="/Index">Home</a>
-                </li>
-                <li class="active">
-                    @ViewData["Title"]
-                </li>
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
 
-            </ol>
-            <div class="clearfix"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>@ViewData["Title"]</span></h1>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- end row -->
+</section>
 
 <form method="post" id="student" enctype="multipart/form-data">
 

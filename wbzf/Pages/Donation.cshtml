@@ -8,13 +8,13 @@
 }
 @section Styles{
 <link rel="stylesheet" href="~/css/donation.css" asp-append-version="true" />
-<form method="post" name="razorpayForm">
+@*<form method="post" name="razorpayForm">
     <input id="razorpay_payment_id" type="hidden" name="razorpay_payment_id" />
     <input id="razorpay_order_id" type="hidden" name="razorpay_order_id" />
     <input id="razorpay_signature" type="hidden" name="razorpay_signature" />
-</form>
+    </form>*@
 }
-<section class="promo-primary">
+<section class="promo-primary  promo-primary--shop">
     <picture>
         <source srcset="img/volunteer.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/volunteer.jpg" alt="img" />
     </picture>
@@ -24,7 +24,7 @@
             <div class="col-auto">
                 <div class="align-container">
                     <div class="align-container__item">
-                        <span class="promo-primary__pre-title">@Iunitofwork.company.GetCompany().company_short_name</span>
+                        <span class="promo-primary__pre-title">@Company.company_short_name</span>
                         <h1 class="promo-primary__title"><span>Become</span> <span>a Supporter</span></h1>
                     </div>
                 </div>
@@ -33,13 +33,25 @@
     </div>
 </section>
 <!-- section start-->
-<section class="section">
+<section class="section" style="padding-bottom:0">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-xl-12">
+                <div class="heading heading--primary">
+                    <span class="heading__pre-title">For the Potential Transformation</span>
+                    <h2 class="heading__title"><span>We Need</span> <span>Your Help</span></h2>
+                </div>
+                <p>We humbly invite you to pay a part or whole of your Zakat through West Bengal Zakat Foundation. This has been established as a self-governed organization with an aim to build awareness and bring conscious Muslims together in institutionalizing the collection and distribution of Zakat in an effective way. We welcome you to visit our office.</p>
+                <p>In our country the development potential of zakat is largely unrecognized and remained unexploited. Zakat can be a wonderful social security system that takes care of every individual in a Muslim society. As a prominent person in the society and conscious Muslim we seek your support and participation in promoting the mission of West Bengal Zakat Foundation solely to please Almighty Allah SWT.</p>
+                <p>May Allah guide us all in the right path and always shower his blessings.</p>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-xl-5">
                 <div class="heading heading--primary" id="formheading">
-                    <span class="heading__pre-title">Fill Form and Beacame a Supporter</span>
+
                     <h2 class="heading__title"><span>Complete</span> <span>the Form</span></h2>
+                    <span class="heading__pre-title">Fill Form and Beacome a Supporter</span>
                 </div>
                 <form class="form user-form" method="post">
                     @* <input class="form__field" asp-for=Donation.amount onkeyup="updateamount(this);" placeholder="Amount of Donation" />
@@ -51,7 +63,7 @@
                     *@
                     <input class="form__field" asp-for=InputModel.Full_Name placeholder="Full Name" />
                     <span class="text-danger" asp-validation-for=InputModel.Full_Name></span>
-                    
+
                     <input class="form__field" asp-for=InputModel.Mother_Name placeholder="Mother Name" />
                     <span class="text-danger" asp-validation-for=InputModel.Mother_Name></span>
 
@@ -85,58 +97,198 @@
                     <span class="text-danger">@TempData["warning"]</span>
                     @*<button class="form__submit">Pay ₹<span id=lblpayingamount>0</span></button>*@
                     <button class="form__submit">Register as a Donor</button>
+                    <div class="d-flex p-20">
+
+
+                        <p>Already registered?  </p>
+
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            Click Here to Login
+                        </a>
+
+
+
+                    </div>
 
                 </form>
                 <!-- user form end-->
-
-                <div id="status-section" style="display:none" class="status-success">
+                @* <div id="status-section" style="display:none" class="status-success">
                     <div id="status-section-container">
-                        <div class="mountain-top"></div>
-                        <div class="mountain-footer"></div>
+                    <div class="mountain-top"></div>
+                    <div class="mountain-footer"></div>
 
-                        <div class="status-content">
-                            <div class="animoo status-icon">
-                                <div class="success-checkmark"></div>
+                    <div class="status-content">
+                    <div class="animoo status-icon">
+                    <div class="success-checkmark"></div>
 
-                            </div>
-                            <div class="title">₹ <label id="lblamount"></label>.<span class="amount-decimal" style="opacity: 0.7;">00</span></div>
-                            <div id="success-msg">Payment Successful!</div>
-
-                            <div id="share-details">
-                                @*<div>Share Your Experience</div><!---->
-                                    <div class="share-icons">
-                                    <a><span class="fa fa-facebook"></span></a>
-                                    <a><span class="fa fa-twitter"></span></a>
-                                    <a><span class="fa fa-whatsapp"></span></a>
-                                    </div>*@
-                            </div>
-
-                            <div class="success-footer">
-                                <div>
-                                    <div>Payment ID: <label id="lblpaymentid"></label></div>
-                                    <div>A confirmation email has been sent to you</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    <div class="title">₹ <label id="lblamount"></label>.<span class="amount-decimal" style="opacity: 0.7;">00</span></div>
+                    <div id="success-msg">Payment Successful!</div>
+
+                    <div id="share-details">
+
+                    </div>
+
+                    <div class="success-footer">
+                    <div>
+                    <div>Payment ID: <label id="lblpaymentid"></label></div>
+                    <div>A confirmation email has been sent to you</div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>*@
+
 
             </div>
             <div class="col-lg-6 col-xl-6 offset-xl-1">
-                <div class="heading heading--primary">
-                    <span class="heading__pre-title">What we Do</span>
-                    <h2 class="heading__title"><span>We Need</span> <span>Your Help</span></h2>
+                <div class="heading heading--primary" id="formheadingnonreg">
+
+                    <h2 class="heading__title"><span> Make a quick donation  </span> <span>without creating an account </span></h2>
+                    <span class="heading__pre-title">For a fast and simple donation, you can use the Donate Now button below without needing to create an account. If you would like to save payment information for future donations, please fill the registration form.</span>
                 </div>
-                <p>We humbly invite you to pay a part or whole of your Zakat through West Bengal Zakat Foundation. This has been established as a self-governed organization with an aim to build awareness and bring conscious Muslims together in institutionalizing the collection and distribution of Zakat in an effective way. We welcome you to visit our office.</p>
-                <p>In our country the development potential of zakat is largely unrecognized and remained unexploited. Zakat can be a wonderful social security system that takes care of every individual in a Muslim society. As a prominent person in the society and conscious Muslim we seek your support and participation in promoting the mission of West Bengal Zakat Foundation solely to please Almighty Allah SWT.</p>
-                <p>May Allah guide us all in the right path and always shower his blessings.</p>
+                <form class="form user-form">
+                    <a class="form__submit" href="@Model.company.payment_url">Donate Now</a>
+                </form>
+
+
             </div>
         </div>
     </div>
 </section>
+
+<!-- events start-->
+<section class="section events events--front_2" style="padding-top: 50px;">
+    <div class="container">
+        <div class="row margin-bottom">
+            <div class="col-12">
+                <div class="heading heading--primary heading--center">
+                    @* <span class="heading__pre-title">Events</span>*@
+                    <h2 class="heading__title"><span>DONATION THROUGH BANK</span> <span>(NEFT/ RTGS/UPI)</span></h2>
+                    <p class="no-margin-bottom">
+                        Gentle Request! While doing direct to Bank (NEFT / RTGS / UPI)
+                        please send us screenshot on our
+                        Whatsapp No- +91-@Company.mobile.
+                        You may also call on this no. for other queries
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4">
+                <div class="event-item">
+                    <div class="event-item__img" style="height:350px"><img class="img--bg" src="~/img/QR_zakat.png" style="height:350px" alt="img" /></div>
+                    <div class="event-item__content">
+                        <h6 class="event-item__title"><a class="mdlbtn" data-content="Zakat amount will be used for Poor distressed People, Miskin, Widow, Orphanage  for their Education, Health , livelihood support, etc. as per Shariah Law and also as per instructions given by our donors if they wish." data-title="Utilization of the Zakat Fund" data-toggle="modal" data-target="#eventModal1">For Zakat <i class="fa fa-exclamation-circle"></i></a></h6>
+                        <p><b>Account Holder Name :</b> West Bengal Zakat Foundation Zakat</p>
+                        <p><b>Bank Name :</b> State Bank of India</p>
+                        <p><b>A/c No :</b> 41675196089</p>
+                        <p><b>Branch Address:</b> Park Circus, Kolkata-700017</p>
+                        <p><b>IFS Code :</b> SBIN0001749</p>
+                        <p><b>UPI Id :</b> WBZFZ6089@SBI</p>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="event-item">
+                    <div class="event-item__img" style="height:350px"><img class="img--bg" style="height:350px" src="~/img/QR_donation.png" alt="img" /></div>
+                    <div class="event-item__content">
+                        <h6 class="event-item__title"><a class="mdlbtn" data-content="Sadqa / donation amount will be used for building Institutions like  Hostels, Musafir khana, Empowerment Centres,  Health Care Centre, Classrooms, Masjid Library and Common study rooms, Riot Victims, Disaster and  Emergency relief supports, Support Sports activities, Cultural support, Water for Life, Awards for Excellence, Publication, Survey, Research , Zakat awareness camp,  Support for Wards of Imams / Moulanas for higher studies, support Mosque, Entrepreneurship  development , Administrative cost and office expenses etc." data-title="Utilization of the Sadqa / Donation Fund" data-toggle="modal" data-target="#eventModal1">For Sadqa / Donation <i class="fa fa-exclamation-circle"></i></a></h6>
+                        <p><b>Account Holder Name :</b> West Bengal Zakat Foundation Donation</p>
+                        <p><b>Bank Name:</b> State Bank of India</p>
+                        <p><b>A/c No :</b> 41675195983</p>
+                        <p><b>Branch Address:</b> Park Circus, Kolkata-700017</p>
+                        <p><b>IFS Code :</b> SBIN0001749</p>
+                        <p><b>UPI Id :</b> WBZFD5983@SBI</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="event-item">
+                    <div class="event-item__img" style="height:350px"><img class="img--bg" style="height:350px" src="~/img/QR_interest.png" alt="img" /></div>
+                    <div class="event-item__content">
+                        <h6 class="event-item__title"><a class="mdlbtn" data-content="Your  Interest  amount will be  used to somewhere “dirty” (but needed) public spend, e.g. construction of Masjid Toilet, Madrasa Toilet, purchase toilet-consumables (such as toilet-papers, cleaning items etc.), Installation of CCTV Camera at Masjid, Rain water harvesting and  Waju Water conservation project , Solar Panel Installation at Masjid, Government regulations compliance expenses,  Tax & Audit compliance expenses,  Social Media promotion expenses, Operational & Administration expenses, Skill development training, Legal support , Volunteers Honorarium , Cloth distribution, Transportation, as donation to absolutely poor persons and other miscellaneous expenses." data-title="Utilization of the Interest Offloading Fund" data-toggle="modal" data-target="#eventModal1">For Interest Offloading Fund <i class="fa fa-exclamation-circle"></i></a></h6>
+                        <p><b>Account Holder Name :</b> West Bengal Zakat Foundation Interest</p>
+                        <p><b>Bank Name:</b> State Bank of India</p>
+                        <p><b>A/c No :</b> 41675196045</p>
+                        <p><b>Branch Address:</b> Park Circus, Kolkata-700017</p>
+                        <p><b>IFS Code :</b> SBIN0001749</p>
+                        <p><b>UPI Id :</b> WBZFI6045@SBI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row offset-margin text-filled" style="text-align:center">
+            <div class="col-lg-12">
+                <p>
+                    We do not have facility to collect Zakat/ Donation/ Interest in cash from any one by issuing money
+                    receipt. Everyone should pay it online or by depositing Cheque / DD at our Bank A/c directly.
+                </p>
+                <p style="font-weight:bolder;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+                   
+                        We have applied for 80G and 12A of Income Tax Act
+                    
+                </p>
+                <p style="text-decoration:underline">
+                    As per the indian Tax Authority Rule, a PAN number is mandatory to avail of the 80G tax exemption certificate.
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!-- events end-->
 <!-- section end-->
+<!-- Modal popup -->
+<div class="modal fade" id="eventModal1" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: justify;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts
 {
+<script>
+       // Get modal element
+     const modal = document.getElementById('eventModal1');
+          // Get all buttons
+    const buttons = document.querySelectorAll('.mdlbtn');
+
+    // Add click handler to each button
+    buttons.forEach(button => {
+
+      button.addEventListener('click', () => {
+
+        // Get data from clicked button
+        const title = button.getAttribute('data-title');
+        const content = button.getAttribute('data-content');
+
+        // Set modal data
+        modal.querySelector('.modal-title').textContent = title;
+        modal.querySelector('.modal-body p').textContent = content;
+
+      });
+
+    });
+
+</script>
+
 @*<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
     var pay_amount;

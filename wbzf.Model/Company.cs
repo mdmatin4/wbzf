@@ -63,6 +63,7 @@ namespace wbzf.Model
         //Domain Setup
         public string url { get; set; }
         public string payment_url { get; set; }
+        public string api_url { get; set; }
 
         //smtp
         public string? host { get; set; }

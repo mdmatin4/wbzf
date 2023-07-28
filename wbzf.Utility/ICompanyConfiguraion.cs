@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wbzf.Model.ViewModel;
 
 namespace wbzf.Utility
 {
@@ -13,6 +14,7 @@ namespace wbzf.Utility
         Smtp GetSmtp();
         PopupSet GetPopup();
         RazorpayConfig GetRazorpay();
+        JWT getJWT();
         void update(Company company);
         void updatesmtp(Smtp smtp); 
         void updatepopup(PopupSet popup);

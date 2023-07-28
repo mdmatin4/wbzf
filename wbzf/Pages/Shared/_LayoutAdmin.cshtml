@@ -6,7 +6,10 @@
 @using wbzf.DataAccess.Repository.IRepository
 @inject IUnitOfWork Iunitofwork
 @{
+    var appUser =UserManager.GetUserAsync(User).Result;
     var Company = Iunitofwork.company.GetCompany();
+    string[] userType = new string[] { SD.OurTeamMembers, SD.OurAdvisoryCommitte, SD.OurAuditor, SD.OurLegalExpert, SD.OurMufti, SD.OurMembers };
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +19,7 @@
 
 
     <!-- Favicon -->
-    <link rel="icon" href="~/images/favicon.png">
+    <link rel="icon" href="~/img/favicon.png">
     <!-- Title -->
     <title>@ViewData["Title"] - @Company.name</title>
 
@@ -101,20 +104,20 @@
 
                         <li class="dropdown user-box">
                             <a href="" class="dropdown-toggle waves-effect waves-light user-link" data-toggle="dropdown" aria-expanded="true">
-                                @if (UserManager.GetUserAsync(User).Result.ImageUrl != null)
+                                @if (appUser.ImageUrl != null)
                                 {
-                                    <img class="img-circle user-img" src="@UserManager.GetUserAsync(User).Result.ImageUrl">
+                                    <img class="img-circle user-img" src="@appUser.ImageUrl">
                                 }
                                 else
                                 {
-                                    <img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle user-img">
+                                    <img src="~/assets/images/users/avatar.jpg" alt="user-img" class="img-circle user-img">
                                 }
 
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
                                 <li>
-                                    <h5>Hi,  @((await UserManager.GetUserAsync(User)).Full_Name)</h5>
+                                    <h5>Hi,  @(appUser.Full_Name)</h5>
                                 </li>
                                 <li><a asp-page="/Profile/Index"><i class="ti-user m-r-5"></i> Profile</a></li>
                                 <li><a asp-page="/Profile/ChangePassword"><i class="ti-settings m-r-5"></i> Change Password</a></li>
@@ -163,7 +166,7 @@ background-color:white;
                         </div>
                         <div class="user-info">
                             <div>
-                                @((await UserManager.GetUserAsync(User)).Full_Name)
+                                @(appUser.Full_Name)
                             </div>
                         </div>
                     </div>
@@ -240,7 +243,19 @@ background-color:white;
                                 </ul>
                             </li>
 
+                            @*<li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-newspaper"></i> <span> Posts </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                <li><a asp-page="/Post/Upsert">Add New</a></li>
+                                <li><a asp-page="/Post/Upsert">Add New</a></li>
+                                <li><a asp-page="/Post/Index">All Posts</a></li>
 
+                                </ul>
+                                </li>*@
+                            <li>
+                                <a asp-page="/Contact/Index" asp-area="Admin" class="waves-effect"><i class="mdi mdi-contact-mail"></i> <span> Contact Us </span> </a>
+
+                            </li>
 
                             <li class="menu-title">Website View</li>
                             @if (User.IsInRole(SD.Admin))
@@ -252,6 +267,63 @@ background-color:white;
                                         <li><a asp-page="/Schemes/Index">All Schems</a></li>
                                     </ul>
                                 </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i><span> Members in Home Page</span> <span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        @foreach (var item in userType)
+                                        {
+                                            <li class="has_sub">
+                                                <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user"></i><span> @item </span> <span class="menu-arrow"></span></a>
+                                                <ul class="list-unstyled">
+                                                    <li><a asp-page="/HomeMembers/Create" asp-route-type=@item>Add New</a></li>
+                                                    <li><a asp-page="/HomeMembers/Index" asp-route-type=@item>All @item</a></li>
+
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-comment-question-outline"></i><span> Quotes </span><span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/Quote/Create">Add New</a></li>
+                                        <li><a asp-page="/Quote/Index">All Quotes</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-help"></i><span> Sponsors </span><span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/Sponsor/Create">Add New</a></li>
+                                        <li><a asp-page="/Sponsor/Index">All Sponsors</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-image-multiple"></i><span> Gallery </span><span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/Gallery/Create">Add New Item</a></li>
+                                        <li><a asp-page="/Gallery/Index">All Gallery Item</a></li>
+                                        <li><a asp-page="/Gallery/GalleryCategories">Gallery Categories</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-quote"></i><span> Testimonials </span> <span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/Testimonial/Create">Add New</a></li>
+                                        <li><a asp-page="/Testimonial/Index">All Testimonials</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-newspaper"></i><span> News Link </span> <span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/NewsLink/Create">Add New</a></li>
+                                        <li><a asp-page="/NewsLink/Index">All News Link</a></li>
+                                    </ul>
+                                </li>
+
                                 <li>
                                     <a asp-page="/Popup/Index" asp-area="Admin" class="waves-effect"><i class="mdi mdi-alert-box"></i> <span>Web Popup </span> </a>
 

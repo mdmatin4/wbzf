@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,15 @@ namespace wbzf.DataAccess.Repository
                 objFromDb.updated_at=DateTime.Now;
             }
 
+        }
+        public IEnumerable<SelectListItem> getProfessionforSelectItem()
+        {
+            var list = _db.professions.ToList().Where(u => u.IsActive==true).OrderBy(u => u.Order).Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
+            return list;
         }
     }
 }

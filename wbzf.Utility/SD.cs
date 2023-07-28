@@ -21,6 +21,15 @@ namespace wbzf.Utility
         public const string Approved = "Approved and Admitted";
         public const string Rejected = "Rejected";
 
+        public const string OurTeamMembers = "Our Team Members";
+        public const string OurAdvisoryCommitte = "Advisory Committee";
+        public const string OurMufti = "Mufti / Islamic Scholar";
+        public const string OurAuditor = "Auditor";
+        public const string OurLegalExpert = "Legal Expert";
+        public const string OurMembers = "Members";
+
+
+
 
         public const string WBCS = "WBCS";
         public const string WBJS = "WBJS";

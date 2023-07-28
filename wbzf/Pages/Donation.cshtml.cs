@@ -17,6 +17,7 @@ namespace wbzf.Pages
         [BindProperty]
         public InputRegisterModel InputModel { get; set; }
         public ApplicationUser user { get; set; }
+        public Company company { get; set; }
         //public donation Donation { get; set; }
         public IEnumerable<SelectListItem> professionList { get; set; }
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -42,7 +43,8 @@ namespace wbzf.Pages
         }
         public void OnGet()
         {
-            professionList=getProfessionList();
+            professionList=_unitofWork.profession.getProfessionforSelectItem();
+            company=_unitofWork.company.GetCompany();
         }
 
 
@@ -58,6 +60,7 @@ namespace wbzf.Pages
                 user.ProfessionId=InputModel.ProfessionId;
                 user.Gender=InputModel.Gender;
                 user.Mother_Name=InputModel.Mother_Name;
+                user.created_at=DateTime.UtcNow.AddHours(5).AddMinutes(30);
                 await _userStore.SetUserNameAsync(user, InputModel.PhoneNumber, CancellationToken.None);
                 
                 var result = await _userManager.CreateAsync(user, InputModel.Password);
@@ -65,9 +68,14 @@ namespace wbzf.Pages
                 {
                     if (InputModel.Email != null)
                     {
-                        await _emailStore.SetEmailAsync(user, InputModel.Email, CancellationToken.None);
-                        await _emailSender.SendEmailAsync(InputModel.Email, $"Donation Registration Successful : {InputModel.Full_Name}",
-                        $"Your registration has been successfully completed . Please login with you Mobile no: {InputModel.PhoneNumber} as username and {InputModel.Password} as Password to login..");
+                        try
+                        {
+                            await _emailStore.SetEmailAsync(user, InputModel.Email, CancellationToken.None);
+                            await _emailSender.SendEmailAsync(InputModel.Email, $"Donation Registration Successful : {InputModel.Full_Name}",
+                            $"Your registration has been successfully completed . Please login with you Mobile no: {InputModel.PhoneNumber} as username and {InputModel.Password} as Password to login..");
+                        }
+                        catch (Exception ex) { }
+                       
 
                     }
                     await _userManager.AddToRoleAsync(user, SD.Donor);
@@ -91,7 +99,7 @@ namespace wbzf.Pages
 
 
             }
-            professionList=getProfessionList();
+            professionList=_unitofWork.profession.getProfessionforSelectItem();
             return Page();
         }
         //public IActionResult OnPostPayment(donation donation)
@@ -139,15 +147,7 @@ namespace wbzf.Pages
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-        private IEnumerable<SelectListItem> getProfessionList()
-        {
-            var list = _unitofWork.profession.GetAll(u=>u.IsActive==true,orderby: u => u.OrderBy(m => m.Order)).Select(i => new SelectListItem()
-            {
-                Text = i.Name,
-                Value = i.Id.ToString()
-            });
-            return list;
-        }
+       
 
         private IUserEmailStore<ApplicationUser> GetEmailStore()
         {

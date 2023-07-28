@@ -1,0 +1,111 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Testimonial.CreateModel
+@{
+    if (Model.testimonial.Id==0)
+    {
+        ViewData["Title"] = "Create New";
+    }
+    else
+    {
+        ViewData["Title"] = "Update Testimonials";
+    }
+
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/Testimonial/Index">Testimonials</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                <input asp-for="testimonial.Id" type="hidden" />
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="testimonial.Name" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="testimonial.Name" class="form-control" />
+                        <span asp-validation-for="testimonial.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="testimonial.Designation" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="testimonial.Designation" class="form-control" />
+                        <span asp-validation-for="testimonial.Designation" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="testimonial.DisplayOrder" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="testimonial.DisplayOrder" class="form-control" />
+                        <span asp-validation-for="testimonial.DisplayOrder" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="testimonial.statement" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <textarea asp-for=testimonial.statement class=form-control></textarea>
+                        <span asp-validation-for="testimonial.statement" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for=testimonial.ImageUrl class="col-sm-2 col-form-label">Upload Image (370*317)</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="files" id="uploadimage" />
+                        <div id="dvPreview">
+                        </div>
+                    </div>
+                    <span asp-validation-for="testimonial.ImageUrl" class="text-danger"></span>
+                </div>
+                @if (Model.testimonial.Id != 0)
+                {
+                    <img src="@Model.testimonial.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />
+                }
+
+                <div class="form-group m-b-0">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        @if (Model.testimonial.Id==0)
+                        {
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Create</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-info waves-effect waves-light">Update</button>
+                        }
+
+                        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+	@{
+    <partial name="_ValidationScriptsPartial" />
+	}
+}

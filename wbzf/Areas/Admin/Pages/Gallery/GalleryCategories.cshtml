@@ -1,0 +1,112 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Gallery.GalleryCategoriesModel
+@{
+
+
+    ViewData["Title"] = "Gallery Categories";
+
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/gallery/Index">Gallery</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div class="panel panel-color panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Entry/Update Gallery Category</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <span style="color: red" asp-validation-summary="All"> </span>
+                        <div class="col-12">
+                            <div class="input-group m-t-10">
+                                <input asp-for=category.Id hidden />
+                                <input class="form-control" asp-for=category.Name placeholder="Name" autocomplete="off">
+                                <input class="form-control" asp-for=category.Order placeholder="Order" autocomplete="off">
+
+                            </div>
+                            <div>
+                                <button type="submit" asp-page-handler="Save" class="btn waves-effect waves-light btn-primary">Submit</button>
+
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-color panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">List of Gallery Category</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table m-0">
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.categories!=null)
+                            {
+                                foreach (var item in Model.categories)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Order</td>
+                                        <td>
+                                            <form method="post">
+                                                <button asp-route-id="@item.Id" asp-page-handler="EditCategory" class="btn btn-primary mx-2">
+                                                    <i class="fa fa-pencil-square"></i>
+                                                </button>
+                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

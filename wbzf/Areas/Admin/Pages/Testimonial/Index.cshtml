@@ -1,0 +1,80 @@
+﻿@page
+@model wbzf.Areas.Admin.Pages.Testimonial.IndexModel
+@{
+    ViewData["Title"] = "Testimonial";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+
+            <div class="demo-box m-t-20">
+                <div class="col-6 text-end p-b-10">
+                    <a asp-page="create" class="btn btn-primary">
+                        <i class="fa fa-plus-square"></i> &nbsp;Create New @ViewData["Title"]
+                    </a>
+                </div>
+
+                <form method="post">
+                    <div class="table-responsive">
+                        <table class="table m-0 table-colored-bordered table-bordered-inverse table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                         Name
+                                    </th>
+                                    <th>
+                                       Designation
+                                    </th>
+                                    <th>
+                                       Display Order
+                                    </th>
+                                    <th> Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var obj in Model.testimonials)
+                                {
+                                    <tr>
+                                        <td width="30%" scope="row">@obj.Name</td>
+                                        <td width="30%">@obj.Designation</td>
+                                        <td width="10%">@obj.DisplayOrder</td>
+                                        <td>
+                                            <div class="w-75 btn-group" role="group">
+                                                <a asp-page="Create" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                                    <i class="fa fa-pencil-square"></i>
+                                                </a>
+                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,95 @@
+﻿@page
+@model wbzf.Pages.Zakat_CommitteeModel
+@{
+    ViewData["Title"]="Zakat Committee";
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>Zakat</span> <span>Committee</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section typography">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <h6 style="margin-bottom:auto">
+
+                    Zakat committee consists of members who are experts in any one of the fields: Zakat Management, Finance, Law, Marketing strategy, Media, Public relations, Strategic planning, Health, Nutrition, Social services, Education, Sports, Youth, Women empowerment, Environment etc.
+                    <br />
+                    The committee makes sure that the day-to-day management is carried out effectively. It ensures that the organization is run well and operates responsibly, so that the charity would continue to be effective, credible and sustainable……
+
+                </h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section elements no-padding-top">
+
+    <div class="container">
+
+        @foreach (var usertype in Model.userType)
+        {
+            var userlist = Model.membersList.Where(u => u.role==usertype);
+            if (userlist.Count()>0)
+            {
+                <div class="row">
+                    <div class="col-auto">
+                        <h4 class="elements__title">@usertype</h4>
+                    </div>
+                </div>
+                <div class="row offset-margin">
+                    @foreach (var item in userlist)
+                    {
+                        <div class="col-sm-6 col-lg-4 col-xl-3">
+                            <!-- item start-->
+                         <div class="team-item team-item--primary">
+                                <div class="team-item__img">
+                                    @*<ul class="team-item__socials">
+                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li class="item--active"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                        </ul>*@
+                                    @if (item.ImageUrl==null)
+                                    {
+                                        <img class="img--bg" src="~/img/male-avatar.jpg" alt="teammate" />
+                                    }
+                                    else
+                                    {
+                                         <img class="img--bg" src=@item.ImageUrl alt="teammate" />
+                                    }
+
+                            </div>
+                            <div class="team-item__description">
+                                <div class="team-item__name">@item.Name</div>
+                                <div class="team-item__position">@item.Designation</div>
+                            </div>
+                            </div>
+                            <!-- item end-->
+                         </div>
+
+                    }
+                </div>
+
+            }
+        }
+
+    </div>
+</section>
+<!-- bottom bg start-->

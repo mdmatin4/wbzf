@@ -31,7 +31,7 @@ namespace wbzf.DataAccess.Repository
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, string? includeProperties = null)
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, string? includeProperties = null,int pageNumber = 0, int pageSize = 0)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -46,6 +46,14 @@ namespace wbzf.DataAccess.Repository
                 {
                     query = query.Include(includeProperty);
                 }
+            }
+            if (pageNumber > 0 && pageSize > 0)
+            {
+                // Calculate the number of items to skip based on the page number and page size
+                int itemsToSkip = (pageNumber - 1) * pageSize;
+
+                query = query.Skip(itemsToSkip)
+                             .Take(pageSize);
             }
             if (orderby != null)
             {

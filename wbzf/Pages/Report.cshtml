@@ -1,0 +1,24 @@
+﻿@page
+@model wbzf.Pages.ReportModel
+@{
+    ViewData["Title"]="Report";
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="~/img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="~/img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>@ViewData["Title"]</span> </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -22,8 +22,6 @@ namespace wbzf.Areas.Admin.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             
             if (User.IsInRole(SD.Admin)||User.IsInRole(SD.Manager))
             {

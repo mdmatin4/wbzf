@@ -3,121 +3,516 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<section class="section">
+@section Styles{
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+}
+
+<!-- promo start-->
+<section class="promo promo--front_2">
+    <div class="promo-slider">
+        <div class="promo-slider__item promo-slider__item--style-2">
+            <picture>
+                <source srcset="../img/promo_2.jpg" />
+                <source srcset="img/834promo_2.jpg" media="(min-width: 376px)" /><img class="img--bg" src="img/375promo_2.jpg" alt="img" />
+            </picture>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-7">
+                        <div class="align-container">
+                            <div class="align-container__item">
+                                <div class="promo-slider__wrapper-1">
+                                    <h2 class="promo-slider__title"><span>@Model.company.name</span><br /><span>Our Helping around India.</span></h2>
+                                </div>
+                                @*<div class="promo-slider__wrapper-2">
+                                    <p class="promo-slider__subtitle">Gray eel-catfish longnose whiptail catfish smalleye squaretail queen danio unicorn fish shortnose greeneye fusilier fish silver carp nibbler sharksucker tench lookdown catfish</p>
+                                    </div>
+                                    <div class="promo-slider__wrapper-3"><a class="button promo-slider__button button--primary" href="#">Discover</a></div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="promo-slider__item promo-slider__item--style-1">
+            <picture>
+                <source srcset="../img/promo_1.jpg" />
+                <source srcset="img/834promo_1.jpg" media="(min-width: 376px)" /><img class="img--bg" src="img/375promo_1.jpg" alt="img" />
+            </picture>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="align-container">
+                            <div class="align-container__item">
+                                <div class="promo-slider__wrapper-1" style="background-color: black;">
+                                    <h2 class="promo-slider__title"><span>Pay Your Zakat and Purify your Wealth</span> <span>Al Quran.</span></h2>
+                                </div>
+                                @*<div class="promo-slider__wrapper-2">
+                                    <p class="promo-slider__subtitle">Gray eel-catfish longnose whiptail catfish smalleye squaretail queen danio unicorn fish shortnose greeneye fusilier fish silver carp nibbler sharksucker tench lookdown catfish</p>
+                                    </div>
+                                    <div class="promo-slider__wrapper-3"><a class="button promo-slider__button button--primary" href="#">Discover</a></div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="promo-slider__item promo-slider__item--style-3">
+            <picture>
+                <source srcset="../img/promo_3.jpg" />
+                <source srcset="img/834promo_3.jpg" media="(min-width: 376px)" /><img class="img--bg" src="img/375promo_3.jpg" alt="img" />
+            </picture>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="align-container">
+                            <div class="align-container__item">
+                                <div class="promo-slider__wrapper-1">
+                                    <h2 class="promo-slider__title"><span>Allah says in Quran.</span><br /><span>Eat of [each of] its fruit when it yields and give it due [zakat] on the day of its harvest.</span></h2>
+                                </div>
+                                @*<div class="promo-slider__wrapper-2">
+                                    <p class="promo-slider__subtitle">Eat of [each of] its fruit when it yields and give it due [zakat] on the day of its harvest.</p>
+                                    </div>
+                                    <div class="promo-slider__wrapper-3"><a class="button promo-slider__button button--primary" href="#">Discover</a></div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><a class="anchor promo-pannel__anchor" href="#about"> <span>Scroll Down</span></a>
+    <!-- promo pannel start-->
+    <div class="promo-pannel">
+        <div class="promo-pannel__video"><img class="img--bg" src="img/zakat_image.jpg" alt="image" /><a class="video-trigger" href="https://www.youtube.com/watch?v=j8RxKCMvVlY"><span>Watch the video</span><i class="fa fa-play" aria-hidden="true"></i></a></div>
+    </div>
+    <!-- promo pannel end-->
     <div class="container">
-        <div class="row" style="text-align:center;vertical-align:middle">
-            <div class="col-md-6">
-                <a asp-page="/coachingForm" class="btn btn-success" asp-route-exam="WBCS">Application for WBCS Coaching</a>
-            </div>
-            <div class="col-md-6">
-                <a asp-page="/coachingForm" class="btn btn-success" asp-route-exam="WBJS">Application for WBJS Coaching</a>
-            </div>
-            <div class="col-md-6">
-                <a asp-page="/scholarship" class="btn btn-success" asp-route-exam="WBJS">Application for WBJS Coaching</a>
+        <div class="row">
+            <div class="col-12">
+                <!-- slider nav start-->
+                <div class="slider__nav slider__nav--promo">
+                    <div class="promo-slider__count"></div>
+                    <div class="slider__arrows">
+                        <div class="slider__prev">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </div>
+                        <div class="slider__next">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- slider nav end-->
             </div>
         </div>
     </div>
 </section>
-<form method="post">
-</form>
-<table id="tblCustomers" class="table" cellpadding="0" cellspacing="0">
-    <thead>
-        <tr>
-            <th style="width:150px">Name</th>
-            <th style="width:150px">Country</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Customer customer in Model.customerList)
-        {
-            <tr>
-                <td>@customer.Name</td>
-                <td>@customer.Country</td>
-                <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td><input type="text" id="txtName" /></td>
-            <td><input type="text" id="txtCountry" /></td>
-            <td><input type="button" id="btnAdd" value="Add" /></td>
-        </tr>
-    </tfoot>
-</table>
-<br />
-<input type="button" id="btnSave" value="Save All" />
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!-- promo end-->
+<!-- section start-->
+<section class="section about--front-2 background--brown" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="heading heading--primary">
+                    <span class="heading__pre-title">About Us</span>
+                    <h2 class="heading__title no-margin-bottom"><span>making a ‘Zakat Taker’</span> <span> into a ‘Zakat Giver’.</span></h2>
+                </div><a class="button button--primary d-none d-xl-inline-block" href="/About_us">More about</a>
+            </div>
+            <div class="col-xl-8">
+                <p><strong>West Bengal Zakat Foundation (WBZF) was established on 31st August 2022 at Kolkata as a grassroots level organization by concerned residents of West Bengal.</strong></p>
+                <p>We are registered under Indian Trusts Act 1886. This is a centralized form of Zakat Collection and Distribution for the needy with the mission to Transform lives of underprivileged sections by making a ‘Zakat Taker’ into a ‘Zakat Giver’.</p>
+                <p>We utilize ‘zakat’ or charity for the overall development of the underprivileged sections of our Community and further empowering them in the educational, social and economical front of life  in a transparent and organized manner.At present our activities include to provide scholarship to students, financial support to widows, Helps to poor etc. You are invited to deposit your amount of zakat, sadaqa, Bank Interest, imdaad and other charity to us.</p>
 
-<script type="text/javascript">
-    $("body").on("click", "#btnAdd", function () {
-        //Reference the Name and Country TextBoxes.
-        var txtName = $("#txtName");
-        var txtCountry = $("#txtCountry");
+            </div>
+            <div class="col-12 text-center"><a class="button button--primary d-inline-block d-xl-none margin-top" href="/About_us">More about</a></div>
+        </div>
+    </div>
+</section>
+<!-- section end-->
+<!-- stories start-->
+<section class="section stories">
+    <div class="container">
+        <div class="row offset-70">
+            <div class="col-md-10 offset-md-1 col-lg-12 offset-lg-0">
+                <div class="stories-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-xl-5">
+                            <div class="img-box">
+                                <img class="img--layout" src="img/zakat misconception_new.jpg" alt="img" />
+                                <div class="img-box__img"><img class="img--bg" src="img/zakat misconception_new.jpg" alt="img" /></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-6 offset-xl-1">
+                            <div class="heading heading--primary">
+                                <span class="heading__pre-title">01</span>
+                                <h2 class="heading__title"><span>Zakat</span> <span>Misconception</span></h2>
+                            </div>
+                            <p>
+                                <ul>
+                                    <li>Zakat needs to be paid during Ramadan only</li>
+                                    <li>Paying Zakat purifies all wealth, including haram money such as interest.</li>
+                                </ul>
+                            </p>
+                            <a class="button stories-item__button button--primary" asp-page="Zakata_Misconception">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-12 offset-lg-0">
+                <div class="stories-item">
+                    <div class="row align-items-center flex-column-reverse flex-lg-row">
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="heading heading--primary">
+                                <span class="heading__pre-title">02</span>
+                                <h2 class="heading__title"><span>Recipients of </span> <span>Zakat</span></h2>
+                            </div>
+                            <p>
+                                <ul>
+                                    <li>The poor (Faqir/Fuqara)</li>
+                                    <li>The needy (Miskeen/Masakeen)</li>
+                                    <li>The administrators of zakah (Aameleen)</li>
+                                </ul>
+                            </p>
+                            <a class="button stories-item__button button--primary" asp-page="Zakat_receipents">Read More</a>
+                        </div>
+                        <div class="col-lg-6 col-xl-5 offset-xl-1">
+                            <div class="img-box">
+                                <img class="img--layout" src="img/receiptents of zakat_new.png" alt="img" />
+                                <div class="img-box__img"><img class="img--bg" src="img/receiptents of zakat_new.png" alt="img" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 offset-md-1 col-lg-12 offset-lg-0">
+                <div class="stories-item">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-xl-5">
+                            <div class="img-box">
+                                <img class="img--layout" src="img/zakat committe.jpg" alt="img" />
+                                <div class="img-box__img"><img class="img--bg" src="img/zakat committe.jpg" alt="img" /></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-6 offset-xl-1">
+                            <div class="heading heading--primary">
+                                <span class="heading__pre-title">03</span>
+                                <h2 class="heading__title"><span>Zakat </span> <span>Committee</span></h2>
+                            </div>
+                            <p>Zakat committee consists of members who are experts in any one of the fields: Zakat Management, Finance, Law, Marketing strategy.</p>
+                            <a class="button stories-item__button button--primary" asp-page="Zakat_Committee">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        //Get the reference of the Table's TBODY element.
-        var tBody = $("#tblCustomers > TBODY")[0];
+        </div>
+    </div>
+</section>
+<!-- stories end-->
+<!-- section start-->
+<section class="section no-padding">
+    <div class="container">
+        <div class="row margin-bottom">
+            <div class="col-12">
+                <div class="heading heading--primary heading--center">
+                    <span class="heading__pre-title">What We do</span>
+                    <h2 class="heading__title no-margin-bottom"><span>Our Present</span> <span>Activities</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row offset-margin">
+            <div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_money_hand.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Scholarship Support to distressed People</p><span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_house.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Helps to Poor, Needy , Widow, Orphanage etc.</p><span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_charity.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Emergency Support (For Natural Calamities, Riot Victims etc)</p><span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_nature.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Free Coaching for Competitive Exams.</p><span></span>
+                    </div>
+                </div>
+            </div><div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_hand_love.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Health Care Support for Poor.</p><span></span>
+                    </div>
+                </div>
+            </div><div class="col-sm-4 col-lg-2">
+                <div class="icon-item text-left text-center text-sm-left">
+                    <div class="icon-item__img"><img src="img/svg/1_people.svg" alt="icon" /></div>
+                    <div class="icon-item__text">
+                        <p>Zakat awareness camp.</p><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row margin-bottom">
+            <div class="col-12">
+                <div class="heading heading--primary heading--center">
+                    <h2 class="heading__title no-margin-bottom"><span>Our Future</span> <span>Plan</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row offset-margin text-filled">
+            <div class="col-sm-12 col-lg-6">
+                <ul>
+                    <li>Establishment of Empowerment Centre</li>
+                    <li>Masjid Library</li>
+                    <li>Research and Advocacy</li>
+                    <li>Legal Cell</li>
+                    <li>Enterprise development</li>
+                </ul>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <ul>
+                    <li>Promote Sports Culture</li>
+                    <li>Support Cultural diversity</li>
+                    <li>Survey and Analysis</li>
+                    <li>Publication of Books</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end-->
+<!-- section start-->
+<section class="section">
+    <div class="row no-gutters">
+        <div class="col-lg-6 col-xl-8 projects-masonry__item projects-masonry__item--height-2 projects-masonry__item--primary projects-masonry__item--heading">
+            <div class="projects-masonry__img">
+                <div class="heading heading--primary">
+                    <span class="heading__pre-title">Surprising truths about zakat.</span>
+                    <h2 class="heading__title"><span>Do you </span> <span>know?</span></h2>
+                    <p>Zakat has the power to uplift Muslims from poverty. But it requires more purposeful giving. It's time for more thoughtful and impactful charity.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 projects-masonry__item projects-masonry__item--height-2 projects-masonry__item--primary">
+            <div class="projects-masonry__img">
+                <img class="img--bg" src="img/text background copy.png" alt="img" />
+                <div class="projects-masonry__inner">
+                    <span class="projects-masonry__badge" style="background: #2EC774;">Unchanging</span>
+                    <h3 class="projects-masonry__title" style="font-size:xxx-large;"> <a href="#">60%</a></h3>
+                    <p>Of Zakat Payers donate to Same <span>Set of individuals every</span> year?</p>
+                    <p>Does that mean Zakat is <span>not bring change</span>  in their lives? </p>
+                    @*<div class="projects-masonry__details-holder">
+                        <div class="projects-masonry__details-item"><span>Goal: </span><span>25 000$</span></div>
+                        <div class="projects-masonry__details-item"><span>Date: </span><span>23 Jan'19</span></div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 projects-masonry__item projects-masonry__item--height-2 projects-masonry__item--primary">
+            <div class="projects-masonry__img">
+                <img class="img--bg" src="img/text background copy.png" alt="img" />
+                <div class="projects-masonry__inner">
+                    <span class="projects-masonry__badge" style="background: #2EC774;">Indifferent</span>
+                    <h3 class="projects-masonry__title" style="font-size:xxx-large;"> <a href="#">55%</a></h3>
+                    <p>of zakat payers do not worry about changes in the  lives of Zakat takers?</p>
+                    <p>Isn’t it surprising that 33% of Muslims still live below poverty line (BPL)</p>
 
-        //Add Row.
-        var row = tBody.insertRow(-1);
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 projects-masonry__item projects-masonry__item--height-2 projects-masonry__item--primary">
+            <div class="projects-masonry__img">
+                <img class="img--bg" src="img/text background copy.png" alt="img" />
+                <div class="projects-masonry__inner">
+                    <span class="projects-masonry__badge" style="background: #F8AC3A;">Untapped</span>
+                    <h3 class="projects-masonry__title" style="font-size:xxx-large;"> <a href="#">Only 15%</a></h3>
+                    <p>of eligible Muslims donate their Zakat for organized Charity</p>
+                    <p>How can we then make a Big impact in the lives of poor Muslims?</p>
 
-        //Add Name cell.
-        var cell = $(row.insertCell(-1));
-        cell.html(txtName.val());
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-4 projects-masonry__item projects-masonry__item--height-2 projects-masonry__item--primary">
+            <div class="projects-masonry__img">
+                <img class="img--bg" src="img/background image ai.jpg" alt="img" />
+                <div class="projects-masonry__inner">
+                    <span class="projects-masonry__badge" style="background: #F36F8F;">Unfocused</span>
+                    <h3 class="projects-masonry__title"> <a href="#">Zakat is currently donated for various purposes with NO Specific Focus</a></h3>
+                    <p>How can we then make a Big Impact in the lives of poor Muslims? </p>
 
-        //Add Country cell.
-        cell = $(row.insertCell(-1));
-        cell.html(txtCountry.val());
+                </div>
+            </div>
+        </div>
 
-        //Add Button cell.
-        cell = $(row.insertCell(-1));
-        var btnRemove = $("<input />");
-        btnRemove.attr("type", "button");
-        btnRemove.attr("onclick", "Remove(this);");
-        btnRemove.val("Remove");
-        cell.append(btnRemove);
+    </div>
 
-        //Clear the TextBoxes.
-        txtName.val("");
-        txtCountry.val("");
-    });
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 class="display-4">Muslims in Bengal spend over ₹1500 Crores annually on religious expenses. Estimated Values are like this. </h1>
+    </div>
 
-    function Remove(button) {
-        //Determine the reference of the Row using the Button.
-        var row = $(button).closest("TR");
-        var name = $("TD", row).eq(0).html();
-        if (confirm("Do you want to delete: " + name)) {
-            //Get the reference of the Table.
-            var table = $("#tblCustomers")[0];
+    
+        
+    <div class="row offset-30">
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #546e7a;">
+                      <i class="fas fa-hand-holding-heart"></i>
+                    Zakat
+                </div>
 
-            //Delete the Table row using it's Index.
-            table.deleteRow(row[0].rowIndex);
-        }
-    };
+                <div class="card-content">
+                    <h3 class="card-title">₹675 Crore +</h3>
+                    <p class="card-text">
+                        No of Families giving Zakat = 6 lakh + (estimated) <br> 
+                        Amount of Nisab = 4.5 Lakh (85gm Gold Value /613 gm Silver)<br>
+                        Zakat per family = 4.5 lakh x 2.5 % = Rs.11,250
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #8d6e63;">
+                    <i class="fas fa-donate"></i>
+                    Sadqa
+                </div>
 
-    $("body").on("click", "#btnSave", function () {
-        //Loop through the Table rows and build a JSON array.
-        var customers = new Array();
-        $("#tblCustomers TBODY TR").each(function () {
-            var row = $(this);
-            var customer = {};
-            customer.Name = row.find("TD").eq(0).html();
-            customer.Country = row.find("TD").eq(1).html();
-            customers.push(customer);
-        });
-       var data=JSON.stringify(customers);
-        //Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-            url: "?handler=InsertCustomers",
-            data:JSON.stringify(customers),
-            contentType: "application/json; charset=utf-8",
+                <div class="card-content">
+                    <h3 class="card-title">₹100 Crore +</h3>
+                    <p class="card-text">
+                        Assume
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #7b615c;">
+                     <i class="fas fa-cow"></i>
+                    Qurbani
+                </div>
 
-            success: function (r) {
-                alert(r + " record(s) inserted.");
-            }
-        });
-    });
-</script>
+                <div class="card-content">
+                    <h3 class="card-title">₹500 Crore +</h3>
+                    <p class="card-text">
+                        No. of Families: 2 lakh (assumed) <br />
+                        Average Cost of Each Animal - Rs.25,000 (assume)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #927b6f;">
+                    <i class="fas fa-kaaba"></i>
+                    Haj
+                </div>
+
+                <div class="card-content">
+                    <h3 class="card-title">₹248 Crore +</h3>
+                    <p class="card-text">
+                        No. of Hajis: 6300 (approx) <br />
+                        Expenses for Each Hajis = Rs.4 lakh 20 thousand (approx)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #92857a;">
+                     <i class="fas fa-mosque"></i>
+                    Jalsa
+                </div>
+
+                <div class="card-content">
+                    <h3 class="card-title">₹10-12 Crore +</h3>
+                    <p class="card-text">
+                        Assume
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background: #92796b;">
+                     <i class="fas fa-money-bill-wave"></i>
+                    Interest
+                </div>
+
+                <div class="card-content">
+                    <h3 class="card-title">₹1 Crore +</h3>
+                    <p class="card-text">
+                        Assume
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section end-->
+<!-- donors start-->
+<section class="section donors no-padding-top">
+    <div class="container">
+        <div class="row margin-bottom">
+            <div class="col-12">
+                <div class="heading heading--primary heading--center">
+                    <span class="heading__pre-title">Our Charity Partners</span>
+                    <h2 class="heading__title no-margin-bottom"><span>Who Help</span> <span>Us</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- donors slider start-->
+                <div class="slider-holder">
+                    <div class="donors-slider donors-slider--style-1">
+                        @foreach (var item in Model.sponsors)
+                        {
+                            <div class="donors-slider__item">
+                                <div class="donors-slider__img"><img src="@item.ImageUrl" alt="@item.Title" /></div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <!-- donors slider end-->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- donors end-->
+<!-- text section start-->
+<section class="section text-section text-section--style-2">
+    <img class="text-section__bg-left" src="img/text-section_left.png" alt="img" /><img class="text-section__bg-right" src="img/text-section_right.png" alt="img" />
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-section__heading">Thank You</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-4 col-xl-7 offset-xl-4">
+                <h3 class="text-section__title">To all our donors, <br />partners and volunteers</h3>
+                @*	<p>Sharksucker sea toad candiru rocket danio tilefish stingray deepwater stingray Sacramento splittail, Canthigaster rostrata. Midshipman dartfish Modoc sucker, yellowtail kingfish</p>*@
+            </div>
+        </div>
+    </div>
+</section>
+<!-- text section end-->

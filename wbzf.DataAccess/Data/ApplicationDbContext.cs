@@ -35,7 +35,6 @@ namespace wbzf.DataAccess.Data
         public DbSet<MembersforHome> membersforHome { get; set; }
         public DbSet<contactform> contactforms { get; set; }
         public DbSet<Sponsor> sponsors { get; set; }
-
-
+        public DbSet<Report> reports { get; set; }
     }
 }

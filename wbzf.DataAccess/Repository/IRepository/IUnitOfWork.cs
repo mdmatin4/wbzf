@@ -28,6 +28,7 @@ namespace wbzf.DataAccess.Repository.IRepository
         IQuoteRepository quote { get; }
         IContactFormRepository contactForm { get; }
         ISponsorRepository sponsor { get; }
+        IReportRepository report { get; }
 
         void Save();
     }

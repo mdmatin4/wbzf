@@ -53,5 +53,9 @@ namespace wbzf.Utility
         public const string SC = "SC";
         public const string ST = "ST";
 
+        public const string auditReport = "Audit Report";
+        public const string annualReport = "Annual Report";
+        public const string specialReport = "Special Report";
+
     }
 }

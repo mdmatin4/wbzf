@@ -150,13 +150,11 @@
         <!-- aside dropdown end-->
         @if (pageRoute=="/Index")
         {
-            @await Component.InvokeAsync("HeaderForHome")
-            ;
+            @await Component.InvokeAsync("HeaderForHome");
         }
         else
         {
-            @await Component.InvokeAsync("HeaderForAllPage")
-            ;
+            @await Component.InvokeAsync("HeaderForAllPage");
         }
         <main class="main">
 
@@ -197,6 +195,8 @@
                                 <li class="footer-menu__item"><a class="footer-menu__link" href="@Company.url/Video-Lesson-In-Urdu">Video Lessons(Urdu)</a></li>
                                 <li class="footer-menu__item"><a class="footer-menu__link" href="@Company.url/Zakat-In-The-Quran">Zakat in Quran</a></li>
                                 <li class="footer-menu__item"><a class="footer-menu__link" href="@Company.url/Zakat-In-The-Hadith">Zakat in Hadith</a></li>
+                                <li class="footer-menu__item"><a class="footer-menu__link" href="@Company.url/zakat_calculator">Zakat Calculator</a></li>
+                                <li class="footer-menu__item"><a class="footer-menu__link" href="@Company.url/zakat_chart">Zakat Chart</a></li>
 
                             </ul>
                         </nav>

@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using wbzf.DataAccess.Repository.IRepository;
 using wbzf.Model;
+using wbzf.Utility;
 
 namespace wbzf.Areas.Admin.Pages.Settings
 {
+    [Authorize(Roles = $"{SD.Admin}")]
     public class AccountModel : PageModel
     {
         private IUnitOfWork _unitofWork;

@@ -28,6 +28,19 @@ namespace wbzf.Controllers
             return Json(new { success = true, data = new { name= "onek boro"} });
         }
 
+        [HttpPost]
+        public  Task<IActionResult> Post([FromQuery]string Name)
+        {
+            _unitOfWork.profession.Add(new Model.Profession
+            {
+                Name = Name,
+                IsActive = true,
+                Created_at = DateTime.Now
+            });
+            _unitOfWork.Save();
+            return null;
+        }
+
 
 
     }

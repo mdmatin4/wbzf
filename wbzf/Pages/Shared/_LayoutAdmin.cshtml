@@ -154,13 +154,13 @@ background-color:white;
                     <div class="user-details">
                         <div class="overlay"></div>
                         <div class="text-center">
-                            @if (UserManager.GetUserAsync(User).Result.ImageUrl != null)
+                            @if (appUser.ImageUrl != null)
                             {
-                                <img class="thumb-md img-circle" src="@UserManager.GetUserAsync(User).Result.ImageUrl">
+                                <img class="thumb-md img-circle" src="@appUser.ImageUrl">
                             }
                             else
                             {
-                                <img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                                <img src="~/assets/images/users/avatar.jpg" alt="" class="thumb-md img-circle">
                             }
 
                         </div>
@@ -301,6 +301,14 @@ background-color:white;
                                     </ul>
                                 </li>
                                 <li class="has_sub">
+                                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-chart-gantt"></i><span> Reports </span><span class="menu-arrow"></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a asp-page="/Report/Create">Add New</a></li>
+                                        <li><a asp-page="/Report/Index">All Report</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has_sub">
                                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-image-multiple"></i><span> Gallery </span><span class="menu-arrow"></span></a>
                                     <ul class="list-unstyled">
                                         <li><a asp-page="/Gallery/Create">Add New Item</a></li>
@@ -338,7 +346,7 @@ background-color:white;
                                         <li><a asp-area="Admin" asp-page="/Settings/Professions" class="waves-effect">Professions</a></li>
                                         <li><a asp-area="Admin" asp-page="/Settings/Purpose" class="waves-effect">Purposes</a></li>
                                         <li><a asp-area="Admin" asp-page="/Settings/PaymentGateway" class="waves-effect">Payment Gateways</a></li>
-                                        <li><a asp-area="Admin" asp-page="/Settings/Account" class="waves-effect">Accounts</a></li>
+                                        <li><a asp-area="Admin" asp-page="/Settings/Account" class="waves-effect">Accounts/Funds</a></li>
                                         <li><a asp-area="Admin" asp-page="/Settings/AccountPaymentGatewaySetup" class="waves-effect">Accounts Payment Gateway Setup</a></li>
                                         @*<li><a asp-area="Admin" asp-page="/State/Index" class="waves-effect">State Register</a></li>
                                             <li><a asp-area="Admin" asp-page="/Session/Index" class="waves-effect">Session Setup</a></li>

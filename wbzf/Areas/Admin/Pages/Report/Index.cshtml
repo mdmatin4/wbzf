@@ -1,8 +1,10 @@
 ﻿@page
-@model wbzf.Areas.Admin.Pages.Schemes.IndexModel
-
+@model wbzf.Areas.Admin.Pages.Report.IndexModel
 @{
-    ViewData["Title"] = "All Schemes";
+
+    ViewData["Title"] = "Report";
+
+
 }
 <div class="row">
     <div class="col-xs-12">
@@ -29,11 +31,9 @@
             <div class="demo-box m-t-20">
                 <div class="col-6 text-end p-b-10">
                     <a asp-page="create" class="btn btn-primary">
-                        <i class="fa fa-plus-square"></i> &nbsp;Create New Scheme
+                        <i class="fa fa-plus-square"></i> &nbsp;Create New @ViewData["Title"]
                     </a>
                 </div>
-                <div class="row">
-                    <partial name="_LayoutTable" />
 
                 <form method="post">
                     <div class="table-responsive">
@@ -41,42 +41,42 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Scheme Name
+                                        Title
                                     </th>
                                     <th>
-                                        Purpose
+                                        Description
                                     </th>
                                     <th>
-                                        Form Url
+                                       Preview
+                                    </th>
+                                    <th>
+                                       Report Type
+                                    </th>
+                                    <th>
+                                        Display Order
                                     </th>
                                     <th> Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var obj in Model.Schemes)
+                                @foreach (var obj in Model.reports)
                                 {
                                     <tr>
-                                        <td scope="row">@obj.Name</td>
-                                        <td>@obj.Purpose.Name</td>
-                                        <td>@obj.Form_Url</td>
+                                        <td width="15%" scope="row">@obj.Name</td>
+                                        <td width="18%" scope="row">@obj.description</td>
+                                        <td>
+                                            <a href="@obj.fileUrl">View the Report</a>
+                                        </td>
+                                        <td width="10%" scope="row">@obj.reportType</td>
+                                        <td width="10%" scope="row">@obj.displayOrder</td>
                                         <td>
                                             <div class="w-75 btn-group" role="group">
                                                 <a asp-page="Create" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                                    <i class="fa fa-pencil-square"></i> Edit
+                                                    <i class="fa fa-pencil-square"></i>
                                                 </a>
-                                                @if (obj.IsActive==true)
-                                                {
-                                                    <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
-                                                        <i class="fa fa-trash-o"></i> Disable
-                                                    </button>
-                                                }
-                                                else
-                                                {
-                                                    <button type="submit" class="btn btn-success p-2" asp-page-handler="Active" asp-route-id="@obj.Id" onclick="return confirm('Are you sure to revive this scheme?')">
-                                                        <i class="fa fa-recycle"></i> Enable
-                                                    </button>
-                                                }
-
+                                                <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </button>
 
                                             </div>
                                         </td>
@@ -86,17 +86,9 @@
                         </table>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts {
 
-    <script src="~/js/schemeList.js" asp-append-version="true"></script>
-    
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace wbzf.Areas.Admin.Pages
 {
@@ -15,27 +16,31 @@ namespace wbzf.Areas.Admin.Pages
         public bool showData { get; set; }
         private readonly IUnitOfWork _unitOfWork;
         public int total_wbcs_applicant,total_wbjs_applicant;
-
+        public donation donation;
+        public IEnumerable<Account> Funds { get; set; }
+        public IEnumerable<SelectListItem> purposes { get; set; }
         public DashboardModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public async Task<IActionResult> OnGetAsync()
         {
+            if (User.IsInRole(SD.Donor))
+            {
+                purposes=_unitOfWork.purpose.GetAll(u => u.IsActive, orderby: u => u.OrderBy(u => u.Order)).Select(u => new SelectListItem
+                {
+                    Text= u.Name,
+                    Value=u.Id.ToString(),
+                    Selected=u.IsDefault
+                }) ;
+                Funds=_unitOfWork.account.GetAll(u => u.isvisibletoPublic==true && u.is_deleted!=true);
+            }
             
-            if (User.IsInRole(SD.Admin)||User.IsInRole(SD.Manager))
-            {
-                showData= true;
-                var applications = _unitOfWork.coachingApplication.GetAll();
-                total_wbcs_applicant=applications.Where(u => u.exam_name==SD.WBCS).Count();
-                total_wbjs_applicant=applications.Where(u => u.exam_name==SD.WBJS).Count();
-            }
-            else
-            {
-                showData= false;
-            }
             
             return Page();
         }
+
+ 
+    
     }
 }

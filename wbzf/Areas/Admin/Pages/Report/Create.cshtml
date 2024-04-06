@@ -1,0 +1,133 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.Report.CreateModel
+@{
+
+    if (Model.report.Id==0)
+    {
+        ViewData["Title"] = "Create New Report";
+    }
+    else
+    {
+        ViewData["Title"] = "Update Report";
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li>
+                    <a asp-page="/Report/Index">Report</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<form method="post" enctype="multipart/form-data">
+    <input asp-for=report.Id hidden />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-color panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> @ViewData["Title"]</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <span style="color: red" asp-validation-summary="All"> </span>
+                        <div class="col-12">
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Type of Report</label>
+                                <div class="col-md-10">
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" asp-for="report.reportType" value="@SD.annualReport" required="">
+                                        <label asp-for="report.reportType">
+                                            @SD.annualReport
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-danger radio-inline">
+                                        <input type="radio" asp-for=report.reportType value="@SD.auditReport">
+                                        <label asp-for=report.reportType>
+                                            @SD.auditReport
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-success radio-inline">
+                                        <input type="radio" asp-for=report.reportType value="@SD.specialReport">
+                                        <label asp-for=report.reportType>
+                                            @SD.specialReport
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="report.reportType" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="report.Name" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="report.Name" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="report.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label asp-for="report.description" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="report.description" class="form-control" autocomplete="off" />
+
+                                    <span asp-validation-for="report.description" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="report.displayOrder" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="report.displayOrder" class="form-control" autocomplete="off" />
+                                    <span asp-validation-for="report.displayOrder" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label asp-for=report.fileUrl class="col-sm-2 col-form-label">Upload Report preferebly in PDF format </label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="files" id="uploadimage" />
+
+                                </div>
+                                <span asp-validation-for="report.fileUrl" class="text-danger"></span>
+                            </div>
+
+
+                        </div>
+                        <div class="btn-group m-b-10 pull-right">
+                            @*  <button type="submit" class="btn btn-warning btn-group-lg waves-effect waves-light" asp-page-handler="Preview">Preview</button>*@
+                            <button type="submit" class="btn btn-info btn-group-lg waves-effect waves-light" asp-page-hadnler="Save">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+
+

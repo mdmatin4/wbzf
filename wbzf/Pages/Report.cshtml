@@ -1,4 +1,5 @@
 ﻿@page
+@using wbzf.Utility;
 @model wbzf.Pages.ReportModel
 @{
     ViewData["Title"]="Report";
@@ -22,3 +23,60 @@
         </div>
     </div>
 </section>
+
+<section class="section  storie-details">
+    <div class="container">
+        <h4 class="storie-details__title">@SD.annualReport</h4>
+        <div class="row">
+            @foreach (var item in Model.Reports.Where(u => u.reportType==SD.annualReport))
+            {
+                <div class="col-3">
+                    <a class="btn btn-secondary" href="@item.fileUrl"> @item.Name  <i class="fa fa-download"></i></a>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+</section>
+<section class="section  storie-details">
+    <div class="container">
+        <h4 class="storie-details__title">@SD.auditReport</h4>
+        
+        <div class="row">
+            @foreach (var item in Model.Reports.Where(u => u.reportType==SD.auditReport))
+            {
+                <div class="col-3">
+                    <a class="btn btn-dark" href="@item.fileUrl"> @item.Name  <i class="fa fa-download"></i></a>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+</section>
+<section class="section  storie-details">
+    <div class="container">
+        <h4 class="storie-details__title">@SD.specialReport</h4>
+        <div class="row">
+            @foreach (var item in Model.Reports.Where(u => u.reportType==SD.specialReport))
+            {
+                <div class="col-3">
+                    <a class="btn btn-info" href="@item.fileUrl">@item.Name  <i class="fa fa-download"></i></a>
+                </div>
+            }
+
+
+        </div>
+
+    </div>
+</section>
+
+<style>
+    a {
+        text-decoration: none;
+    }
+</style>
+

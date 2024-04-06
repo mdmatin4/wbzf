@@ -12,5 +12,7 @@ namespace wbzf.DataAccess.Repository.IRepository
         void update(Purpose entity);
         void Deactive (Purpose entity);
         void Activate(Purpose entity);
+        void updatestatus(int id);
+
     }
 }

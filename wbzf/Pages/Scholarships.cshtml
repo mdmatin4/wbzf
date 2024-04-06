@@ -1,0 +1,268 @@
+﻿@page
+@model wbzf.Pages.ScholarshipsModel
+@using wbzf.DataAccess.Repository.IRepository
+@inject IUnitOfWork Iunitofwork
+@{
+    ViewData["Title"] = "Scholarship";
+    var Company = Iunitofwork.company.GetCompany();
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/donation.css" asp-append-version="true" />
+    <style>
+        input[type="radio"] {
+            /* Make the default radio button invisible but still clickable */
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+            /* Create a custom radio button */
+            input[type="radio"] + label:before {
+                content: "";
+                position: relative;
+                display: inline-block;
+                margin-right: 10px;
+                width: 20px;
+                height: 20px;
+                border: 1.5px solid #000;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+
+            /* Create the indicator for the selected radio button */
+            input[type="radio"]:checked + label:after {
+                content: "";
+                position: relative;
+                display: inline-block;
+                left: 6px;
+                bottom: 11px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: #000;
+            }
+
+    </style>
+}
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+    @*  <div class="promo-primary__description"> <span>Scholarship</span></div> *@
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">@Company.company_short_name</span>
+                        <h1 class="promo-primary__title"><span>Apply</span> <span>for Scholarship</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section start-->
+<section class="section" style="padding-bottom:0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-xl-12">
+                <div class="heading heading--primary">
+                    <span class="heading__pre-title">Our Scholarship Programs</span>
+                    <h2 class="heading__title"><span>WBZF</span> <span>Scholarship</span></h2>
+                </div>
+                <p>At WBZF, we believe that access to education and healthcare is a fundamental right, not a privilege. Our scholarship programs are designed to support the underserved and needy individuals who are determined to make a positive change in their lives and communities.</p>
+                <p>Education is the cornerstone of personal and societal growth. Our educational scholarships aim to provide financial assistance to students from low-income families who exhibit academic excellence and a strong desire to pursue higher education. We offer scholarships for various levels of education.</p>
+                <p>Health should never be compromised due to financial constraints. Our healthcare scholarships provide aid to individuals requiring medical attention, treatments, or surgeries that they cannot afford.</p>
+                <p>May Allah guide us all in the right path and always shower his blessings.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xl-12">
+                <div class="heading heading--primary" id="formheading">
+
+                    <h2 class="heading__title"><span>Complete</span> <span>the Form</span></h2>
+                    <span class="heading__pre-title">Fill Form for Scholarship</span>
+                </div>
+                <form class="form user-form" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.Full_Name placeholder="Full Name" />
+                                <span class="text-danger" asp-validation-for=InputModel.Full_Name></span>
+                            </div>
+                            <div class="form-group">
+                                <select asp-for="InputModel.Gender" class="form__field">
+                                    <option class="option" selected disabled>---Select Gender---</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select asp-for="InputModel.Profession" asp-items="Model.professionList" class="form__field">
+                                    <option disabled selected>--Please Select Your Occupation--</option>
+                                </select>
+                                <span asp-validation-for="InputModel.Profession" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.Vill placeholder="Village Name" />
+                                <span class="text-danger" asp-validation-for=InputModel.Vill></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.PostOffice placeholder="Post Office" />
+                                <span class="text-danger" asp-validation-for=InputModel.PostOffice></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.District placeholder="District" />
+                                <span class="text-danger" asp-validation-for=InputModel.District></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.PIN placeholder="Pin Code" />
+                                <span class="text-danger" asp-validation-for=InputModel.PIN></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.State placeholder="State Name" />
+                                <span class="text-danger" asp-validation-for=InputModel.State></span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                           
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <input type="radio" id="fatherRadio" name="parentDetails" value="1" onclick="showDetails(this.value)">
+                                        <label>Father's Details</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="radio">
+                                        <input type="radio" id="motherRadio" name="parentDetails" value="2" onclick="showDetails(this.value)">
+                                        <label>Mother's Details</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="mother_details">
+
+                                <div class="form-group">
+                                    <input class="form__field" asp-for=InputModel.guardianName placeholder="Mother Name" />
+                                    <span class="text-danger" asp-validation-for=InputModel.guardianName></span>
+                                </div>
+                                <div class="form-group">
+                                    <select asp-for="InputModel.Occupation" asp-items="Model.professionList" class="form__field">
+                                        <option disabled selected>--Please Select Mother Occupation--</option>
+                                    </select>
+                                    <span asp-validation-for="InputModel.Occupation" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div id="father_details">
+
+                                <div class="form-group">
+                                    <input class="form__field" asp-for=InputModel.guardianName placeholder="Father Name" />
+                                    <span class="text-danger" asp-validation-for=InputModel.guardianName></span>
+                                </div>
+                                <div class="form-group">
+                                    <select asp-for="InputModel.Occupation" asp-items="Model.professionList" class="form__field">
+                                        <option disabled selected>--Please Select Father Occupation--</option>
+                                    </select>
+                                    <span asp-validation-for="InputModel.Occupation" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" type="number" min="0" asp-for=InputModel.familyIncome placeholder="Family Monthly Income" />
+                                <span class="text-danger" asp-validation-for=InputModel.familyIncome></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form__field" type="number" min="10" max="10" asp-for=InputModel.PhoneNumber placeholder="Mobile Number" />
+                                <span class="text-danger" asp-validation-for=InputModel.PhoneNumber></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.Email placeholder="E-mail" />
+                                <span class="text-danger" asp-validation-for=InputModel.Email></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.Password placeholder="Password" />
+                                <span class="text-danger" asp-validation-for=InputModel.Password></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form__field" asp-for=InputModel.ConfirmPassword placeholder="Re-type Password" />
+                                <span class="text-danger" asp-validation-for=InputModel.ConfirmPassword></span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-danger">@TempData["warning"]</span>
+                    @*<button class="form__submit">Pay ₹<span id=lblpayingamount>0</span></button>*@
+
+                    <button class="form__submit d-block mx-auto">Register for Scholarship</button>
+                    <div class="d-flex justify-content-center p-30 mx-auto">
+
+                        <p>Already registered?  </p>
+
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            Click Here to Login
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- section end-->
+<!-- Modal popup -->
+<div class="modal fade" id="eventModal1" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: justify;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script>
+        window.onload = function () {
+            document.getElementById('father_details').style.display = 'none';
+            document.getElementById('mother_details').style.display = 'none';
+        }
+        function showDetails(value) {
+            if (value == '1') {
+                document.getElementById('father_details').style.display = 'block';
+                document.getElementById('mother_details').style.display = 'none';
+            } else if (value == '2') {
+                document.getElementById('mother_details').style.display = 'block';
+                document.getElementById('father_details').style.display = 'none';
+            }
+        }
+    </script>
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

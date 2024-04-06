@@ -32,7 +32,7 @@ namespace wbzf.Areas.Admin.Pages.Settings
         {
             if (profession.Id==0)
             {
-                profession.Created_at = DateTime.Now;
+                profession.Created_at = DateTime.UtcNow.AddHours(5).AddMinutes(30);
                 profession.IsActive = true;
 
                 _unitofWork.profession.Add(profession);

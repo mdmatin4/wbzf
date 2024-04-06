@@ -11,13 +11,14 @@ namespace wbzf.Areas.Admin.Pages.Settings
         [BindProperty]
         public Purpose purpose { get; set; }
         public IEnumerable<Purpose> PurposeList { get; set; }
+        public int purposeID { get; set; }
         public PurposeModel(IUnitOfWork unitOfWork)
         {
-            purpose=new()
+            purpose = new()
             {
                 IsActive = true,
             };
-            _unitofWork=unitOfWork;
+            _unitofWork = unitOfWork;
         }
         public void OnGet(int? id)
         {
@@ -25,17 +26,20 @@ namespace wbzf.Areas.Admin.Pages.Settings
             {
                 purpose = _unitofWork.purpose.GetFirstOrDefault(u => u.Id == id);
             }
-            PurposeList= _unitofWork.purpose.GetAll(u=>u.IsActive!=false, orderby: u=>u.OrderBy(m=>m.Order));
+            PurposeList = _unitofWork.purpose.GetAll(u => u.IsActive != false, orderby: u => u.OrderBy(m => m.Order));
         }
 
         public IActionResult OnPost()
         {
-            if (purpose.Id==0)
+            if (purpose.Id == 0)
             {
                 purpose.Created_at = DateTime.Now;
                 purpose.IsActive = true;
 
                 _unitofWork.purpose.Add(purpose);
+                _unitofWork.Save();
+                purposeID = purpose.Id;
+                _unitofWork.purpose.updatestatus(purposeID);
                 _unitofWork.Save();
                 TempData["success"] = "This Purpose added successfully";
 
@@ -43,6 +47,8 @@ namespace wbzf.Areas.Admin.Pages.Settings
             else
             {
                 _unitofWork.purpose.update(purpose);
+                purposeID = purpose.Id;
+                _unitofWork.purpose.updatestatus(purposeID);
                 _unitofWork.Save();
                 TempData["success"] = "This Purpose updated successfully";
             }

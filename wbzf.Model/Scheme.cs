@@ -27,5 +27,7 @@ namespace wbzf.Model
 
         public DateTime Created_at { get; set; }
         public DateTime? updated_at { get; set; }
+        public string? Image_Url { get; set; }
+
     }
 }

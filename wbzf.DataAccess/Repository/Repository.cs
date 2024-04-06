@@ -31,7 +31,7 @@ namespace wbzf.DataAccess.Repository
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, string? includeProperties = null,int pageNumber = 0, int pageSize = 0)
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, Expression<Func<T, object>>? distinctByExpr = null, string? includeProperties = null, int pageNumber = 0, int pageSize = 0)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -46,6 +46,18 @@ namespace wbzf.DataAccess.Repository
                 {
                     query = query.Include(includeProperty);
                 }
+            }
+            //if (orderby != null)
+            //{
+            //    query= orderby(query);
+            //}
+            if (distinctByExpr != null)
+            {
+                query = query.GroupBy(distinctByExpr).Select(g => g.First());
+            }
+            if (orderby != null)
+            {
+                query = orderby(query);
             }
             if (pageNumber > 0 && pageSize > 0)
             {
@@ -55,14 +67,11 @@ namespace wbzf.DataAccess.Repository
                 query = query.Skip(itemsToSkip)
                              .Take(pageSize);
             }
-            if (orderby != null)
-            {
-                return orderby(query).ToList();
-            }
+
             return query.ToList();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -77,6 +86,10 @@ namespace wbzf.DataAccess.Repository
                 {
                     query = query.Include(includeProperty);
                 }
+            }
+            if (orderby != null)
+            {
+                query = orderby(query);
             }
             return query.FirstOrDefault();
         }
@@ -90,5 +103,34 @@ namespace wbzf.DataAccess.Repository
         {
             dbSet.RemoveRange(entity);
         }
+
+
+        public async Task<int> GetCountAsync(Expression<Func<T, bool>>? filter = null, Expression<Func<T, object>>? distinctByExpr = null, string? includeProperties = null)
+        {
+            IQueryable<T> query = dbSet;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                //abc,,xyz -> abc xyz
+                foreach (var includeProperty in includeProperties.Split(
+                    new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+            if (distinctByExpr != null)
+            {
+                query = query.GroupBy(distinctByExpr).Select(g => g.First());
+
+                //var list = query.ToListAsync();
+                //return list.Result.Count();
+            }
+            return await query.CountAsync();
+
+        }
+
     }
 }

@@ -78,7 +78,12 @@
 
                             <ul class="aside-menu__sub-list">
                                 <li>
-                                    <a href="@Company.url/Scholarship">Scholarship</a>
+                                    @foreach (var obj in @Iunitofwork.purpose.GetAll(orderby: u => u.OrderBy(c => c.Order)))
+                                    {
+                                <a asp-page="/allcourse" asp-route-category_id="@obj.Id">@obj.Name</a>
+                                    }
+                        </li>
+                                    
                                 </li>
 
                             </ul>

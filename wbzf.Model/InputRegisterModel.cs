@@ -59,7 +59,7 @@ namespace wbzf.Model
         [ValidateNever]
         [ForeignKey("ProfessionId")]
         public virtual Profession Profession { get; set; }
-        public int? familyIncome { get; set; }
+        public double? familyIncome { get; set; }
         public string? parentType { get; set; }
         public string? guardianName { get; set; }
         public int? guardianOccupationId { get; set; }

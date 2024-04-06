@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using wbzf.DataAccess.Repository.IRepository;
@@ -19,38 +20,38 @@ namespace wbzf.Areas.Admin.Pages.Schemes
             _unitOfWork= unitOfWork;
         }
 
-        public async Task<IActionResult> OnPostDelete(int id)
-        {
-            var scheme = _unitOfWork.scheme.GetFirstOrDefault(u => u.Id==id);
-            if (scheme == null)
-            {
-                return NotFound();
-
-            }
-
-            _unitOfWork.scheme.Deactive(scheme);
-            _unitOfWork.Save();
-
-            return RedirectToPage();
-        }
-        public async Task<IActionResult> OnPostActive(int id)
-        {
-            var scheme = _unitOfWork.scheme.GetFirstOrDefault(u => u.Id==id);
-            if (scheme == null)
-            {
-                return NotFound();
-
-            }
-
-            _unitOfWork.scheme.Activate(scheme);
-            _unitOfWork.Save();
-
-            return RedirectToPage();
-        }
+     
         public void OnGet()
         {
-            Schemes = _unitOfWork.scheme.GetAll(includeProperties: "Purpose", orderby: u => u.OrderByDescending(c => c.Created_at));
+           // Schemes = _unitOfWork.scheme.GetAll(includeProperties: "Purpose", orderby: u => u.OrderByDescending(c => c.Created_at));
         }
+
+        public IActionResult OnPostTablePopup(int pageIndex = 1, int pageSize = 10, string? sortColumn = null, string? sortDirection = null, string searchTerm = "")
+        {
+
+            // Invoke component
+            var component = ViewComponent("SchemeList", new { _unitOfWork, pageIndex, pageSize, sortColumn, sortDirection, searchTerm });
+            return component;
+
+        }
+
+        public async Task<IActionResult> OnPostBan(int id)
+        {
+            _unitOfWork.scheme.Deactive(id);
+            _unitOfWork.Save();
+            TempData["success"] = "This Scheme has been deleted successfully";
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostUnban(int id)
+        {
+            _unitOfWork.scheme.Activate(id);
+            _unitOfWork.Save();
+            TempData["success"] = "This Scheme has been revibed successfully";
+            return RedirectToPage();
+        }
+
+
+
     }
 
 }

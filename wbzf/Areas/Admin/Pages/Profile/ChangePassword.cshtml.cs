@@ -113,7 +113,7 @@ namespace wbzf.Areas.Admin.Pages.Profile
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+             TempData["success"] = "Your password has been changed.";
 
             return RedirectToPage();
         }

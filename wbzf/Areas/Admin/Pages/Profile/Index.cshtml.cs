@@ -196,13 +196,13 @@ namespace wbzf.Areas.Admin.Pages.Profile
                 var setFullname = await _userManager.UpdateAsync(user);
                 if (!setFullname.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to update the profile details.";
+                    TempData["delete"] = "Unexpected error when trying to update the profile details.";
                     return RedirectToPage();
                 }
             }
             
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            TempData["success"] = "Your profile has been updated";
             return RedirectToPage();
         }
     }

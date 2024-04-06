@@ -44,26 +44,30 @@ namespace wbzf.DataAccess.Repository
                 {
                     objFromDb.Form_Url=scheme.Form_Url;
                 }
-                objFromDb.updated_at=DateTime.Now;
+               if (scheme.Image_Url!=null)
+                {
+                    objFromDb.Image_Url=scheme.Image_Url;
+                }
+                objFromDb.updated_at = DateTime.UtcNow.AddHours(5).AddMinutes(30);
             }
 
         }
-        public void Deactive(Scheme scheme)
+        public void Deactive(int id)
         {
-            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==scheme.Id);
+            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==id);
             if (objFromDb!=null)
             {
                 objFromDb.IsActive=false;
-                objFromDb.updated_at=DateTime.Now;
+                objFromDb.updated_at= DateTime.UtcNow.AddHours(5).AddMinutes(30);
             }
         }
-        public void Activate(Scheme scheme)
+        public void Activate(int id)
         {
-            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==scheme.Id);
+            var objFromDb = _db.Schemes.FirstOrDefault(u => u.Id==id);
             if (objFromDb!=null)
             {
                 objFromDb.IsActive=true;
-                objFromDb.updated_at=DateTime.Now;
+                objFromDb.updated_at = DateTime.UtcNow.AddHours(5).AddMinutes(30);
             }
         }
 

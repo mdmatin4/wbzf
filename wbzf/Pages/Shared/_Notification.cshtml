@@ -1,16 +1,103 @@
-﻿@if (TempData["success"] != null)
+﻿@*--------------SweetAlert---------------------*@
+<style>
+    .sweet-alert .icon.info {
+        border-color: #f5707a;
+    }
+
+        .sweet-alert .icon.info::before {
+            background-color: #f5707a;
+        }
+
+        .sweet-alert .icon.info::after {
+            background-color: #f5707a;
+        }
+</style>
+
+<!-- Loading Icon -->
+<div id="loadingIcon" style="display: none">
+    <!-- You can use an animated GIF or an SVG icon here -->
+    <img style="height: 50px; width: 50px;" src="~/images/ajax-loader.gif" alt="Loading..." />
+</div>
+
+<script>
+    function showLoadingIcon(xhr) {
+        // Show the loading icon when the AJAX call begins
+        $('#loadingIcon').show();
+    }
+
+    function hideLoadingIcon(xhr, status) {
+        // Hide the loading icon when the AJAX call is completed (success or error)
+        $('#loadingIcon').hide();
+    }
+</script>
+
+@if (TempData["success"] != null || TempData["delete"] != null || TempData["warning"] != null || TempData["info"] != null)
 {
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<script type="text/javascript">
-		toastr.success('@TempData["success"]');
-	</script>
-}
-@if (TempData["error"] != null)
-{
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<script type="text/javascript">
-		toastr.error('@TempData["error"]');
-	</script>
+
+    <script>
+        !function ($) {
+            "use strict";
+
+            var SweetAlert = function () {
+            };
+
+            //examples
+            SweetAlert.prototype.init = function () {
+                window.onload = function () {
+
+                    var success = '@TempData["success"]';
+                    var dell = '@TempData["delete"]';
+                    var warning = '@TempData["warning"]';
+                    var info = '@TempData["info"]';
+
+                    if (warning !== '') {
+                        swal({
+                            title: "Warning!",
+                            text: warning,
+
+                            type: "warning"
+                        });
+                    }
+                    if (success !== '') {
+                        swal({
+                            title: "Good Job!",
+                            text: success,
+                            timer: 2000,
+                            type: "success"
+                        });
+                    }
+                    if (info !== '') {
+                        swal({
+                            title: "Good Job!",
+                            text: info,
+
+                            type: "success"
+                        });
+                    }
+
+                    if (dell !== '') {
+                        swal({
+                            title: "Deleted!",
+                            text: dell,
+                            timer: 2000,
+                            type: "info",
+                            confirmButtonClass: 'btn-danger'
+                        });
+                    }
+
+                };
+
+
+            },
+                //init
+                $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+        }(window.jQuery),
+
+            //initializing
+            function ($) {
+                "use strict";
+                $.SweetAlert.init()
+            }(window.jQuery);
+
+    </script>
 }

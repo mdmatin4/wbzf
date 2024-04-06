@@ -48,5 +48,15 @@ namespace wbzf.DataAccess.Repository
                 objFromDb.Updated_at=DateTime.Now;
             }
         }
+        public void updatestatus(int id)
+        {
+            var allPurposes = _db.purposes.ToList();
+            foreach (var session in allPurposes)
+            {
+                session.IsDefault = false;
+            }
+            allPurposes.FirstOrDefault(u => u.Id == id).IsDefault = true;
+
+        }
     }
 }

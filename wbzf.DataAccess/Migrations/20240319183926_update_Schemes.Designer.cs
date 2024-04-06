@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using wbzf.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using wbzf.DataAccess.Data;
 namespace wbzf.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319183926_update_Schemes")]
+    partial class update_Schemes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,7 +270,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("wbzf.Model.AccountGatewaySetup", b =>
@@ -303,7 +305,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("PaymentGatewayId");
 
-                    b.ToTable("accountGatewaySetups", (string)null);
+                    b.ToTable("accountGatewaySetups");
                 });
 
             modelBuilder.Entity("wbzf.Model.coachingForm", b =>
@@ -491,7 +493,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("coachingForms", (string)null);
+                    b.ToTable("coachingForms");
                 });
 
             modelBuilder.Entity("wbzf.Model.contactform", b =>
@@ -529,7 +531,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("contactforms", (string)null);
+                    b.ToTable("contactforms");
                 });
 
             modelBuilder.Entity("wbzf.Model.donation", b =>
@@ -551,11 +553,11 @@ namespace wbzf.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("accountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("amount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("completed_at")
                         .HasColumnType("datetime2");
@@ -563,53 +565,32 @@ namespace wbzf.DataAccess.Migrations
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("donated_amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("message")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("paymentGatewayId")
-                        .HasColumnType("int");
 
                     b.Property<string>("payment_gateway_orderid")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("purposeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("received_amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("payment_status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("transaction_id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("transaction_fees")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("transaction_id")
+                    b.Property<string>("type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("updated_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("userId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("accountId");
-
-                    b.HasIndex("paymentGatewayId");
-
-                    b.HasIndex("purposeId");
-
-                    b.HasIndex("userId");
-
-                    b.ToTable("donations", (string)null);
+                    b.ToTable("donations");
                 });
 
             modelBuilder.Entity("wbzf.Model.gallery", b =>
@@ -653,7 +634,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("gallery", (string)null);
+                    b.ToTable("gallery");
                 });
 
             modelBuilder.Entity("wbzf.Model.galleryCategory", b =>
@@ -679,7 +660,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("galleryCategories", (string)null);
+                    b.ToTable("galleryCategories");
                 });
 
             modelBuilder.Entity("wbzf.Model.MembersforHome", b =>
@@ -709,7 +690,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("membersforHome", (string)null);
+                    b.ToTable("membersforHome");
                 });
 
             modelBuilder.Entity("wbzf.Model.newslink", b =>
@@ -742,7 +723,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("newslinks", (string)null);
+                    b.ToTable("newslinks");
                 });
 
             modelBuilder.Entity("wbzf.Model.PaymentGateway", b =>
@@ -777,7 +758,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentGateways", (string)null);
+                    b.ToTable("PaymentGateways");
                 });
 
             modelBuilder.Entity("wbzf.Model.Profession", b =>
@@ -806,7 +787,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("professions", (string)null);
+                    b.ToTable("professions");
                 });
 
             modelBuilder.Entity("wbzf.Model.Purpose", b =>
@@ -838,7 +819,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("purposes", (string)null);
+                    b.ToTable("purposes");
                 });
 
             modelBuilder.Entity("wbzf.Model.quote", b =>
@@ -859,44 +840,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("quotes", (string)null);
-                });
-
-            modelBuilder.Entity("wbzf.Model.Report", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("created_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("displayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<string>("fileUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("reportType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("updated_at")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("reports", (string)null);
+                    b.ToTable("quotes");
                 });
 
             modelBuilder.Entity("wbzf.Model.Scheme", b =>
@@ -948,7 +892,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("purposeId");
 
-                    b.ToTable("Schemes", (string)null);
+                    b.ToTable("Schemes");
                 });
 
             modelBuilder.Entity("wbzf.Model.ScholarshipApplication", b =>
@@ -1283,7 +1227,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("scholarshipApplications", (string)null);
+                    b.ToTable("scholarshipApplications");
                 });
 
             modelBuilder.Entity("wbzf.Model.Sponsor", b =>
@@ -1313,7 +1257,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sponsors", (string)null);
+                    b.ToTable("sponsors");
                 });
 
             modelBuilder.Entity("wbzf.Model.testimonial", b =>
@@ -1343,7 +1287,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("testimonials", (string)null);
+                    b.ToTable("testimonials");
                 });
 
             modelBuilder.Entity("wbzf.Model.Videos", b =>
@@ -1367,7 +1311,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("videos", (string)null);
+                    b.ToTable("videos");
                 });
 
             modelBuilder.Entity("wbzf.Model.ApplicationUser", b =>
@@ -1519,41 +1463,6 @@ namespace wbzf.DataAccess.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("PaymentGateway");
-                });
-
-            modelBuilder.Entity("wbzf.Model.donation", b =>
-                {
-                    b.HasOne("wbzf.Model.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("accountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wbzf.Model.PaymentGateway", "paymentGateway")
-                        .WithMany()
-                        .HasForeignKey("paymentGatewayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wbzf.Model.Purpose", "Purpose")
-                        .WithMany()
-                        .HasForeignKey("purposeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("wbzf.Model.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Purpose");
-
-                    b.Navigation("User");
-
-                    b.Navigation("paymentGateway");
                 });
 
             modelBuilder.Entity("wbzf.Model.gallery", b =>

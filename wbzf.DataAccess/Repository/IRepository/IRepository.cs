@@ -15,8 +15,11 @@ namespace wbzf.DataAccess.Repository.IRepository
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null,
-            string? includeProperties = null, int pageNumber = 0, int pageSize = 0);
-        T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
+           Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null, Expression<Func<T, object>>? distinctByExpr = null,
+           string? includeProperties = null, int pageNumber = 0, int pageSize = 0);
+        T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null);
+
+        Task<int> GetCountAsync(Expression<Func<T, bool>>? filter = null, Expression<Func<T, object>>? distinctByExpr = null, string? includeProperties = null);
+
     }
 }

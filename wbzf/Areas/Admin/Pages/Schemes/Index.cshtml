@@ -32,6 +32,8 @@
                         <i class="fa fa-plus-square"></i> &nbsp;Create New Scheme
                     </a>
                 </div>
+                <div class="row">
+                    <partial name="_LayoutTable" />
 
                 <form method="post">
                     <div class="table-responsive">
@@ -84,7 +86,17 @@
                         </table>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script src="~/js/schemeList.js" asp-append-version="true"></script>
+    
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

@@ -10,7 +10,7 @@ namespace wbzf.DataAccess.Repository.IRepository
     public interface ISchemeRepository : IRepository<Scheme>
     {
         void update(Scheme entity);
-        void Deactive(Scheme entity);
-        void Activate(Scheme entity);
+        void Deactive(int id);
+        void Activate(int id);
     }
 }

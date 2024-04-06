@@ -49,7 +49,7 @@
                         <div class="form-group">
 
                             <label asp-for="@Model.profession.Name">Profession Name <span class="text-danger">*</span></label>
-                            <input type="text" asp-for="@Model.profession.Name" class="form-control" placeholder="Enter Course Profession Name" />
+                            <input type="text" asp-for="@Model.profession.Name" class="form-control" placeholder="Enter Profession Name" />
                             <span asp-validation-for="@Model.profession.Name" class="text-danger"></span>
                         </div>
                     </div>
@@ -167,6 +167,9 @@
 
     @{
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_Notification" />
+
+
     }
 
 }

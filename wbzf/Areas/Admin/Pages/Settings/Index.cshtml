@@ -24,78 +24,78 @@
     </div>
 </div>
 <form method="post" enctype="multipart/form-data">
-<div class="container">
-    <div class="col-lg-12">
-        <div class="panel panel-color panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span id="ContentPlaceHolder1_lblformname">Compnay Setup</span>
-                </h3>
-            </div>
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="panel panel-color panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span id="ContentPlaceHolder1_lblformname">Compnay Setup</span>
+                    </h3>
+                </div>
 
-            <div class="panel-body">
+                <div class="panel-body">
 
-                <div class="panel panel-color panel-purple">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Company Details</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.name">Company Name<span class="text-danger">*</span></label>
-                                <input type="text" asp-for="company.name" class="form-control" placeholder="Enter Company Name" />
-                                <span asp-validation-for="company.name" class="text-danger"></span>
-                            </div>
+                    <div class="panel panel-color panel-purple">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Company Details</h3>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.company_short_name">Company Short Name<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.company_short_name" class="form-control" placeholder="Enter Company Short Name" />
-                                <span asp-validation-for="company.company_short_name" class="text-danger"></span>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.name">Company Name<span class="text-danger">*</span></label>
+                                    <input type="text" asp-for="company.name" class="form-control" placeholder="Enter Company Name" />
+                                    <span asp-validation-for="company.name" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.mobile">Mobile No.<span class="text-danger">*</span></label>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.company_short_name">Company Short Name<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.company_short_name" class="form-control" placeholder="Enter Company Short Name" />
+                                    <span asp-validation-for="company.company_short_name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.mobile">Mobile No.<span class="text-danger">*</span></label>
                                     <input type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" asp-for="company.mobile" class="form-control" placeholder="Enter Mobile Number" />
-                                <span asp-validation-for="company.mobile" class="text-danger"></span>
+                                    <span asp-validation-for="company.mobile" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>                      
-                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.whatsapp" >Whatsapp No.<span class="text-danger"></span></label>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.whatsapp">Whatsapp No.<span class="text-danger"></span></label>
                                     <input type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" asp-for="company.whatsapp" class="form-control" placeholder="Enter Whatsapp Number" />
-                                <span asp-validation-for="company.whatsapp" class="text-danger"></span>
+                                    <span asp-validation-for="company.whatsapp" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.email">Email Address<span class="text-danger">*</span></label>
-                                <input type="email" asp-for="company.email" class="form-control" placeholder="Enter Email Address" />
-                                <span asp-validation-for="company.email" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.email">Email Address<span class="text-danger">*</span></label>
+                                    <input type="email" asp-for="company.email" class="form-control" placeholder="Enter Email Address" />
+                                    <span asp-validation-for="company.email" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.support_email">Support Email Address<span class="text-danger"></span></label>
-                                <input type="email" asp-for="company.support_email" class="form-control" placeholder="Enter Support Email Address" />
-                                <span asp-validation-for="company.support_email" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.support_email">Support Email Address<span class="text-danger"></span></label>
+                                    <input type="email" asp-for="company.support_email" class="form-control" placeholder="Enter Support Email Address" />
+                                    <span asp-validation-for="company.support_email" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.address">Company Address<span class="text-danger">*</span></label>
-                                <textarea type="text" asp-for="company.address" class="form-control"></textarea>
-                                <span asp-validation-for="company.address" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.address">Company Address<span class="text-danger">*</span></label>
+                                    <textarea type="text" asp-for="company.address" class="form-control"></textarea>
+                                    <span asp-validation-for="company.address" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.coorporate_address">Coorporate Address<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.coorporate_address" class="form-control"></textarea>
-                                <span asp-validation-for="company.coorporate_address" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.coorporate_address">Coorporate Address<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.coorporate_address" class="form-control"></textarea>
+                                    <span asp-validation-for="company.coorporate_address" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label asp-for="company.google_location">Google Location<span class="text-danger"></span></label>
@@ -105,20 +105,20 @@
                             </div>
 
                             <div class="col-md-3">
-                                    <div class="caption">
-                                        <h5>Company Logo</h5>
-                                        <p>
-                                            <input type="file"
-                                                   accept=".png,.jpg,.jpeg"
-                                                   asp-for="company.logo"
-                                                   class="form-control"
-                                                   style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                                   onchange="photoSet(this,'compLogo')" />
-                                            <span asp-validation-for="company.logo" class="text-danger"></span>
+                                <div class="caption">
+                                    <h5>Company Logo</h5>
+                                    <p>
+                                        <input type="file"
+                                               accept=".png,.jpg,.jpeg"
+                                               asp-for="company.logo"
+                                               class="form-control"
+                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                                               onchange="photoSet(this,'compLogo')" />
+                                        <span asp-validation-for="company.logo" class="text-danger"></span>
 
-                                        </p>
-                                    </div>
-                              
+                                    </p>
+                                </div>
+
                             </div>
                             <div class="col-md-3">
 
@@ -132,294 +132,296 @@
                                 }
                             </div>
 
-                            
-                            
-                            
 
-                    </div>
-                </div>
 
-                <div class="panel panel-color panel-orange">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">About Company</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.aboutus_home">Welcome Message<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.aboutus_home" class="form-control" ></textarea>
-                                <span asp-validation-for="company.aboutus_home" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.taggline">Tag Line<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.taggline" class="form-control"></textarea>
-                                <span asp-validation-for="company.taggline" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.about_us_first_para">About First Para<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.about_us_first_para" class="form-control"></textarea>
-                                <span asp-validation-for="company.about_us_first_para" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.about_us_second_para">About Second Para<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.about_us_second_para" class="form-control"></textarea>
-                                <span asp-validation-for="company.about_us_second_para" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.dmessage_first_para">Director Message 1<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.dmessage_first_para" class="form-control"></textarea>
-                                <span asp-validation-for="company.dmessage_first_para" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.dmessage_second_para">Director Message 2<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.dmessage_second_para" class="form-control"></textarea>
-                                <span asp-validation-for="company.dmessage_second_para" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.home_query_form_text">Query Message<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.home_query_form_text" class="form-control"></textarea>
-                                <span asp-validation-for="company.home_query_form_text" class="text-danger"></span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
 
-                <div class="panel panel-color panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Company Privatisation Details</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.extra_text_on_slider">Extra Text<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.extra_text_on_slider" class="form-control" placeholder="Enter Extra Text On Slider" ></textarea>
-                                <span asp-validation-for="company.extra_text_on_slider" class="text-danger"></span>
-                            </div>
-                        </div>
-                       
-                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.marquetext">Marque Text<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.marquetext" class="form-control" placeholder="Enter Marque Text" ></textarea>
-                                <span asp-validation-for="company.marquetext" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.isotext">ISO Text<span class="text-danger"></span></label>
-                                <textarea type="text" asp-for="company.isotext" class="form-control" placeholder="Enter ISO Text" ></textarea>
-                                <span asp-validation-for="company.isotext" class="text-danger"></span>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-
-                <div class="panel panel-color panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Domain Setup</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.url">Domain URL<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.url" class="form-control" placeholder="Enter Domain URL" />
-                                <span asp-validation-for="company.url" class="text-danger"></span>
-                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.payment_url">Payment URL<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.payment_url" class="form-control" placeholder="Enter Domain URL" />
-                                <span asp-validation-for="company.payment_url" class="text-danger"></span>
-                            </div>
-                        </div>
+                    </div>
 
-                    </div>
-                </div>
-                <div class="panel panel-color panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Razorpay Setup (Payment Gateway)</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="rzp.key_id">Razorpay Key ID<span class="text-danger"></span></label>
-                                <input type="text" asp-for="rzp.key_id" class="form-control" placeholder="Enter Domain URL" />
-                                <span asp-validation-for="rzp.key_id" class="text-danger"></span>
-                            </div>
+                    <div class="panel panel-color panel-orange">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">About Company</h3>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="rzp.key_secret">Razorpay Key Secret<span class="text-danger"></span></label>
-                                <input type="text" asp-for="rzp.key_secret" class="form-control" placeholder="Enter Domain URL" />
-                                <span asp-validation-for="rzp.key_secret" class="text-danger"></span>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.aboutus_home">Welcome Message<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.aboutus_home" class="form-control"></textarea>
+                                    <span asp-validation-for="company.aboutus_home" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="panel panel-color panel-brown">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">SMS Gateway Setup</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.sms_name">SMS Name<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.sms_name" class="form-control" placeholder="Enter SMS Name" />
-                                <span asp-validation-for="company.sms_name" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.taggline">Tag Line<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.taggline" class="form-control"></textarea>
+                                    <span asp-validation-for="company.taggline" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="company.smsapi">SMS Api<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.smsapi" class="form-control" placeholder="Enter SMS API" />
-                                <span asp-validation-for="company.smsapi" class="text-danger"></span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.about_us_first_para">About First Para<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.about_us_first_para" class="form-control"></textarea>
+                                    <span asp-validation-for="company.about_us_first_para" class="text-danger"></span>
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.about_us_second_para">About Second Para<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.about_us_second_para" class="form-control"></textarea>
+                                    <span asp-validation-for="company.about_us_second_para" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.dmessage_first_para">Director Message 1<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.dmessage_first_para" class="form-control"></textarea>
+                                    <span asp-validation-for="company.dmessage_first_para" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.dmessage_second_para">Director Message 2<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.dmessage_second_para" class="form-control"></textarea>
+                                    <span asp-validation-for="company.dmessage_second_para" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.home_query_form_text">Query Message<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.home_query_form_text" class="form-control"></textarea>
+                                    <span asp-validation-for="company.home_query_form_text" class="text-danger"></span>
+                                </div>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
 
-                <div class="panel panel-color panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Email Setup</h3>
+                    <div class="panel panel-color panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Company Privatisation Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.extra_text_on_slider">Extra Text<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.extra_text_on_slider" class="form-control" placeholder="Enter Extra Text On Slider"></textarea>
+                                    <span asp-validation-for="company.extra_text_on_slider" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.marquetext">Marque Text<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.marquetext" class="form-control" placeholder="Enter Marque Text"></textarea>
+                                    <span asp-validation-for="company.marquetext" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.isotext">ISO Text<span class="text-danger"></span></label>
+                                    <textarea type="text" asp-for="company.isotext" class="form-control" placeholder="Enter ISO Text"></textarea>
+                                    <span asp-validation-for="company.isotext" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="smtp.host">Host<span class="text-danger"></span></label>
+
+                    <div class="panel panel-color panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Domain Setup</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.url">Domain URL<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.url" class="form-control" placeholder="Enter Domain URL" />
+                                    <span asp-validation-for="company.url" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.payment_url">Payment URL<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.payment_url" class="form-control" placeholder="Enter Domain URL" />
+                                    <span asp-validation-for="company.payment_url" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-color panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Razorpay Setup (Payment Gateway)</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="rzp.key_id">Razorpay Key ID<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="rzp.key_id" class="form-control" placeholder="Enter Domain URL" />
+                                    <span asp-validation-for="rzp.key_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="rzp.key_secret">Razorpay Key Secret<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="rzp.key_secret" class="form-control" placeholder="Enter Domain URL" />
+                                    <span asp-validation-for="rzp.key_secret" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-color panel-brown">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">SMS Gateway Setup</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.sms_name">SMS Name<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.sms_name" class="form-control" placeholder="Enter SMS Name" />
+                                    <span asp-validation-for="company.sms_name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="company.smsapi">SMS Api<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.smsapi" class="form-control" placeholder="Enter SMS API" />
+                                    <span asp-validation-for="company.smsapi" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel panel-color panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Email Setup</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="smtp.host">Host<span class="text-danger"></span></label>
                                     <input type="text" asp-for="smtp.host" class="form-control" placeholder="Enter Host Details" />
                                     <span asp-validation-for="smtp.host" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label asp-for="smtp.port">Port<span class="text-danger"></span></label>
-                                <input type="text" asp-for="smtp.port" class="form-control" placeholder="Enter Port" />
+                                    <input type="text" asp-for="smtp.port" class="form-control" placeholder="Enter Port" />
                                     <span asp-validation-for="smtp.port" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label asp-for="smtp.fromEmail">Email<span class="text-danger"></span></label>
-                                <input type="text" asp-for="smtp.fromEmail" class="form-control" placeholder="Enter From Email" />
-                                <span asp-validation-for="smtp.fromEmail" class="text-danger"></span>
+                                    <input type="text" asp-for="smtp.fromEmail" class="form-control" placeholder="Enter From Email" />
+                                    <span asp-validation-for="smtp.fromEmail" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label asp-for="smtp.username">User Name<span class="text-danger"></span></label>
                                     <input type="text" asp-for="smtp.username" class="form-control" placeholder="Enter User Name" />
                                     <span asp-validation-for="smtp.username" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label asp-for="smtp.password">Password<span class="text-danger"></span></label>
                                     <input type="text" asp-for="smtp.password" class="form-control" placeholder="Enter Password" />
                                     <span asp-validation-for="smtp.password" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
 
-                <div class="panel panel-color panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Social Media</h3>
+                    <div class="panel panel-color panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Social Media</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.fb_link">Facebook Link<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.fb_link" class="form-control" placeholder="Enter Facebook Link" />
+                                    <span asp-validation-for="company.fb_link" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.insta_link">Instagram Link<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.insta_link" class="form-control" placeholder="Enter Instagram Link" />
+                                    <span asp-validation-for="company.insta_link" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.youtube_link">Youtube Link<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.youtube_link" class="form-control" placeholder="Enter Youtube Link" />
+                                    <span asp-validation-for="company.youtube_link" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.fb_link">Facebook Link<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.fb_link" class="form-control" placeholder="Enter Facebook Link" />
-                                <span asp-validation-for="company.fb_link" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.insta_link">Instagram Link<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.insta_link" class="form-control" placeholder="Enter Instagram Link" />
-                                <span asp-validation-for="company.insta_link" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.youtube_link">Youtube Link<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.youtube_link" class="form-control" placeholder="Enter Youtube Link" />
-                                <span asp-validation-for="company.youtube_link" class="text-danger"></span>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
 
-                <div class="panel panel-color panel-teal">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Flickr Setup</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.flickr_api">Flickr Api<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.flickr_api" class="form-control" placeholder="Enter Flickr API" />
-                                <span asp-validation-for="company.flickr_api" class="text-danger"></span>
-                            </div>
+                    <div class="panel panel-color panel-teal">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Flickr Setup</h3>
                         </div>
+                        <div class="panel-body">
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.flickr_user">Flickr User<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.flickr_user" class="form-control" placeholder="Enter Flickr Name" />
-                                <span asp-validation-for="company.flickr_user" class="text-danger"></span>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.flickr_api">Flickr Api<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.flickr_api" class="form-control" placeholder="Enter Flickr API" />
+                                    <span asp-validation-for="company.flickr_api" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="company.flickr_album_id">Flickr Album ID<span class="text-danger"></span></label>
-                                <input type="text" asp-for="company.flickr_album_id" class="form-control" placeholder="Enter Flickr Album ID" />
-                                <span asp-validation-for="company.flickr_album_id" class="text-danger"></span>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.flickr_user">Flickr User<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.flickr_user" class="form-control" placeholder="Enter Flickr Name" />
+                                    <span asp-validation-for="company.flickr_user" class="text-danger"></span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-4 pull-right">
-                           
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="company.flickr_album_id">Flickr Album ID<span class="text-danger"></span></label>
+                                    <input type="text" asp-for="company.flickr_album_id" class="form-control" placeholder="Enter Flickr Album ID" />
+                                    <span asp-validation-for="company.flickr_album_id" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 pull-right">
+
                                 <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
-                            
+
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
-@section scripts{
+@section scripts {
     <script src="~/js/photoupload.js" asp-append-version="true">    </script>
-  
+
     @{
         <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
+
     }
 
-            }
+}
 

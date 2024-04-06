@@ -41,6 +41,7 @@ namespace wbzf.DataAccess.Repository
             gallery=new galleryRepository(_db);
             galleryCategory=new GalleryCategoryRepository(_db);
             sponsor=new SponsorRepository(_db);
+            report=new ReportRepository(_db);
             
             //contact_us = new ContactUsRepository(_db);
         }
@@ -63,6 +64,7 @@ namespace wbzf.DataAccess.Repository
         public IGallery gallery { get; private set; }
         public IGalleryCategoryRepository galleryCategory { get; private set; }
         public ISponsorRepository sponsor { get; private set; }
+        public IReportRepository report { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

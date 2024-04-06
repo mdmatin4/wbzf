@@ -4,10 +4,12 @@ using wbzf.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace wbzf.Areas.Admin.Pages.Settings
 {
     [BindProperties]
+    [Authorize(Roles = $"{SD.Admin}")]
     public class IndexModel : PageModel
     {
         private readonly IWebHostEnvironment _hostEnvironment;

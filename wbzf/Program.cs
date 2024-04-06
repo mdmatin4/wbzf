@@ -1,13 +1,16 @@
+
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using wbzf;
 using wbzf.DataAccess.Data;
 using wbzf.DataAccess.Data.Initializer;
 using wbzf.DataAccess.Repository;
@@ -22,6 +25,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     configuration.GetConnectionString("DefaultConnection")));
+
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
 {
@@ -80,6 +85,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddCors();
 
 
+
 builder.Services.Configure<SecurityStampValidatorOptions>(options =>
 {
     // enables immediate logout, after updating the user's stat.
@@ -117,6 +123,8 @@ app.UseCors(builder =>
 SeedDatabase();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 
 app.MapRazorPages();

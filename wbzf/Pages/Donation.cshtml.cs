@@ -99,6 +99,7 @@ namespace wbzf.Pages
 
 
             }
+            company=_unitofWork.company.GetCompany();
             professionList=_unitofWork.profession.getProfessionforSelectItem();
             return Page();
         }

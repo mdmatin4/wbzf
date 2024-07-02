@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using wbzf.Model.ViewModel;
+using wbzf.DataAccess.Repository.IRepository;
+using System.Security.Claims;
+using wbzf.Utility;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using wbzf.DataAccess.Repository;
 
 namespace wbzf.Areas.Admin.Pages.Profile
 {
@@ -13,90 +19,56 @@ namespace wbzf.Areas.Admin.Pages.Profile
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private IWebHostEnvironment _hostEnvironment;
-        public IndexModel(
+        private IUnitOfWork _unitofWork;
+        public IndexModel(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostEnvironment)
         {
-           
+
             _userManager = userManager;
             _signInManager = signInManager;
-            _hostEnvironment=hostEnvironment;
+            _hostEnvironment = hostEnvironment;
+            _unitofWork = unitOfWork;
+            Input = new();
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
-        {
-            [Display(Name ="User Name")]
-            public string UserName { get; set; }
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Phone]
-            [Display(Name = "Mobile number")]
-            [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
-            public string PhoneNumber { get; set; }
-            [Display(Name ="Profile Picture")]
-            public string? ImageUrl { get; set; }
-
-            public string? Vill { get; set; }
-            public string? PostOffice { get; set; }
-            public string? PoliceStation { get; set; }
-            public string? District { get; set; }
-            public string? State { get; set; }
-            public string? PIN { get; set; }
-        }
-
+        public CommonUserRgistration Input { get; set; }
+        public IEnumerable<SelectListItem> professionlist { get; set; }
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = user.Full_Name;
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var ProfilePic = user.ImageUrl;
-            var vill = user.Vill;
-            var postOffice = user.PostOffice;
-            var policeStation = user.PoliceStation;
-            var district = user.District;
-            var state = user.State;
-            var pin = user.PIN;
 
-            Input = new InputModel
+            Input.Full_Name = user.Full_Name;
+            if (User.IsInRole(SD.Admin))
             {
-                PhoneNumber = phoneNumber,
-                UserName = userName,
-                ImageUrl = ProfilePic,
-                Vill = vill,
-                PostOffice = postOffice,
-                PoliceStation = policeStation,
-                District = district,
-                State = state,
-                PIN = pin
-            };
+                Input.Email = await _userManager.GetEmailAsync(user);
+                Input.PhoneNumber = user.PhoneNumber;
+            }
+            else
+            {
+                Input.PhoneNumber = await _userManager.GetPhoneNumberAsync(user);
+                Input.Email = user.Email;
+            }
+            Input.ProfessionId = user.ProfessionId;
+            Input.DateofBirth = user.DateofBirth;
+            Input.category = user.CastCategory;
+            Input.Gender = user.Gender;
+            Input.adhaarno = user.adhaar_no;
+            Input.ImageUrl = user.ImageUrl;
+            Input.Vill = user.Vill;
+            Input.PostOffice = user.PostOffice;
+            Input.PoliceStation = user.PoliceStation;
+            Input.District = user.District;
+            Input.State = user.State;
+            Input.PIN = user.PIN;
         }
-
         public async Task<IActionResult> OnGetAsync()
         {
+            professionlist = getprofessionlist();
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -106,7 +78,16 @@ namespace wbzf.Areas.Admin.Pages.Profile
             await LoadAsync(user);
             return Page();
         }
-        bool changeDate=false;
+        private IEnumerable<SelectListItem> getprofessionlist()
+        {
+            var list = _unitofWork.profession.GetAll(orderby: m => m.OrderBy(a => a.Name)).Select(i => new SelectListItem()
+            {
+                Text = i.Name,
+                Value = i.Id.ToString()
+            });
+            return list;
+        }
+        bool changeDate = false;
         public async Task<IActionResult> OnPostAsync()
         {
             string webRootPath = _hostEnvironment.WebRootPath;
@@ -126,63 +107,112 @@ namespace wbzf.Areas.Admin.Pages.Profile
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
+            if (User.IsInRole(SD.Admin))
             {
-                await LoadAsync(user);
-                return Page();
+                if (Input.Email != user.Email)
+                {
+                    changeDate = true;
+                    user.Email = Input.Email;
+                    var setPhoneResult = await _userManager.SetUserNameAsync(user, Input.Email);
+                    if (!setPhoneResult.Succeeded)
+                    {
+                        StatusMessage = "Unexpected error when trying to set phone number.";
+                        return RedirectToPage();
+                    }
+                }
+                if (Input.PhoneNumber != user.PhoneNumber)
+                {
+                    changeDate = true;
+                    user.PhoneNumber = Input.PhoneNumber;
+                }
+            }
+            else
+            {
+                if (Input.PhoneNumber != user.PhoneNumber)
+                {
+                    changeDate = true;
+                    user.PhoneNumber = Input.PhoneNumber;
+                    var setPhoneResult = await _userManager.SetUserNameAsync(user, Input.PhoneNumber);
+                    if (!setPhoneResult.Succeeded)
+                    {
+                        StatusMessage = "Unexpected error when trying to set phone number.";
+                        return RedirectToPage();
+                    }
+                }
+                if (Input.Email != user.Email)
+                {
+                    changeDate = true;
+                    user.Email = Input.Email;
+                }
             }
 
-            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != user.PhoneNumber)
+            if (Input.Full_Name != user.Full_Name)
             {
                 changeDate = true;
-                user.PhoneNumber=Input.PhoneNumber;
-                //var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                //if (!setPhoneResult.Succeeded)
-                //{
-                //    StatusMessage = "Unexpected error when trying to set phone number.";
-                //    return RedirectToPage();
-                //}
+                user.Full_Name = Input.Full_Name;
             }
-            if (Input.UserName!=user.Full_Name)
+            if (Input.adhaarno != user.adhaar_no)
             {
-               changeDate=true;
-                user.Full_Name=Input.UserName;
+                changeDate = true;
+                user.adhaar_no = Input.adhaarno;
             }
-            if (Input.Vill!=user.Vill)
+            if (Input.category != user.CastCategory)
             {
-                changeDate=true;
-                user.Vill=Input.Vill;
+                changeDate = true;
+                user.CastCategory = Input.category;
             }
-            if (Input.PostOffice!=user.PostOffice)
+            if (Input.Gender != user.Gender)
             {
-                changeDate=true;
-                user.PostOffice=Input.PostOffice;
+                changeDate = true;
+                user.Gender = Input.Gender;
+            }
+            if (Input.ProfessionId != user.ProfessionId)
+            {
+                changeDate = true;
+                user.ProfessionId = Input.ProfessionId;
+            }
+            if (Input.DateofBirth != user.DateofBirth)
+            {
+                changeDate = true;
+                user.DateofBirth = Input.DateofBirth;
+            }
+
+            if (Input.Vill != user.Vill)
+            {
+                changeDate = true;
+                user.Vill = Input.Vill;
+            }
+            if (Input.PostOffice != user.PostOffice)
+            {
+                changeDate = true;
+                user.PostOffice = Input.PostOffice;
 
             }
-            if (Input.PoliceStation!=user.PoliceStation)
+            if (Input.PoliceStation != user.PoliceStation)
             {
-                changeDate=true;
-                user.PoliceStation=Input.PoliceStation;
+                changeDate = true;
+                user.PoliceStation = Input.PoliceStation;
             }
-            if (Input.District!=user.District)
+            if (Input.District != user.District)
             {
-                changeDate=true;
-                user.District=Input.District;
+                changeDate = true;
+                user.District = Input.District;
             }
-            if(Input.State != user.State)
+            if (Input.State != user.State)
             {
-                changeDate=true;
-                user.State=Input.State;
+                changeDate = true;
+                user.State = Input.State;
             }
-            if(Input.PIN != user.PIN)
+            if (Input.PIN != user.PIN)
             {
-                changeDate=true;
-                user.PIN=Input.PIN;
+                changeDate = true;
+                user.PIN = Input.PIN;
             }
             if (files.Count > 0)
             {
-                changeDate=false;
+                changeDate = false;
                 var extension = Path.GetExtension(files[0].FileName);
                 using (var fileStream = new FileStream(Path.Combine(uploads, user.Id + extension), FileMode.Create))
                 {
@@ -193,14 +223,14 @@ namespace wbzf.Areas.Admin.Pages.Profile
             }
             if (changeDate)
             {
-                var setFullname = await _userManager.UpdateAsync(user);
-                if (!setFullname.Succeeded)
+                var updateUserSTatus = await _userManager.UpdateAsync(user);
+                if (!updateUserSTatus.Succeeded)
                 {
                     TempData["delete"] = "Unexpected error when trying to update the profile details.";
                     return RedirectToPage();
                 }
             }
-            
+
             await _signInManager.RefreshSignInAsync(user);
             TempData["success"] = "Your profile has been updated";
             return RedirectToPage();

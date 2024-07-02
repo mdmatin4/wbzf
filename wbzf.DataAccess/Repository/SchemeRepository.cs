@@ -48,6 +48,10 @@ namespace wbzf.DataAccess.Repository
                 {
                     objFromDb.Image_Url=scheme.Image_Url;
                 }
+                if (scheme.purposeId!=null)
+                {
+                    objFromDb.purposeId=scheme.purposeId;
+                }
                 objFromDb.updated_at = DateTime.UtcNow.AddHours(5).AddMinutes(30);
             }
 

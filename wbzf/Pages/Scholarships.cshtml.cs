@@ -10,7 +10,7 @@ using wbzf.Utility;
 
 namespace wbzf.Pages
 {
-    public class ScholarshipsModel : PageModel
+    public class scholarshipsModel : PageModel
     {
 
         private IUnitOfWork _unitofWork;
@@ -27,7 +27,7 @@ namespace wbzf.Pages
         private readonly ILogger<ApplicationUser> _logger;
         private readonly Microsoft.AspNetCore.Identity.UI.Services.IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public ScholarshipsModel(IUnitOfWork unitOfWork, UserManager<ApplicationUser>
+        public scholarshipsModel(IUnitOfWork unitOfWork, UserManager<ApplicationUser>
             userManager, IUserStore<ApplicationUser> userStore, SignInManager<ApplicationUser> signInManager,
             ILogger<ApplicationUser> logger,
             Microsoft.AspNetCore.Identity.UI.Services.IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
@@ -54,13 +54,13 @@ namespace wbzf.Pages
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.Full_Name=InputModel.Full_Name;
-                user.PhoneNumber=InputModel.PhoneNumber;
-                user.Email=InputModel.Email;
-                user.ProfessionId=InputModel.ProfessionId;
-                user.Gender=InputModel.Gender;
-                user.Mother_Name=InputModel.Mother_Name;
-                user.created_at=DateTime.UtcNow.AddHours(5).AddMinutes(30);
+                user.Full_Name = InputModel.Full_Name;
+                user.PhoneNumber = InputModel.PhoneNumber;
+                user.Email = InputModel.Email;
+                user.ProfessionId = InputModel.ProfessionId;
+                user.Gender = InputModel.Gender;
+                user.Mother_Name = InputModel.Mother_Name;
+                user.created_at = DateTime.UtcNow.AddHours(5).AddMinutes(30);
                 await _userStore.SetUserNameAsync(user, InputModel.PhoneNumber, CancellationToken.None);
                 
                 var result = await _userManager.CreateAsync(user, InputModel.Password);

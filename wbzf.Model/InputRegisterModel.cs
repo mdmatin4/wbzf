@@ -35,7 +35,7 @@ namespace wbzf.Model
         /// </summary>
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password does not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -59,7 +59,7 @@ namespace wbzf.Model
         [ValidateNever]
         [ForeignKey("ProfessionId")]
         public virtual Profession Profession { get; set; }
-        public double? familyIncome { get; set; }
+        public double familyIncome { get; set; }
         public string? parentType { get; set; }
         public string? guardianName { get; set; }
         public int? guardianOccupationId { get; set; }
@@ -71,5 +71,20 @@ namespace wbzf.Model
         public string? bankIFSC { get; set; }
         public string? bankBranchName { get; set; }
         public string? bankAcNo { get; set; }
+        public string application_Status { get;set; }
+        public string? Regitration_Number { get; set; }
+        public int? adhaarno { get;set; }
+         public int? category { get;set; }
+         public string? adhaar_url { get;set; }
+         public int? passbook_url { get;set; }
+         public int? incomeproof_url { get;set; }
+
+         public int? admit_url { get;set; }
+
+         public int? marksheet_url { get;set; }
+
+         public int? admissionreceipt_url { get;set; }
+
+
     }
 }

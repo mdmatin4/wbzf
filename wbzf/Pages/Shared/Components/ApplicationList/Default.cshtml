@@ -1,0 +1,162 @@
+﻿@using wbzf.Utility;
+@using wbzf.Model;
+@using wbzf.DataAccess.Repository.IRepository;
+@inject IUnitOfWork unitofwork;
+@model PaginatedList<ApplicationRegister>
+@inject IHttpContextAccessor _httpContextAccessor;
+@{
+    // var status = Model.First().status;
+}
+
+
+<div class="table-responsive" style="overflow-x: unset;">
+    <table class="table table-striped table-bordered">
+        <tr>
+
+            <th>
+                <a href="#" data-column="name">
+                    Applicant Name
+                    <i class="fa fa-sort"></i>
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="dob">
+                    Date of Birth
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="profession">
+                    Profession
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="mob">
+                    Contact No
+                </a>
+            </th>
+
+            <th>
+                <a href="#" data-column="guardian">
+                    Father/Mother/Guardian Name
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="schemeName">
+                    Application for
+                    <i class="fa fa-sort"></i>
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="applicationDate">
+                    Date of Application
+                    <i class="fa fa-sort"></i>
+                </a>
+            </th>
+
+            <th>
+                <a href="#" data-column="applicationStatus">
+                    Status
+                    <i class="fa fa-sort"></i>
+                </a>
+            </th>
+            <th>
+                <a href="#" data-column="photo">
+                    Photo
+                </a>
+            </th>
+
+            <th>
+                <a href="#" data-column="action">
+                    Action
+                </a>
+            </th>
+
+        </tr>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>@obj.Full_Name</td>
+                <td>@obj.DateofBirth?.ToString("dd/MM/yyyy")</td>
+                <td>@obj.Profession.Name</td>
+                <td>@obj.PhoneNumber</td>
+                @if (obj.parentType == SD.Father)
+                {
+                    <td>@obj.Father_name</td>
+                }
+                else if (obj.parentType == SD.Mother)
+                {
+                    <td>@obj.Mother_name</td>
+                }
+                else
+                {
+                    <td>@obj.guardianName</td>
+                }
+
+                <td>@obj.Scheme.Name</td>
+                <td>@obj.created_at.ToString("dd/MM/yyyy")</td>
+                <td>@obj.application_Status</td>
+                <td><img style="height: 75px; width: 75px;" src="@obj.Photo_url" /></td>
+                @if (obj.application_Status!=SD.Sanctioned) {
+                    <td>
+                        <a href="/App/Applications/@($"{unitofwork.purpose.GetFirstOrDefault(u => u.Id == obj.PurposeId).Form_url}/{obj.Id}")">
+                        Select
+                    </a>
+                </td>
+                }
+            </tr>
+        }
+        @if (Model.TotalCount == 0)
+        {
+            <tr>
+                <td><p>No Data Found</p></td>
+
+            </tr>
+        }
+    </table>
+</div>
+<div class="pagination-wrapper">
+    <div class="showing-text">
+        <p>
+            Showing
+            @if (Model.Count > 0)
+            {
+                <span>@((Model.PageIndex - 1) * Model.PageSize + 1)</span>
+            }
+            else
+            {
+                <span>0</span>
+            }
+            to
+            @((Model.PageIndex - 1) * Model.PageSize + Model.Count)
+            of @Model.TotalCount entries
+        </p>
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item"> <a class="page-link" id="previousPageLink">Previous</a></li>
+            }
+
+            <li class="page-item">
+                <a style="border:none" class="page-link">
+                    Page
+                    @if (Model.Count > 0)
+                    {
+                        <span>@Model.PageIndex</span>
+                    }
+                    else
+                    {
+                        <span>0</span>
+                    }
+                    of @Model.TotalPages
+                </a>
+            </li>
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item"><a class="page-link" id="nextPageLink">Next</a></li>
+            }
+
+        </ul>
+    </nav>
+</div>

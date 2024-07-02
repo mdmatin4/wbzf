@@ -1,7 +1,8 @@
 ﻿@page
+@using wbzf.Utility;
 @model wbzf.Areas.Admin.Pages.Settings.PurposeModel
 @{
-    ViewData["Title"]="Purposes";
+    ViewData["Title"] = "Purposes";
 }
 <div class="row">
     <div class="col-xs-12">
@@ -28,7 +29,7 @@
 
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    @if (Model.purpose.Id==0)
+                    @if (Model.purpose.Id == 0)
                     {
                         <span>Add New Purpose</span>
                     }
@@ -59,8 +60,21 @@
                             <select asp-for=@Model.purpose.IsDefault class="form-control select-options">
                                 <option value=false>No</option>
                                 <option value=true>Yes</option>
-                                
+
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="padding-bottom:30px;">
+                        <div class="form-group">
+                            <label asp-for="purpose.Form_url" class="col-md-4 control-label">Form_Url : </label>
+                            <div class="form-group ">
+                                <div class="col-xs-12">
+                                    <input type="radio" name="rdFormUrl" checked="@(Model.purpose.Form_url==SD.Education ? true: false)" value="@SD.Education" /> @SD.Education
+                                    <input type="radio" name="rdFormUrl" checked="@(Model.purpose.Form_url==SD.Health ? true: false)" value="@SD.Health" /> @SD.Health
+                                    <input type="radio" name="rdFormUrl" checked="@(Model.purpose.Form_url==SD.Social_Welfare ? true: false)" value="@SD.Social_Welfare" /> @SD.Social_Welfare
+                                    <input type="radio" name="rdFormUrl" checked="@(Model.purpose.Form_url==SD.Business_Assistance ? true: false)" value="@SD.Business_Assistance" /> @SD.Business_Assistance
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -108,10 +122,13 @@
                         <thead>
                             <tr>
                                 <th>
-                                     Name
+                                    Name
                                 </th>
                                 <th>
                                     Is Default
+                                </th>
+                                <th>
+                                    Form Url
                                 </th>
                                 <th>
                                     Display Order
@@ -135,6 +152,7 @@
                                             <p> No</p>
                                         }
                                     </td>
+                                    <td scope="row"> @obj.Form_url</td>
                                     <td scope="row"> @obj.Order</td>
 
                                     <td>
@@ -163,12 +181,12 @@
         </div>
     </div>
 </div>
-@section scripts{
+@section scripts {
 
 
     @{
-    <partial name="_ValidationScriptsPartial" />
-     <partial name="_Notification" />
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
 
     }
 

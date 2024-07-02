@@ -41,6 +41,7 @@
             transitionEffect: "slideLeft",
             onStepChanging: function (event, currentIndex, newIndex) {
                 $form_container.validate().settings.ignore = ":disabled,:hidden";
+                
                 return $form_container.valid();
             },
             onFinishing: function (event, currentIndex) {

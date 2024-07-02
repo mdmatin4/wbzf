@@ -1,0 +1,85 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.Member.UpdateMumberModel
+@{
+    ViewData["Title"] = "Update Member Details";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class=card-box>
+    @* <partial name="_StatusMessages" for="StatusMessage" /> *@
+    <div class="row">
+        <form id="profile-form" class="form-group" method="post" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="Input.Full_Name" class="form-control" />
+                    <label asp-for="Input.Full_Name" class="form-label"></label>
+                    <span asp-validation-for="Input.Full_Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Input.PhoneNumber" min="0" required="" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" />
+                    <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Input.Email" class="form-control" />
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="panel panel-color panel-danger">
+    <div class="panel-heading">
+
+
+        <h3 class="panel-title">Reset Password</h3>
+
+    </div>
+    <div class="panel-body">
+        <form method="post">
+            <input hidden  asp-for="Input.ApplicationUserId">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>New Password<span class="text-danger">*</span></label>
+
+                    <input type="text" class="form-control" name="password" placeholder="Enter new Password" />
+
+                    <span class=" text-danger"></span>
+
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info push-left" asp-page-handler="SetPassowrd">Update </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_Notification" />
+}

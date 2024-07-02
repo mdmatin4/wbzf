@@ -1,4 +1,5 @@
 ﻿using wbzf.Model;
+using wbzf.Model.ViewModel;
 using wbzf.DataAccess.Data;
 using wbzf.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace wbzf.DataAccess.Repository
 {
@@ -59,5 +61,31 @@ namespace wbzf.DataAccess.Repository
 
             return setLockoutEndDateTask.Result.Succeeded && lockDisabledTask.Result.Succeeded;
         }
+
+        //private async Task LoadAsync(ApplicationUser user)
+        //{
+        //    InputRegisterModel = user.Full_Name;
+        //    var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+        //    var ProfilePic = user.ImageUrl;
+        //    var vill = user.Vill;
+        //    var postOffice = user.PostOffice;
+        //    var policeStation = user.PoliceStation;
+        //    var district = user.District;
+        //    var state = user.State;
+        //    var pin = user.PIN;
+
+        //    Input = new CommonUserRgistration
+        //    {
+        //        PhoneNumber = phoneNumber,
+        //        UserName = userName,
+        //        ImageUrl = ProfilePic,
+        //        Vill = vill,
+        //        PostOffice = postOffice,
+        //        PoliceStation = policeStation,
+        //        District = district,
+        //        State = state,
+        //        PIN = pin
+        //    };
+        //}
     }
 }

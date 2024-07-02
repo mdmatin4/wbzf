@@ -1,0 +1,118 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.AccountManagement.DepositModel
+@{
+    ViewData["Title"] = "Deposit";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+    <div class="col-md-6">
+        <div class="panel panel-color panel-teal">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Deposite Money To Account
+                </h3>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Account <span class="text-danger">*</span></label>
+
+                            <select  asp-for="@Model.Transactions.Account_Id" asp-items="@Model.AccountList" class="required form-control">
+                                <option disabled selected>--Please Select Account--</option>
+                            </select>
+                            <span asp-validation-for="@Model.Transactions.Accounts.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Amount <span class="text-danger">*</span></label>
+                            <input type="number" min="0" asp-for="@Model.Transactions.Amount" class="required form-control" placeholder="Enter Amount" />
+                            <span asp-validation-for="@Model.Transactions.Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                     <div  class="col-md-12">
+                        <div class="form-group">
+
+                            <label asp-for="@Model.Transactions.transaction_fees">Transaction Charges </label>
+                            <input type="number" min="0" asp-for="@Model.Transactions.transaction_fees" class="form-control" placeholder="Enter Transaction Charges" />
+                            <span asp-validation-for="@Model.Transactions.transaction_fees" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <label asp-for="@Model.Transactions.Remarks">Remarks </label>
+                            <input type="text" asp-for="@Model.Transactions.Remarks" class="form-control" placeholder="Enter Remarks" />
+                            <span asp-validation-for="@Model.Transactions.Remarks" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="col-md-6 pull-right">
+                        <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var transactionChargesDiv = document.getElementById('transaction_charges');
+            var txnFees = document.getElementById('txnFees');
+            var noTxnFees = document.getElementById('noTxnFees');
+
+            function toggleTransactionCharges() {
+                if (txnFees.checked) {
+                    transactionChargesDiv.style.display = 'block';
+                } else {
+                    transactionChargesDiv.style.display = 'none';
+                }
+            }
+
+            noTxnFees.addEventListener('change', toggleTransactionCharges);
+            txnFees.addEventListener('change', toggleTransactionCharges);
+
+            // Initial check to set visibility on page load
+            toggleTransactionCharges();
+        });
+    </script>
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
+    }
+
+}

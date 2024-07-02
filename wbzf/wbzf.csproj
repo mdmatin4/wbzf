@@ -39,6 +39,7 @@
 	<ItemGroup>
 		<Folder Include="Areas\Admin\Pages\Beneficiaries\" />
 		<Folder Include="Areas\Admin\Pages\Donors\" />
+		<Folder Include="Areas\Admin\Pages\dd\" />
 	</ItemGroup>
 
 </Project>

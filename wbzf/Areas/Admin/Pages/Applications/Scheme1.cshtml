@@ -1,0 +1,859 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.Applications.Scheme1Model
+@{
+    ViewData["Title"] = "Application of ";
+}
+@section Styles {
+    <style>
+        .wizard > .content {
+            height: 800px; /* Adjust this value as per your requirement */
+        }
+    </style>
+    @* <style>
+        .wizard > .content > .body.current {
+            height: 600px; /* Adjust this value as per your requirement */
+        }
+    </style> *@
+    <link rel="stylesheet" type="text/css" href="~/plugins/jquery.steps/css/jquery.steps.css" />
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="card-box">
+    <div class="row">
+        <form id="wizard-validation-form" enctype="multipart/form-data" method="post" action="#">
+            <div>
+                <input type="hidden" asp-for="appReg.Id" />
+                <h3>Verify And Submit</h3>
+                <section>
+                    <div class="col-lg-6">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-5 control-label ">Reference Name<span class="text-danger">*</span></label>
+                            <div class="col-lg-7">
+                                <input id="inputField" asp-for="appReg.Ref1_Member_name" class="required form-control" placeholder="Enter Past Scholar Name" />
+                                <span asp-validation-for="appReg.Ref1_Member_name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-5 control-label ">Reference Name : </label>
+                            <div class="col-lg-7">
+                                <label id="r1name">  </label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <div class="col-lg-12">
+                            <input id="acceptTerms-2" name="acceptTerms2" type="checkbox" class="required">
+                            <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                        </div>
+                    </div>
+
+                </section>
+
+                <h3>Personal Details</h3>
+                <section>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Applicant's Name<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.Full_Name" class="required form-control" placeholder="Enter Your Name" />
+                            <span asp-validation-for="Input.Full_Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Gender<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select required asp-for="Input.Gender" class="required form-control">
+                                <option disabled selected>--Please Select Gender--</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Others">Others</option>
+                            </select>
+                            <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Date Of Birth<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <div class="input-group">
+                                <input asp-for="Input.DateofBirth" value="@Model.Input.DateofBirth?.ToString("dd/MM/yyyy")" type="text" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control required datepicker" placeholder="dd/mm/yyyy" data-mask="99/99/9999" autocomplete="off">
+                                <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                            </div>
+                            <span asp-validation-for="Input.DateofBirth" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Category<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select required asp-for="Input.category" class="required form-control">
+                                <option disabled selected>--Please Select Category--</option>
+                                <option value="@SD.GEN">@SD.GEN</option>
+                                <option value="@SD.OBC_A">@SD.OBC_A</option>
+                                <option value="@SD.OBC_B">@SD.OBC_B</option>
+                                <option value="@SD.SC">@SD.SC</option>
+                                <option value="@SD.ST">@SD.ST</option>
+                            </select>
+                            <span asp-validation-for="Input.category" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Profession<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <select required asp-for="Input.ProfessionId" asp-items="@Model.professionlist" class="required form-control">
+                                <option disabled selected>--Please Select Profession--</option>
+                            </select>
+                            <span asp-validation-for="Input.ProfessionId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Aadhaar Number<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.adhaarno" class="required form-control" min="0" type="number" required maxlength="12" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter Aadhaar Number" />
+                            <span asp-validation-for="Input.adhaarno" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Mobile Number<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.PhoneNumber" min="0" required="" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="required form-control" placeholder="Enter Your Mobile Number" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label "> Email<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.Email" class="required form-control" placeholder="Enter Your Email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All fields are Mandatory</label>
+                    </div>
+                </section>
+
+                <h3>Family Details</h3>
+                <section>
+                    <div class="col-md-10">
+
+                        <div class="row">
+
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="radio">
+                                    <input type="radio" checked="@(Model.Input.parentType==SD.Father ? true: false)" name="radioInline" asp-for="Input.parentType" value="@SD.Father" onclick="showDetails()">
+                                    <label>Father's Details</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="radio">
+                                    <input type="radio" name="radioInline" checked="@(Model.Input.parentType==SD.Mother ? true: false)" asp-for="Input.parentType" value="@SD.Mother" onclick="showDetails()">
+                                    <label>Mother's Details</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-4">
+                                <div class="radio">
+                                    <input type="radio" name="radioInline" checked="@(Model.Input.parentType==SD.Guardian ? true: false)" asp-for="Input.parentType" value="@SD.Guardian" onclick="showDetails()">
+                                    <label>Guardian's Details</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mother_details">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label "> Mother's Name<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" asp-for=Input.Mother_Name placeholder="Enter Mother's Name" />
+                                <span class="text-danger" asp-validation-for=Input.Mother_Name></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2"> Mother's Occupation<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <select asp-for="Input.motherOccupationId" asp-items="Model.professionlist" class="required form-control">
+                                    <option disabled selected>--Please Select Mother's Occupation--</option>
+                                </select>
+                                <span asp-validation-for="Input.motherOccupationId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Monthly Family Income<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" type="number" asp-for="Input.motherIncome" min="0" class="required form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                                <span asp-validation-for="Input.motherIncome " class=" text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="father_details">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Father's Nmae<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" asp-for=Input.FatherName placeholder="Enter Father's Name" />
+                                <span class="text-danger" asp-validation-for=Input.FatherName></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Father's Occupation<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <select asp-for="Input.fatherOccupationId" asp-items="Model.professionlist" class="required form-control">
+                                    <option disabled selected>--Please Select Father's Occupation--</option>
+                                </select>
+                                <span asp-validation-for="Input.fatherOccupationId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Monthly Family Income<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" type="number" asp-for="Input.fatherIncome" min="0" class="required form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                                <span asp-validation-for="Input.fatherIncome " class=" text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="guardian_details">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Guardian's Name<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" asp-for=Input.guardianName placeholder="Enter Guardian Name" />
+                                <span class="text-danger" asp-validation-for=Input.guardianName></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Relation With Guardian<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" asp-for=Input.relation_with_guardian placeholder="Enter relation with Guardian" />
+                                <span class="text-danger" asp-validation-for=Input.relation_with_guardian></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Guardian's Occupation<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <select asp-for="Input.guardianOccupationId" asp-items="Model.professionlist" class="required form-control">
+                                    <option disabled selected>--Please Select Guardian's Occupation--</option>
+                                </select>
+                                <span asp-validation-for="Input.guardianOccupationId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Monthly Family Income<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input class="required form-control" type="number" asp-for="Input.guardianIncome" min="0" class="required form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                                <span asp-validation-for="Input.guardianIncome " class=" text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All fields are Mandatory</label>
+                    </div>
+
+                </section>
+
+                <h3>Banking Details</h3>
+                <section>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label" for="name2">Bank Name<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.bankName" class=" required form-control" />
+                            <span asp-validation-for="Input.bankName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label" for="name2">Branch Name<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.bankBranchName" class=" required form-control" />
+                            <span asp-validation-for="Input.bankBranchName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label" for="name2">Account Number<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.bankAcNo" min="0" required="" type="number" class="required form-control" />
+                            <label asp-for="Input.bankAcNo" class="form-label"></label>
+                            <span asp-validation-for="Input.bankAcNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-4 control-label" for="name2">IFSC Code<span class="text-danger">*</span></label>
+                        <div class="col-lg-8">
+                            <input asp-for="Input.bankIFSC" class=" required form-control" />
+                            <span asp-validation-for="Input.bankIFSC" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All fields are Mandatory</label>
+                    </div>
+                </section>
+
+                <h3>Other Details</h3>
+                <section>
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Any Past Scholarship<span class="text-danger">*</span></label>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="radio">
+                                                <input type="radio" name="radioScholar" asp-for="appReg.Is_Past_Scholar" value="1" onclick="showScholarDetails()">
+                                                <label>Yes</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="radio">
+                                                <input type="radio" checked name="radioScholar" asp-for="appReg.Is_Past_Scholar" value="0" onclick="showScholarDetails()">
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="pastScholarship">
+                            <div class="col-lg-6">
+                                <div class="form-group clearfix">
+                                    <label class="col-lg-5 control-label ">Scholarship Name<span class="text-danger">*</span></label>
+                                    <div class="col-lg-7">
+                                        <input asp-for="appReg.Past_Scholar_Name" class="required form-control" placeholder="Enter Past Scholar Name" />
+                                        <span asp-validation-for="appReg.Past_Scholar_Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group clearfix">
+                                    <label class="col-lg-5 control-label ">Scholar Amount<span class="text-danger">*</span></label>
+                                    <div class="col-lg-7">
+                                        <input asp-for="appReg.Past_Scholar_Amount" min="0" type="number" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="required form-control" placeholder="Enter Past Scholar Amount" />
+                                        <span asp-validation-for="appReg.Past_Scholar_Amount" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> First Reference Name<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Ref1_Member_name" class="required form-control" placeholder="Enter First Reference Name" />
+                                    <span asp-validation-for="appReg.Ref1_Member_name" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">First Reference Profession<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <select required asp-for="appReg.R1_Member_OccupationId" asp-items="@Model.professionlist" class="required form-control">
+                                        <option disabled selected>--Please Select Profession--</option>
+                                    </select>
+                                    <span asp-validation-for="appReg.R1_Member_OccupationId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">First Reference Mobile Number<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Ref1_Member_Contact" min="0" required="" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="required form-control" placeholder="Enter First Reference Mobile Number" />
+                                    <span asp-validation-for="appReg.Ref1_Member_Contact" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Second Reference Name<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Ref2_Member_name" class="required form-control" placeholder="Enter Second Reference Name" />
+                                    <span asp-validation-for="appReg.Ref2_Member_name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Second Reference Profession<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <select required asp-for="appReg.R2_Member_OccupationId" asp-items="@Model.professionlist" class="required form-control">
+                                        <option disabled selected>--Please Select Profession--</option>
+                                    </select>
+                                    <span asp-validation-for="appReg.R2_Member_OccupationId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Second Reference Mobile Number<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Ref2_Member_Contact" min="0" required="" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="required form-control" placeholder="Enter Second Reference Mobile Number" />
+                                    <span asp-validation-for="appReg.Ref2_Member_Contact" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All fields are Mandatory</label>
+                        </div>
+                    </div>
+                </section>
+
+                <h3>Academic Details</h3>
+                <section>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Institute Name<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Institute_Name" class="required form-control" placeholder="Enter Institute Name" />
+                                    <span asp-validation-for="appReg.Institute_Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Registration Number<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Registration_Number" class="required form-control" placeholder="Enter Institute Registration Number" />
+                                    <span asp-validation-for="appReg.Registration_Number" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Course Name<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.course_name" class="required form-control" placeholder="Enter Course Name" />
+                                    <span asp-validation-for="appReg.course_name" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Admission Date<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <input asp-for="appReg.Institute_admission_date" type="text" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control required datepicker" placeholder="dd/mm/yyyy" data-mask="99/99/9999" autocomplete="off">
+                                        <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                    </div>
+                                    <span asp-validation-for="appReg.Institute_admission_date" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Present Session / Class<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.present_class" class="required form-control" placeholder="Enter Present Session / Class" />
+                                    <span asp-validation-for="appReg.present_class" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Course Duration<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.course_duration" class="required form-control" placeholder="Enter Course Duration" />
+                                    <span asp-validation-for="appReg.course_duration" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Institute Contact<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Institute_Contact" class="required form-control" min="0" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter Institute Contact Number" />
+                                    <span asp-validation-for="appReg.Institute_Contact" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Institute Address<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <textarea asp-for="appReg.Institute_Address" class="required form-control" placeholder="Enter Institute Full Address"></textarea>
+                                    <span asp-validation-for="appReg.Institute_Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label "> Admission Fee<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Institute_Admission_fees" type="number" min="0" class="required form-control" placeholder="Enter Admission Fee" />
+                                    <span asp-validation-for="appReg.Institute_Admission_fees" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Tuition Fee<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Tuition_fees" type="number" min="0" class="required form-control" placeholder="Enter Tuition Fee" />
+                                    <span asp-validation-for="appReg.Tuition_fees" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Exam Fee<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Exam_fees" type="number" min="0" class="required form-control" placeholder="Enter Exam Fee" />
+                                    <span asp-validation-for="appReg.Exam_fees" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group clearfix">
+                                <label class="col-lg-5 control-label ">Other Fee<span class="text-danger">*</span></label>
+                                <div class="col-lg-7">
+                                    <input asp-for="appReg.Institute_Other_fees" type="number" min="0" class="required form-control" placeholder="Enter Other Fee (if any)" />
+                                    <span asp-validation-for="appReg.Institute_Other_fees" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All fields are Mandatory</label>
+                        </div>
+                    </div>
+                </section>
+
+               <h3>Upload Documents</h3>
+                <section>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-10">
+                        <div class="form-group clearfix">
+                            <label class="col-lg-4 control-label" for="name2">Upload Image<span class="text-danger">*</span></label>
+                            <div class="col-lg-8">
+                                <input type="file"
+                                       accept=".png,.jpg,.jpeg"
+                                       asp-for="Input.ImageUrl"
+                                       class="required form-control"
+                                       onchange="photoSet(this,'schemeImage')" />
+                            </div>
+                            <span asp-validation-for="Input.ImageUrl" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @if (Model.Input.ImageUrl != null)
+                            {
+                                <input type="image" id="schemeImage" class="required img-responsive user-img" asp-for="@Model.Input.ImageUrl" src="@Model.Input.ImageUrl" style="height: 75px; width: 75px;" alt="image">
+                            }
+                            else
+                            {
+                                <img src="~/controller/Image/DemoPic.jpg" id="schemeImage" class="img-responsive user-img" style="height: 75px; width: 75px;" alt="image">
+                            }
+                        </div>
+                    </div>
+                    @*    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Signature<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.sign_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'signatureImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.sign_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.sign_url != null)
+                    {
+                    <img type="image" id="signatureImage" class="img-responsive user-img" src="@Model.appReg.sign_url" style="height: 75px; width: 75px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="signatureImage" class="img-responsive user-img" style="height: 50px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Aadhaar Card<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.adhaarUrl"
+                    class="required form-control"
+                    onchange="photoSet(this,'aadhaarImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.adhaarUrl" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.adhaarUrl != null)
+                    {
+                    <img id="aadhaarImage" class="img-responsive user-img" src="@Model.appReg.adhaarUrl" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="aadhaarImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Cast Certificate<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.category_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'categoryImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.category_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.category_url != null)
+                    {
+                    <img id="categoryImage" class="img-responsive user-img" src="@Model.appReg.category_url" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="categoryImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Admission Receipt<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.admissionreceipt_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'admissionImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.admissionreceipt_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.admissionreceipt_url != null)
+                    {
+                    <img id="admissionImage" class="img-responsive user-img" src="@Model.appReg.admissionreceipt_url" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="admissionImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Last Passing Marksheet<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.marksheet_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'marksheetImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.marksheet_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.marksheet_url != null)
+                    {
+                    <img id="marksheetImage" class="img-responsive user-img" src="@Model.appReg.marksheet_url" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="marksheetImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Income Proof<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.incomeproof_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'incomeProofImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.incomeproof_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.incomeproof_url != null)
+                    {
+                    <img id="incomeProofImage" class="img-responsive user-img" src="@Model.appReg.incomeproof_url" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="incomeProofImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Bank Passbook<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.passbookUrl"
+                    class="required form-control"
+                    onchange="photoSet(this,'bankImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.passbookUrl" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.passbookUrl != null)
+                    {
+                    <img id="bankImage" class="img-responsive user-img" src="@Model.appReg.passbookUrl" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="bankImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div>
+                    <div class="col-md-10">
+                    <div class="form-group clearfix">
+                    <label class="col-lg-4 control-label" for="name2">Upload Bonafide Certificate<span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="appReg.bonafied_certificate_url"
+                    class="required form-control"
+                    onchange="photoSet(this,'bonafideImage')" />
+                    </div>
+                    <span asp-validation-for="appReg.bonafied_certificate_url" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="form-group">
+                    @if (Model.appReg.bonafied_certificate_url != null)
+                    {
+                    <img id="bonafideImage" class="img-responsive user-img" src="@Model.appReg.bonafied_certificate_url" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    else
+                    {
+                    <img src="~/controller/Image/DemoPic.jpg" id="bonafideImage" class="img-responsive user-img" style="height: 75px; width: 150px;" alt="image">
+                    }
+                    </div>
+                    </div> *@
+
+                    <div class="form-group clearfix">
+                        <label class="col-lg-12 control-label ">(<span class="text-danger">*</span>) All Documents are Mandatory</label>
+                    </div>
+                </section> 
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $('document').ready(function () {
+            showScholarDetails();
+        });
+
+        function hideScholarDetails() {
+            document.getElementById('pastScholarship').style.display = 'none';
+        }
+
+        function showScholarDetails() {
+            hideScholarDetails();
+            var radios = document.getElementsByName('radioScholar');
+
+            var value;
+            for (var i = 0; i < radios.length; i++) {
+
+                if (radios[i].checked) {
+                    value = radios[i].value;
+                    break;
+                }
+            }
+            if (value == 1) {
+                document.getElementById('pastScholarship').style.display = 'block';
+            }
+        }
+
+    </script>
+    <script>
+        $('document').ready(function () {
+            showDetails();
+            $('#inputField').on('input', function () {
+                $('#r1name').text($(this).val());
+            });
+        });
+
+        function hideAllDetails() {
+            document.getElementById('father_details').style.display = 'none';
+            document.getElementById('mother_details').style.display = 'none';
+            document.getElementById('guardian_details').style.display = 'none';
+            document.getElementById('pastScholarship').style.display = 'none';
+        }
+
+        function showDetails() {
+            hideAllDetails();
+            var radios = document.getElementsByName('radioInline');
+
+            var value;
+            for (var i = 0; i < radios.length; i++) {
+
+                if (radios[i].checked) {
+                    value = radios[i].value;
+                    break;
+                }
+            }
+            if (value == '@SD.Father') {
+                document.getElementById('father_details').style.display = 'block';
+            } else if (value == '@SD.Mother') {
+                document.getElementById('mother_details').style.display = 'block';
+            } else if (value == '@SD.Guardian') {
+                document.getElementById('guardian_details').style.display = 'block';
+            }
+            else if (value == 1) {
+                document.getElementById('pastScholarship').style.display = 'block';
+            }
+        }
+
+    </script>
+
+    <script src="~/js/Image_Upload.js" asp-append-version="true"></script>
+    <script src="~/plugins/jquery.steps/js/jquery.steps.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+    <!--wizard initialization-->
+    <script src="~/assets/pages/wbzf.wizard-init.js" asp-append-version="true" type="text/javascript"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_Notification" />
+}

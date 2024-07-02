@@ -36,5 +36,11 @@ namespace wbzf.DataAccess.Data
         public DbSet<contactform> contactforms { get; set; }
         public DbSet<Sponsor> sponsors { get; set; }
         public DbSet<Report> reports { get; set; }
+        public DbSet<ApplicationRegister> application_register { get; set; }
+        public DbSet<ApplicationProcessing> application_processing { get; set; }
+         public DbSet<MainAc> main_Account { get; set; }
+         public DbSet<TransactionHistory> Transaction_History { get; set; }
+        public DbSet<SanctionedApplication> Sanctioned_Application { get; set; }
+
     }
 }

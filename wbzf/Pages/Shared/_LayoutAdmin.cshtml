@@ -6,7 +6,7 @@
 @using wbzf.DataAccess.Repository.IRepository
 @inject IUnitOfWork Iunitofwork
 @{
-    var appUser =UserManager.GetUserAsync(User).Result;
+    var appUser = UserManager.GetUserAsync(User).Result;
     var Company = Iunitofwork.company.GetCompany();
     string[] userType = new string[] { SD.OurTeamMembers, SD.OurAdvisoryCommitte, SD.OurAuditor, SD.OurLegalExpert, SD.OurMufti, SD.OurMembers };
 
@@ -32,6 +32,11 @@
     <link href="~/assets/css/menu.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/css/responsive.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/plugins/switchery/switchery.min.css">
+    <!--select2 min css-->
+    <link href="~/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Sweet Alert -->
+    <link href="~/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
     <!-- DataTables -->
     <link href="~/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -52,11 +57,11 @@
 </head>
 <body class="fixed-left">
     @*<!-- page preloader -->
-        <div id="loading-area">
-        <div class="loader-box">
-        <div class="loader" id="loader-1"></div>
-        </div>
-        </div><!-- end loading -->*@
+    <div id="loading-area">
+    <div class="loader-box">
+    <div class="loader" id="loader-1"></div>
+    </div>
+    </div><!-- end loading -->*@
     <!-- Begin page -->
     <div id="wrapper">
 
@@ -183,9 +188,30 @@ background-color:white;
                             <a href="javascript:void(0);" class=""><i class="mdi mdi-account"></i> <span>Profile </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a asp-page="/Profile/Index">Your Profile</a></li>
+                                @if (User.IsInRole(SD.Beneficiary))
+                                {
+                                    <li><a asp-page="/Profile/FamilyDetails">Family Details</a></li>
+                                }
+                                @if (!User.IsInRole(SD.Admin) && !User.IsInRole(SD.Donor))
+                                {
+                                    <li><a asp-page="/Profile/BankingDetails">Banking Details</a></li>
+                                }
                                 <li><a asp-page="/Profile/ChangePassword">Change Password</a></li>
                             </ul>
                         </li>
+                        @if (User.IsInRole(SD.Admin))
+                        {
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class=""><i class=" mdi mdi-cash-multiple"></i> <span>Account Management</span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="/Admin/AccountManagement/Deposit">Deposit</a></li>
+                                    <li><a href="/Admin/AccountManagement/AccountTransfer">Account Transfer</a></li>
+                                    <li><a href="/Admin/AccountManagement/MakePayment">Make Payment</a></li>
+                                    <li><a href="/Admin/AccountManagement/AccountStatement">Account Statement</a></li>
+
+                                </ul>
+                            </li>
+                        }
                         @if (User.IsInRole(SD.Donor))
                         {
                             <li>
@@ -209,49 +235,43 @@ background-color:white;
                                 <a href="javascript:void(0);" class=""><i class="mdi mdi-gift"></i> <span>Donation </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a asp-page="/Donation/Index">All Donations</a></li>
+                                    <li><a asp-page="/Donation/Create">Donation Collect</a></li>
                                 </ul>
                             </li>
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class=""><i class="mdi mdi-application"></i> <span>@SD.WBCS Applications </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript:void(0);" class=""><i class="mdi mdi-application"></i> <span>Applications <span class="text-danger">(@Iunitofwork.applicationRegister.GetAll(x => x.application_Status != SD.Draft && x.application_Status != SD.Complete).Count())</span> </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBCS asp-route-status=@SD.Applied>New Applications</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBCS asp-route-status=@SD.InProgress>Applications to Review</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBCS asp-route-status=@SD.Rejected>Rejected Applications</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBCS asp-route-status=@SD.Approved>Approved Applications</a></li>
-                                </ul>
-                            </li>
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class=""><i class="mdi mdi-book-open"></i> <span>@SD.WBJS Applications </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBJS asp-route-status=@SD.Applied>New Applications</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBJS asp-route-status=@SD.InProgress>Applications to Review</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBJS asp-route-status=@SD.Rejected>Rejected Applications</a></li>
-                                    <li><a asp-page="/Applications/Index" asp-route-exam=@SD.WBJS asp-route-status=@SD.Approved>Approved Applications</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-face-profile"></i><span> Members </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                    @if (User.IsInRole(SD.Admin))
+                                    @foreach (var obj in Iunitofwork.applicationRegister.GetAll(includeProperties: "Purpose").DistinctBy(x => x.PurposeId))
                                     {
-                                        <li><a asp-page="/Account/Register" asp-area="Identity">Add New</a></li>
+                                        <li><a href="/App/@obj.Purpose.Name/@obj.PurposeId">@obj.Purpose.Name <span class="text-danger">(@Iunitofwork.applicationRegister.GetAll(x => x.application_Status != SD.Draft && x.application_Status != SD.Complete && x.application_Status != SD.Sanctioned && x.PurposeId == obj.PurposeId).Count())</span></a></li>
 
                                     }
-                                    <li><a asp-page="/Users/Index">Member List</a></li>
-
+                                    <li><a href="#" class="waves-effect">Sanctioned Application <span class="text-danger">(@Iunitofwork.applicationRegister.GetAll(x => x.application_Status == SD.Sanctioned).Count())</span></a></li>
                                 </ul>
                             </li>
+                          
+                            @if (User.IsInRole(SD.Admin))
+                            {
+                                <li class="has_sub">
+                                    <a href="#" class="waves-effect"><i class="fa fa-users"></i><span>Members</span> <span class="menu-arrow"></span></a>
+
+                                    <ul class="list-unstyled" style="display: none;">
+                                        <li><a asp-page="/Member/Create" asp-area="Admin" class="waves-effect">Create Employee</a></li>
+                                        <li><a asp-page="/Member/Index" asp-area="Admin" class="waves-effect">All Employees</a></li>
+                                    </ul>
+
+                                </li>
+                            }
 
                             @*<li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-newspaper"></i> <span> Posts </span> <span class="menu-arrow"></span></a>
-                                <ul class="list-unstyled">
-                                <li><a asp-page="/Post/Upsert">Add New</a></li>
-                                <li><a asp-page="/Post/Upsert">Add New</a></li>
-                                <li><a asp-page="/Post/Index">All Posts</a></li>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-newspaper"></i> <span> Posts </span> <span class="menu-arrow"></span></a>
+                        <ul class="list-unstyled">
+                        <li><a asp-page="/Post/Upsert">Add New</a></li>
+                        <li><a asp-page="/Post/Upsert">Add New</a></li>
+                        <li><a asp-page="/Post/Index">All Posts</a></li>
 
-                                </ul>
-                                </li>*@
+                        </ul>
+                        </li>*@
                             <li>
                                 <a asp-page="/Contact/Index" asp-area="Admin" class="waves-effect"><i class="mdi mdi-contact-mail"></i> <span> Contact Us </span> </a>
 
@@ -349,11 +369,11 @@ background-color:white;
                                         <li><a asp-area="Admin" asp-page="/Settings/Account" class="waves-effect">Accounts/Funds</a></li>
                                         <li><a asp-area="Admin" asp-page="/Settings/AccountPaymentGatewaySetup" class="waves-effect">Accounts Payment Gateway Setup</a></li>
                                         @*<li><a asp-area="Admin" asp-page="/State/Index" class="waves-effect">State Register</a></li>
-                                            <li><a asp-area="Admin" asp-page="/Session/Index" class="waves-effect">Session Setup</a></li>
-                                            <li><a asp-area="Admin" asp-page="/Gallery/Slider" class="waves-effect">Slider Gallery</a></li>
-                                            <li><a asp-area="Admin" asp-page="/Gallery/Homegallery" class="waves-effect">Home Gallery</a></li>
-                                            <li><a asp-area="Admin" asp-page="/Certificate/Certificates" class="waves-effect">Certificates</a></li>
-                                            <li><a asp-area="Admin" asp-page="/TermsAndCondition/Index" class="waves-effect">Terms and Conditions</a></li>*@
+                                <li><a asp-area="Admin" asp-page="/Session/Index" class="waves-effect">Session Setup</a></li>
+                                <li><a asp-area="Admin" asp-page="/Gallery/Slider" class="waves-effect">Slider Gallery</a></li>
+                                <li><a asp-area="Admin" asp-page="/Gallery/Homegallery" class="waves-effect">Home Gallery</a></li>
+                                <li><a asp-area="Admin" asp-page="/Certificate/Certificates" class="waves-effect">Certificates</a></li>
+                                <li><a asp-area="Admin" asp-page="/TermsAndCondition/Index" class="waves-effect">Terms and Conditions</a></li>*@
 
                                     </ul>
                                 </li>
@@ -462,6 +482,12 @@ background-color:white;
     <script src="~/assets/js/jquery.scrollTo.min.js"></script>
     <script src="~/plugins/switchery/switchery.min.js"></script>
 
+    <!--date pciker-->
+    <script src="~/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="~/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+
+    <script src="~/plugins/select2/js/select2.min.js"></script>
     <!-- App js -->
     <script src="~/assets/js/jquery.core.js"></script>
     <script src="~/assets/js/jquery.app.js"></script>
@@ -471,7 +497,18 @@ background-color:white;
     <!-- App js -->
     <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="~/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
 
+        $(document).ready(function () {
+            jQuery('.datepicker').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                todayHighlight: true
+            });
+            $('.select2').select2();
+        });
+    </script>
+    <partial name="_Notification" />
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>

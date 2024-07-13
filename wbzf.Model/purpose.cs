@@ -13,6 +13,7 @@ namespace wbzf.Model
         public int Order { get; set; }
         public bool IsDefault { get; set; }
         public bool IsActive { get; set; }
+        public string? Form_url { get; set; }
         public DateTime Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
 

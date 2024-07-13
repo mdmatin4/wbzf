@@ -1,0 +1,120 @@
+﻿@page
+@using wbzf.Utility
+@model wbzf.Areas.Admin.Pages.Donation.CreateModel
+@{
+
+    ViewData["Title"] = "Donation Collect";
+
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<form method="post">
+    <div class="col-md-6">
+        <div class="panel panel-color panel-teal">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                   Donation Collect
+                </h3>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="@Model.donation.Account.Name">Account Name <span class="text-danger">*</span></label>
+
+                        <select id="account_Id" asp-for="@Model.donation.accountId" asp-items="@Model.AccountList" class="required form-control">
+                            <option disabled selected>--Please Select Account--</option>
+                        </select>
+                        <span asp-validation-for="@Model.donation.Account.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <label>Account Number <span class="text-danger">*</span></label>
+                        <input type="text" id="account_Number" disabled class="form-control" placeholder="Account Number" />
+                    </div>
+                </div>
+                @* <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Payment Purpose <span class="text-danger">*</span></label>
+
+                        <select id="payment_PurposeId" asp-for="@Model.Transactions.Transaction_Purpose" class="required form-control">
+                            <option disabled selected>--Please Select Payment Purpose--</option>
+                            <option value="@SD.Expence"> @SD.Expence</option>
+                            <option value="@SD.Salary"> @SD.Salary</option>
+
+                        </select>
+                        <span asp-validation-for="@Model.Transactions.Transaction_Purpose" class="text-danger"></span>
+                    </div>
+                </div> *@
+                <div  class="col-md-12">
+                    <div class="form-group">
+                        <label>Donated By <span class="text-danger">*</span></label>
+
+                        <select asp-for="@Model.donation.userId" asp-items="@Model.userList" class="required form-control">
+                            <option disabled selected>--Please Select Payment Purpose--</option>
+
+                        </select>
+                        <span asp-validation-for="@Model.donation.userId" class="text-danger"></span>
+                    </div>
+                </div>
+                @* <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Amount <span class="text-danger">*</span></label>
+                        <input type="number" min="1" asp-for="@Model.donation.donated_amount" class="required form-control" placeholder="Enter Amount" />
+                        <span asp-validation-for="@Model.donation.donated_amount" class="text-danger"></span>
+                    </div>
+                </div> *@
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="@Model.donation.Account.Name">Purpose  <span class="text-danger">*</span></label>
+
+                        <select  asp-for="@Model.donation.purposeId" asp-items="@Model.purposeList" class="required form-control">
+                            <option disabled selected>--Please Select Purpose--</option>
+                        </select>
+                        <span asp-validation-for="@Model.donation.purposeId" class="text-danger"></span>
+                    </div>
+                </div>
+               <br/>
+                <div class="col-md-6 pull-right">
+                    <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+@section scripts {
+
+    <script src="~/js/accountTransaction.js" asp-append-version="true"></script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
+    }
+
+}

@@ -23,9 +23,24 @@ namespace wbzf.DataAccess.Repository
             var objFromDb = _db.purposes.FirstOrDefault(u => u.Id==purpose.Id);
             if (objFromDb!=null)
             {
-                objFromDb.Name=purpose.Name;
-                objFromDb.Order=purpose.Order;
-                objFromDb.IsDefault=purpose.IsDefault;
+                
+                if (purpose.Form_url != null)
+                {
+                    objFromDb.Form_url = purpose.Form_url;
+                }
+                 if (purpose.Order != null)
+                {
+                    objFromDb.Order = purpose.Order;
+                }
+                 if (purpose.Name != null)
+                {
+                    objFromDb.Name = purpose.Name;
+                }
+                if (purpose.IsDefault != null)
+                {
+                    objFromDb.IsDefault = purpose.IsDefault;
+                }
+               
                 objFromDb.Updated_at=DateTime.Now;
             }
 

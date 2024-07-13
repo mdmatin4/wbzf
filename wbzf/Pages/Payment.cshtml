@@ -17,7 +17,7 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
 
-            var orderId = "@Model.donation.payment_gateway_orderid"
+        var orderId = "@Model.donation.Id"
             var options = {
                 "name": "@Model.company.name",
                 "description": "@Model.company.address",

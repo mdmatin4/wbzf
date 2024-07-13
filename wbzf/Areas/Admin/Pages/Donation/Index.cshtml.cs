@@ -22,7 +22,7 @@ namespace wbzf.Areas.Admin.Pages.Donation
         {
             Donations=_unitOfWork.donation.GetAll(orderby: u => u.OrderByDescending(m => m.created_at));
         }
-        public IActionResult OnPostChangeStat(int id)
+        public IActionResult OnPostChangeStat(string id)
         {
             donationitem=_unitOfWork.donation.GetFirstOrDefault(u => u.Id==id);
             donationitem.status=SD.Utilized;

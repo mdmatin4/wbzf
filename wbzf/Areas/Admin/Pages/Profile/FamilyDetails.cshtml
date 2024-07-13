@@ -1,0 +1,160 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.Profile.FamilyDetailsModel
+@{
+    ViewData["Title"] = "Family Details";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="" asp-page="/Index">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class=card-box>
+    <div class="row">
+        <form id="profile-form" class="form-group" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-6">
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="radio">
+                            <input type="radio" checked="@(Model.Input.parentType==SD.Father ? true: false)" name="radioInline" asp-for="Input.parentType" value="@SD.Father" onclick="showDetails()">
+                            <label>Father's Details</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="radio">
+                            <input type="radio" name="radioInline" checked="@(Model.Input.parentType==SD.Mother ? true: false)" asp-for="Input.parentType" value="@SD.Mother" onclick="showDetails()">
+                            <label>Mother's Details</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <div class="radio">
+                            <input type="radio" name="radioInline" checked="@(Model.Input.parentType==SD.Guardian ? true: false)" asp-for="Input.parentType" value="@SD.Guardian" onclick="showDetails()">
+                            <label>Guardian's Details</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mother_details">
+
+                    <div class="form-group">
+                        <input class="form-control" asp-for=Input.Mother_Name placeholder="Enter Mother's Name" />
+                        <span class="text-danger" asp-validation-for=Input.Mother_Name></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="Input.motherOccupationId" asp-items="Model.professionlist" class="form-control">
+                            <option disabled selected>--Please Select Mother's Occupation--</option>
+                        </select>
+                        <span asp-validation-for="Input.motherOccupationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Family Income <span class="text-danger">(*)</span> </label>
+                        <input class="form-control" type="number" asp-for="Input.motherIncome" min="0" class="form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                        <span asp-validation-for="Input.motherIncome " class=" text-danger"></span>
+                    </div>
+                </div>
+                <div id="father_details">
+
+                    <div class="form-group">
+                        <input class="form-control" asp-for=Input.FatherName placeholder="Enter Father's Name" />
+                        <span class="text-danger" asp-validation-for=Input.FatherName></span>
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="Input.fatherOccupationId" asp-items="Model.professionlist" class="form-control">
+                            <option disabled selected>--Please Select Father's Occupation--</option>
+                        </select>
+                        <span asp-validation-for="Input.fatherOccupationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Family Income <span class="text-danger">(*)</span> </label>
+                        <input class="form-control" type="number" asp-for="Input.fatherIncome" min="0" class="form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                        <span asp-validation-for="Input.fatherIncome " class=" text-danger"></span>
+                    </div>
+                </div>
+                <div id="guardian_details">
+
+                    <div class="form-group">
+                        <input class="form-control" asp-for=Input.guardianName placeholder="Enter Guardian Name" />
+                        <span class="text-danger" asp-validation-for=Input.guardianName></span>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" asp-for=Input.relation_with_guardian placeholder="Enter relation with Guardian" />
+                        <span class="text-danger" asp-validation-for=Input.relation_with_guardian></span>
+                    </div>
+
+                    <div class="form-group">
+                        <select asp-for="Input.guardianOccupationId" asp-items="Model.professionlist" class="form-control">
+                            <option disabled selected>--Please Select Guardian's Occupation--</option>
+                        </select>
+                        <span asp-validation-for="Input.guardianOccupationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Family Income <span class="text-danger">(*)</span> </label>
+                        <input class="form-control" type="number" asp-for="Input.guardianIncome" min="0" class="form-control" requried="" placeholder="Enter Your Family Monthly Income">
+                        <span asp-validation-for="Input.guardianIncome " class=" text-danger"></span>
+                    </div>
+                </div>
+
+                <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        $('document').ready(function () { 
+            showDetails();
+        });
+       
+        function hideAllDetails() {
+            document.getElementById('father_details').style.display = 'none';
+            document.getElementById('mother_details').style.display = 'none';
+            document.getElementById('guardian_details').style.display = 'none';
+        }
+
+        function showDetails() {
+            hideAllDetails();
+            var radios = document.getElementsByName('radioInline');
+            
+            var value;
+            for (var i = 0; i < radios.length; i++) {
+                
+                if (radios[i].checked) {
+                    value = radios[i].value;
+                    break;
+                }
+            }
+            if (value == '@SD.Father') {
+                document.getElementById('father_details').style.display = 'block';
+            } else if (value == '@SD.Mother') {
+                document.getElementById('mother_details').style.display = 'block';
+            } else if (value == '@SD.Guardian') {
+                document.getElementById('guardian_details').style.display = 'block';
+            }
+        }
+        
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_Notification" />
+}
+

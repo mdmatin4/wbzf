@@ -39,15 +39,15 @@
     <div class="col-md-12">
         <div class="panel">
 
-           @*  <div class="panel-heading">
-                @if (Model.scheme.Id != 0)
-                {
-                    <h3 class="panel-title">Edit Scheme</h3>
-                }
-                else
-                {
-                    <h3 class="panel-title">Add New Scheme</h3>
-                }
+            @*  <div class="panel-heading">
+            @if (Model.scheme.Id != 0)
+            {
+            <h3 class="panel-title">Edit Scheme</h3>
+            }
+            else
+            {
+            <h3 class="panel-title">Add New Scheme</h3>
+            }
 
 
 
@@ -120,14 +120,15 @@
                     </div>
                     <div class="col-md-12" style="padding-bottom:30px;">
                         <div class="form-group">
-                            <label asp-for="scheme.Eligibility" class="col-md-2 control-label">Eligibility :</label>
+                            <label class="col-md-2 control-label">Eligibility :</label>
+
                             <div class="col-md-10">
-                                <input asp-for="scheme.Eligibility" class="form-control" />
+                                <textarea asp-for="scheme.Eligibility" id="textarea2" class="form-control"></textarea>
                                 <span asp-validation-for="scheme.Eligibility" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" style="padding-bottom:30px;">
+                   @*  <div class="col-md-12" style="padding-bottom:30px;">
                         <div class="form-group">
                             <label asp-for="scheme.Form_Url" class="col-md-2 control-label">Form_Url : </label>
                             <div class="col-md-10">
@@ -135,7 +136,7 @@
                                 <span asp-validation-for="scheme.Form_Url" class="text-danger"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> *@
 
 
                     <div class="col-md-8">
@@ -194,6 +195,7 @@
     <script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
     <script type="text/javascript" lang="javascript">
         CKEDITOR.replace('textarea1');
+        CKEDITOR.replace('textarea2');
     </script>
     <script>
         $(document).ready(function () {
@@ -222,5 +224,6 @@
     </script>
     @{
         <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
     }
 }

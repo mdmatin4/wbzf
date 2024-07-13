@@ -1,0 +1,108 @@
+﻿@page
+@using wbzf.Utility
+@model wbzf.Pages.CommonRegitrationFormModel
+@{
+    ViewData["Title"] = "Apply for Scheme";
+}
+
+<section class="promo-primary  promo-primary--shop">
+    <picture>
+        <source srcset="img/all page header.jpg" media="(min-width: 992px)" /><img class="img--bg" src="img/all page header.jpg" alt="img" />
+    </picture>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-auto">
+                <div class="align-container">
+                    <div class="align-container__item">
+                        <span class="promo-primary__pre-title">WBZF</span>
+                        <h1 class="promo-primary__title"><span>@Model.scheme.Name</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section storie-details">
+    <div class="container">
+        <input type="hidden" asp-for="@Model.scheme.Id" />
+        <div class="row">
+            <div class="col-xl-12">
+                @if (Model.scheme != null)
+                {
+                    <h6 class="storie-details__title">@Model.scheme.Name</h6>
+
+                    @Html.Raw(Model.scheme.Description)
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+
+                <h6 class="storie-details__title">Eligibility Criteria:</h6>
+                @if (Model.scheme != null)
+                {
+                    @Html.Raw(Model.scheme.Description)
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+
+                <h6 class="storie-details__title">Notes:</h6>
+                <ol>
+                    <li><strong>The background verification will be done by Scrutiny Committee.</strong></li>
+                    <li><strong>The Scholarship amount will be sanctioned as per recommendations from Scrutiny Committee (Depending on the availability of Zakat funds).</strong></li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="scholarship-info">
+
+                <h2>Zakat Scholarship Scheme</h2>
+
+                <p>
+                    It has been noticed that each year after declaration of JEE / NEET/ CLAT result and other competitive exam results, many of those students who crack their seats fail to arrange counselling fees, admission fees and other academic fees at the time of their admission within a very short period of time.
+                </p>
+
+                <p>
+                    Govt Scholarship scheme are there but the fact is that after admission at any Institution students can apply for those scholarships and it will take time to get those Scholarship amount in hand. At the Initial stage most of the students from economically weaker sections fall in great trouble to arrange those amount at a time.
+                </p>
+
+                <p>
+                    We have decided to help them overcome this hurdle through our Zakat scholarship scheme.
+                </p>
+
+                <p>Thanks</p>
+
+            </div>
+        </div>
+
+        <a class="button stories-item__button button--primary" asp-page="/CommonApplicationForm" asp-route-scheme_id="@Model.scheme.Id">Apply Now</a>
+    </div>
+</section>
+
+<style>
+    .scholarship-info {
+        border: 2px solid #333;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+
+        .scholarship-info h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .scholarship-info p {
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .scholarship-info strong {
+            color: #006bb3;
+        }
+</style>
+

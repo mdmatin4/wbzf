@@ -15,6 +15,7 @@ namespace wbzf.Utility
             var franchiseId =  companyshortname + "-" + exam_name + "-" + newsl;
             return franchiseId;
         }
+     
         public static string MakeStudentId(string newsl)
         {
             if (newsl.Length == 1)
@@ -26,6 +27,36 @@ namespace wbzf.Utility
             var studentid= (DateTime.Today.Year.ToString().Substring(DateTime.Today.Year.ToString().Length - 2)) + (DateTime.Today.Month + 7).ToString() + DateTime.Today.Day + newsl;
             return studentid;
         }
+        public static double? BalanceCalculation(double amt, string operationType, double previousAmt)
+        {
+
+            switch (operationType)
+            {
+                case SD.Add:
+                    previousAmt += amt;
+                    break;
+                case SD.Substract:
+                    previousAmt -= amt; break;
+                default:
+                    break;
+            }
+            return previousAmt;
+        }
+       //public static double? ReceivedAmountCalculation(double? amt, string? operationType, double? charges)
+       // {
+
+       //     switch (operationType)
+       //     {
+       //         case SD.Add:
+       //             amt += charges;
+       //             break;
+       //         case SD.Substract:
+       //             amt -= charges; break;
+       //         default:
+       //             break;
+       //     }
+       //     return amt;
+       // }
         public static string MakeStudentPassword()
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl";

@@ -21,7 +21,7 @@ namespace wbzf.Pages
         public void OnGet(string orderId)
         {
             company=_unitofWork.company.GetCompany();
-            donation=_unitofWork.donation.GetFirstOrDefault(u => u.payment_gateway_orderid==orderId);
+            donation=_unitofWork.donation.GetFirstOrDefault(u => u.Id==orderId);
         }
     }
 }

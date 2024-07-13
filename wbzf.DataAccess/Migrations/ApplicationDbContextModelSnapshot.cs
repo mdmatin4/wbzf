@@ -268,7 +268,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("wbzf.Model.AccountGatewaySetup", b =>
@@ -303,7 +303,375 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("PaymentGatewayId");
 
-                    b.ToTable("accountGatewaySetups", (string)null);
+                    b.ToTable("accountGatewaySetups");
+                });
+
+            modelBuilder.Entity("wbzf.Model.ApplicationProcessing", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("Approved_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ApproverId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("VerifierId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("Verify_at")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("ApproverId");
+
+                    b.HasIndex("VerifierId");
+
+                    b.ToTable("application_processing");
+                });
+
+            modelBuilder.Entity("wbzf.Model.ApplicationRegister", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("Claim_Amount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("DateofBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Doctor_Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Doctor_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Exam_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Father_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Full_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hospital_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hospital_Admission_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Hospital_Admission_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Hospital_Bed_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Hospital_Bed_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Hospital_Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hospital_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Hospital_Other_fees")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Hospital_Surgery_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Hospital_Ward_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Hospital_admission_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Hospital_admission_receipt_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Illness_Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Institute_Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Institute_Admission_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Institute_Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Institute_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Institute_Other_fees")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("Institute_admission_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Insurance_Claimed_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Insurance_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Insured_amt")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("Is_Admit")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Is_Delete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Is_Past_Scholar")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("Is_insured")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Medicine_bill_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Medicine_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Mother_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PIN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Past_Scholar_Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Past_Scholar_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Past_Scholar_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PoliceStation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostOffice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Prayer_amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Prescription_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProfessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PurposeId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("R1_Member_OccupationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("R2_Member_OccupationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ref1_Member_Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ref1_Member_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ref2_Member_Contact")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ref2_Member_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Registration_Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Sanction_Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("SchemeId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Treatment_Estimate_cost")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Tuition_fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Vill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("adhaarUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("adhaarno")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("admissionreceipt_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("admit_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("application_Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankAcNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankBranchName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankIFSC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("bonafied_certificate_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("category_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("course_duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("course_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("fatherIncome")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("father_OccupationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("full_marks")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("guardianIncome")
+                        .HasColumnType("float");
+
+                    b.Property<string>("guardianName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("guardian_OccupationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("incomeproof_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("last_exam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("marksheet_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("motherIncome")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("mother_OccupationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("obtain_marks")
+                        .HasColumnType("int");
+
+                    b.Property<string>("parentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("passbookUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("passing_year")
+                        .HasColumnType("int");
+
+                    b.Property<string>("past_institute")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("percentage")
+                        .HasColumnType("float");
+
+                    b.Property<string>("present_class")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("relation_with_guardian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("sign_url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("updated_at")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ProfessionId");
+
+                    b.HasIndex("PurposeId");
+
+                    b.HasIndex("R1_Member_OccupationId");
+
+                    b.HasIndex("R2_Member_OccupationId");
+
+                    b.HasIndex("SchemeId");
+
+                    b.HasIndex("father_OccupationId");
+
+                    b.HasIndex("guardian_OccupationId");
+
+                    b.HasIndex("mother_OccupationId");
+
+                    b.ToTable("application_register");
                 });
 
             modelBuilder.Entity("wbzf.Model.coachingForm", b =>
@@ -491,7 +859,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("coachingForms", (string)null);
+                    b.ToTable("coachingForms");
                 });
 
             modelBuilder.Entity("wbzf.Model.contactform", b =>
@@ -529,26 +897,21 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("contactforms", (string)null);
+                    b.ToTable("contactforms");
                 });
 
             modelBuilder.Entity("wbzf.Model.donation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mobile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("accountId")
@@ -557,36 +920,18 @@ namespace wbzf.DataAccess.Migrations
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("completed_at")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("donated_amount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("paymentGatewayId")
+                    b.Property<int?>("purposeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("payment_gateway_orderid")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("purposeId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("received_amount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("transaction_fees")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("transaction_id")
                         .IsRequired()
@@ -596,20 +941,17 @@ namespace wbzf.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("userId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("accountId");
 
-                    b.HasIndex("paymentGatewayId");
-
                     b.HasIndex("purposeId");
 
                     b.HasIndex("userId");
 
-                    b.ToTable("donations", (string)null);
+                    b.ToTable("donations");
                 });
 
             modelBuilder.Entity("wbzf.Model.gallery", b =>
@@ -653,7 +995,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("gallery", (string)null);
+                    b.ToTable("gallery");
                 });
 
             modelBuilder.Entity("wbzf.Model.galleryCategory", b =>
@@ -679,7 +1021,43 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("galleryCategories", (string)null);
+                    b.ToTable("galleryCategories");
+                });
+
+            modelBuilder.Entity("wbzf.Model.MainAc", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Account_Id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Bal")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Cr")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Dr")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Transaction_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Account_Id");
+
+                    b.HasIndex("Transaction_Id");
+
+                    b.ToTable("main_Account");
                 });
 
             modelBuilder.Entity("wbzf.Model.MembersforHome", b =>
@@ -709,7 +1087,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("membersforHome", (string)null);
+                    b.ToTable("membersforHome");
                 });
 
             modelBuilder.Entity("wbzf.Model.newslink", b =>
@@ -742,7 +1120,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("newslinks", (string)null);
+                    b.ToTable("newslinks");
                 });
 
             modelBuilder.Entity("wbzf.Model.PaymentGateway", b =>
@@ -777,7 +1155,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentGateways", (string)null);
+                    b.ToTable("PaymentGateways");
                 });
 
             modelBuilder.Entity("wbzf.Model.Profession", b =>
@@ -806,7 +1184,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("professions", (string)null);
+                    b.ToTable("professions");
                 });
 
             modelBuilder.Entity("wbzf.Model.Purpose", b =>
@@ -819,6 +1197,9 @@ namespace wbzf.DataAccess.Migrations
 
                     b.Property<DateTime>("Created_at")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Form_url")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -838,7 +1219,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("purposes", (string)null);
+                    b.ToTable("purposes");
                 });
 
             modelBuilder.Entity("wbzf.Model.quote", b =>
@@ -859,7 +1240,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("quotes", (string)null);
+                    b.ToTable("quotes");
                 });
 
             modelBuilder.Entity("wbzf.Model.Report", b =>
@@ -896,7 +1277,36 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("reports", (string)null);
+                    b.ToTable("reports");
+                });
+
+            modelBuilder.Entity("wbzf.Model.SanctionedApplication", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Paid_Amount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Payment_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("Sanctioned_Application");
                 });
 
             modelBuilder.Entity("wbzf.Model.Scheme", b =>
@@ -948,7 +1358,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasIndex("purposeId");
 
-                    b.ToTable("Schemes", (string)null);
+                    b.ToTable("Schemes");
                 });
 
             modelBuilder.Entity("wbzf.Model.ScholarshipApplication", b =>
@@ -1283,7 +1693,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("scholarshipApplications", (string)null);
+                    b.ToTable("scholarshipApplications");
                 });
 
             modelBuilder.Entity("wbzf.Model.Sponsor", b =>
@@ -1313,7 +1723,7 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("sponsors", (string)null);
+                    b.ToTable("sponsors");
                 });
 
             modelBuilder.Entity("wbzf.Model.testimonial", b =>
@@ -1343,7 +1753,77 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("testimonials", (string)null);
+                    b.ToTable("testimonials");
+                });
+
+            modelBuilder.Entity("wbzf.Model.TransactionHistory", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Account_Id")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Created_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PayBy_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PayTo_Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PaymentGetWay_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PaymentGetWay_TxnId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Payment_Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ToAccount_Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Transaction_Mode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transaction_Purpose")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Updated_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("completed_at")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("received_amount")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("transaction_fees")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Account_Id");
+
+                    b.HasIndex("PayBy_Id");
+
+                    b.HasIndex("PayTo_Id");
+
+                    b.HasIndex("PaymentGetWay_Id");
+
+                    b.HasIndex("ToAccount_Id");
+
+                    b.ToTable("Transaction_History");
                 });
 
             modelBuilder.Entity("wbzf.Model.Videos", b =>
@@ -1367,12 +1847,15 @@ namespace wbzf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("videos", (string)null);
+                    b.ToTable("videos");
                 });
 
             modelBuilder.Entity("wbzf.Model.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("CastCategory")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateofBirth")
                         .HasColumnType("datetime2");
@@ -1380,14 +1863,35 @@ namespace wbzf.DataAccess.Migrations
                     b.Property<string>("District")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FatherOccupationID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FatherOccupation_ID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Full_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GuardianOccupationID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GuardianOccupation_ID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MotherOccupationID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MotherOccupation_ID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Mother_Name")
                         .HasColumnType("nvarchar(max)");
@@ -1402,13 +1906,18 @@ namespace wbzf.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProfessionId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Vill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("adhaar_no")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("adharUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("bankAcNo")
@@ -1423,30 +1932,40 @@ namespace wbzf.DataAccess.Migrations
                     b.Property<string>("bankName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("created_at")
+                    b.Property<DateTime>("created_at")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("familyIncome")
-                        .HasColumnType("int");
+                    b.Property<double?>("fatherIncome")
+                        .HasColumnType("float");
 
-                    b.Property<int?>("guardianIncome")
-                        .HasColumnType("int");
+                    b.Property<double?>("guardianIncome")
+                        .HasColumnType("float");
 
                     b.Property<string>("guardianName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("guardianOccupationId")
-                        .HasColumnType("int");
+                    b.Property<double?>("motherIncome")
+                        .HasColumnType("float");
 
                     b.Property<string>("parentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("passbookUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("relation_with_guardian")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("updated_at")
                         .HasColumnType("datetime2");
 
-                    b.HasIndex("ProfessionId");
+                    b.HasIndex("FatherOccupationID");
 
-                    b.HasIndex("guardianOccupationId");
+                    b.HasIndex("GuardianOccupationID");
+
+                    b.HasIndex("MotherOccupationID");
+
+                    b.HasIndex("ProfessionId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -1521,6 +2040,92 @@ namespace wbzf.DataAccess.Migrations
                     b.Navigation("PaymentGateway");
                 });
 
+            modelBuilder.Entity("wbzf.Model.ApplicationProcessing", b =>
+                {
+                    b.HasOne("wbzf.Model.ApplicationRegister", "Applications")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wbzf.Model.ApplicationUser", "Approved_by")
+                        .WithMany()
+                        .HasForeignKey("ApproverId");
+
+                    b.HasOne("wbzf.Model.ApplicationUser", "Verify_by")
+                        .WithMany()
+                        .HasForeignKey("VerifierId");
+
+                    b.Navigation("Applications");
+
+                    b.Navigation("Approved_by");
+
+                    b.Navigation("Verify_by");
+                });
+
+            modelBuilder.Entity("wbzf.Model.ApplicationRegister", b =>
+                {
+                    b.HasOne("wbzf.Model.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wbzf.Model.Profession", "Profession")
+                        .WithMany()
+                        .HasForeignKey("ProfessionId");
+
+                    b.HasOne("wbzf.Model.Purpose", "Purpose")
+                        .WithMany()
+                        .HasForeignKey("PurposeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wbzf.Model.Profession", "R1MemberOccupation")
+                        .WithMany()
+                        .HasForeignKey("R1_Member_OccupationId");
+
+                    b.HasOne("wbzf.Model.Profession", "R2MemberOccupation")
+                        .WithMany()
+                        .HasForeignKey("R2_Member_OccupationId");
+
+                    b.HasOne("wbzf.Model.Scheme", "Scheme")
+                        .WithMany()
+                        .HasForeignKey("SchemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wbzf.Model.Profession", "fatherOccupation")
+                        .WithMany()
+                        .HasForeignKey("father_OccupationId");
+
+                    b.HasOne("wbzf.Model.Profession", "guardianOccupation")
+                        .WithMany()
+                        .HasForeignKey("guardian_OccupationId");
+
+                    b.HasOne("wbzf.Model.Profession", "motherOccupation")
+                        .WithMany()
+                        .HasForeignKey("mother_OccupationId");
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Profession");
+
+                    b.Navigation("Purpose");
+
+                    b.Navigation("R1MemberOccupation");
+
+                    b.Navigation("R2MemberOccupation");
+
+                    b.Navigation("Scheme");
+
+                    b.Navigation("fatherOccupation");
+
+                    b.Navigation("guardianOccupation");
+
+                    b.Navigation("motherOccupation");
+                });
+
             modelBuilder.Entity("wbzf.Model.donation", b =>
                 {
                     b.HasOne("wbzf.Model.Account", "Account")
@@ -1529,31 +2134,19 @@ namespace wbzf.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("wbzf.Model.PaymentGateway", "paymentGateway")
-                        .WithMany()
-                        .HasForeignKey("paymentGatewayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("wbzf.Model.Purpose", "Purpose")
                         .WithMany()
-                        .HasForeignKey("purposeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("purposeId");
 
                     b.HasOne("wbzf.Model.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("userId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("userId");
 
                     b.Navigation("Account");
 
                     b.Navigation("Purpose");
 
                     b.Navigation("User");
-
-                    b.Navigation("paymentGateway");
                 });
 
             modelBuilder.Entity("wbzf.Model.gallery", b =>
@@ -1567,6 +2160,36 @@ namespace wbzf.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("wbzf.Model.MainAc", b =>
+                {
+                    b.HasOne("wbzf.Model.Account", "Accounts")
+                        .WithMany()
+                        .HasForeignKey("Account_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("wbzf.Model.TransactionHistory", "Transactions")
+                        .WithMany()
+                        .HasForeignKey("Transaction_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("wbzf.Model.SanctionedApplication", b =>
+                {
+                    b.HasOne("wbzf.Model.ApplicationRegister", "Applications")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Applications");
+                });
+
             modelBuilder.Entity("wbzf.Model.Scheme", b =>
                 {
                     b.HasOne("wbzf.Model.Purpose", "Purpose")
@@ -1578,19 +2201,66 @@ namespace wbzf.DataAccess.Migrations
                     b.Navigation("Purpose");
                 });
 
-            modelBuilder.Entity("wbzf.Model.ApplicationUser", b =>
+            modelBuilder.Entity("wbzf.Model.TransactionHistory", b =>
                 {
-                    b.HasOne("wbzf.Model.Profession", "Profession")
+                    b.HasOne("wbzf.Model.Account", "Accounts")
                         .WithMany()
-                        .HasForeignKey("ProfessionId")
+                        .HasForeignKey("Account_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("wbzf.Model.Profession", "Occupation")
+                    b.HasOne("wbzf.Model.ApplicationUser", "PayBy")
                         .WithMany()
-                        .HasForeignKey("guardianOccupationId");
+                        .HasForeignKey("PayBy_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Occupation");
+                    b.HasOne("wbzf.Model.ApplicationUser", "PayTo")
+                        .WithMany()
+                        .HasForeignKey("PayTo_Id");
+
+                    b.HasOne("wbzf.Model.PaymentGateway", "paymentGateway")
+                        .WithMany()
+                        .HasForeignKey("PaymentGetWay_Id");
+
+                    b.HasOne("wbzf.Model.Account", "ToAccounts")
+                        .WithMany()
+                        .HasForeignKey("ToAccount_Id");
+
+                    b.Navigation("Accounts");
+
+                    b.Navigation("PayBy");
+
+                    b.Navigation("PayTo");
+
+                    b.Navigation("ToAccounts");
+
+                    b.Navigation("paymentGateway");
+                });
+
+            modelBuilder.Entity("wbzf.Model.ApplicationUser", b =>
+                {
+                    b.HasOne("wbzf.Model.Profession", "FatherOccupation")
+                        .WithMany()
+                        .HasForeignKey("FatherOccupationID");
+
+                    b.HasOne("wbzf.Model.Profession", "GuardianOccupation")
+                        .WithMany()
+                        .HasForeignKey("GuardianOccupationID");
+
+                    b.HasOne("wbzf.Model.Profession", "MotherOccupation")
+                        .WithMany()
+                        .HasForeignKey("MotherOccupationID");
+
+                    b.HasOne("wbzf.Model.Profession", "Profession")
+                        .WithMany()
+                        .HasForeignKey("ProfessionId");
+
+                    b.Navigation("FatherOccupation");
+
+                    b.Navigation("GuardianOccupation");
+
+                    b.Navigation("MotherOccupation");
 
                     b.Navigation("Profession");
                 });

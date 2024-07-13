@@ -1,4 +1,5 @@
 ﻿@page
+@using wbzf.Utility
 @model wbzf.Areas.Admin.Pages.Profile.IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -30,16 +31,76 @@
             <div class="col-md-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <input asp-for="Input.UserName" class="form-control" />
-                    <label asp-for="Input.UserName" class="form-label"></label>
-                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                    <input asp-for="Input.Full_Name" class="form-control" />
+                    <label asp-for="Input.Full_Name" class="form-label"></label>
+                    <span asp-validation-for="Input.Full_Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input asp-for="Input.PhoneNumber" class="form-control" />
+                    <input asp-for="Input.PhoneNumber" min="0" required="" type="number" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" />
                     <label asp-for="Input.PhoneNumber" class="form-label"></label>
                     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <input asp-for="Input.Email" class="form-control" />
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Input.adhaarno" class="form-control" min="0" type="number" required maxlength="12" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter Aadhaar Number" />
+                    <label asp-for="Input.adhaarno" class="form-label"></label>
+                    <span asp-validation-for="Input.adhaarno" class="text-danger"></span>
+                </div>
                 <div class="row">
+                    @if (User.IsInRole(SD.Beneficiary))
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                 <div class="input-group">
+                                    <input asp-for="Input.DateofBirth" value="@Model.Input.DateofBirth?.ToString("dd/MM/yyyy")" type="text" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control datepicker" placeholder="dd/mm/yyyy" data-mask="99/99/9999" autocomplete="off">
+                                    <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                </div>
+                                <label asp-for="Input.DateofBirth" class="form-label"></label>
+                                <span asp-validation-for="Input.DateofBirth" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select required asp-for="Input.Gender" class="form-control">
+                                    <option disabled selected>--Please Select Gender--</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                                <label asp-for="Input.Gender" class="form-label"></label>
+                                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select required asp-for="Input.category" class="form-control">
+                                    <option disabled selected>--Please Select Category--</option>
+                                    <option value="@SD.GEN">@SD.GEN</option>
+                                    <option value="@SD.OBC_A">@SD.OBC_A</option>
+                                    <option value="@SD.OBC_B">@SD.OBC_B</option>
+                                    <option value="@SD.SC">@SD.SC</option>
+                                    <option value="@SD.ST">@SD.ST</option>
+                                </select>
+                                <label asp-for="Input.category" class="form-label"></label>
+                                <span asp-validation-for="Input.category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select required asp-for="Input.ProfessionId" asp-items="@Model.professionlist" class="form-control">
+                                    <option disabled selected>--Please Select Profession--</option>
+                                </select>
+                                <label asp-for="Input.Profession" class="form-label"></label>
+                                <span asp-validation-for="Input.ProfessionId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    }
                     <div class="col-md-6">
                         <div class="form-group">
                             <input asp-for="Input.Vill" class="form-control" />
@@ -77,7 +138,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input asp-for="Input.PIN" class="form-control" />
+                            <input asp-for="Input.PIN" min="0" required="" type="number" maxlength="6" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" />
                             <label asp-for="Input.PIN" class="form-label"></label>
                             <span asp-validation-for="Input.PIN" class="text-danger"></span>
                         </div>

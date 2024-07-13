@@ -21,28 +21,32 @@ namespace wbzf.DataAccess.Repository
         {
             _db = db;
             _userManager = userMgr;
-            _config=configuration;
-            users=new Users(_userManager, _db);
+            _config = configuration;
+            users = new Users(_userManager, _db);
             company = new CompanyConfiguration(_config);
-            coachingApplication=new coachingApplicationRepository(_db);
-            donation=new DonationRepository(_db);
-            scholarshipApplication=new scholarshipApplicationRepository(_db);
-            profession=new ProfessionRepository(_db);
-            purpose=new PurposeRepository(_db);
-            scheme=new SchemeRepository(_db);
-            account=new AccountRepository(_db);
-            paymentGateway=new PaymentGatewayRepository(_db);
-            accountGatewaySetup=new AccountGatewaySetupRepository(_db);
-            membersforHome=new MembersforHomeRepository(_db);
-            testimonial=new TestimonialRepository(_db);
-            newsLink=new NewsLinkRepository(_db);
-            quote=new QuoteRepository(_db);
-            contactForm=new ContactFormRepository(_db);
-            gallery=new galleryRepository(_db);
-            galleryCategory=new GalleryCategoryRepository(_db);
-            sponsor=new SponsorRepository(_db);
-            report=new ReportRepository(_db);
-            
+            coachingApplication = new coachingApplicationRepository(_db);
+            donation = new DonationRepository(_db);
+            scholarshipApplication = new scholarshipApplicationRepository(_db);
+            profession = new ProfessionRepository(_db);
+            purpose = new PurposeRepository(_db);
+            scheme = new SchemeRepository(_db);
+            account = new AccountRepository(_db);
+            paymentGateway = new PaymentGatewayRepository(_db);
+            accountGatewaySetup = new AccountGatewaySetupRepository(_db);
+            membersforHome = new MembersforHomeRepository(_db);
+            testimonial = new TestimonialRepository(_db);
+            newsLink = new NewsLinkRepository(_db);
+            quote = new QuoteRepository(_db);
+            contactForm = new ContactFormRepository(_db);
+            gallery = new galleryRepository(_db);
+            galleryCategory = new GalleryCategoryRepository(_db);
+            sponsor = new SponsorRepository(_db);
+            report = new ReportRepository(_db);
+            applicationRegister = new ApplicationRegisterRepository(_db);
+            applicationProcessing = new ApplicationProcessRepository(_db);
+            mainAccount = new MainAccountRepository(_db);
+            transactionHistory = new TransactionHistoryRepository(_db);
+            sanctionedApplication = new SanctionedApplicationRepository(_db);
             //contact_us = new ContactUsRepository(_db);
         }
         public ICompanyConfiguraion company { get; private set; }
@@ -65,8 +69,14 @@ namespace wbzf.DataAccess.Repository
         public IGalleryCategoryRepository galleryCategory { get; private set; }
         public ISponsorRepository sponsor { get; private set; }
         public IReportRepository report { get; private set; }
+        public IApplicationRegisterRepository applicationRegister { get; private set; }
+        public IApplicationProcessRepository applicationProcessing { get; private set; }
+        public IMainAccountRepository mainAccount { get; private set; }
+        public ITransactionHistoryRepository transactionHistory { get; private set; }
+        public ISanctionedApplicationRepository sanctionedApplication { get; private set; }
         public void Dispose()
         {
+            _db.Dispose();
             _db.Dispose();
         }
 

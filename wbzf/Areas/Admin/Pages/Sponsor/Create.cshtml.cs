@@ -93,6 +93,7 @@ namespace wbzf.Areas.Admin.Pages.Sponsor
 
                 _unitOfWork.sponsor.update(sponsor);
                 _unitOfWork.Save();
+                TempData["success"] = "Sponsor Updated successfully";
             }
 
             return RedirectToPage("./Index");

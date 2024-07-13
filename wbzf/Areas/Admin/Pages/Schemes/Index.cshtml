@@ -35,68 +35,18 @@
                 <div class="row">
                     <partial name="_LayoutTable" />
 
-                <form method="post">
-                    <div class="table-responsive">
-                        <table class="table m-0 table-colored-bordered table-bordered-inverse table-hover">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Scheme Name
-                                    </th>
-                                    <th>
-                                        Purpose
-                                    </th>
-                                    <th>
-                                        Form Url
-                                    </th>
-                                    <th> Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var obj in Model.Schemes)
-                                {
-                                    <tr>
-                                        <td scope="row">@obj.Name</td>
-                                        <td>@obj.Purpose.Name</td>
-                                        <td>@obj.Form_Url</td>
-                                        <td>
-                                            <div class="w-75 btn-group" role="group">
-                                                <a asp-page="Create" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                                    <i class="fa fa-pencil-square"></i> Edit
-                                                </a>
-                                                @if (obj.IsActive==true)
-                                                {
-                                                    <button type="submit" class="btn btn-danger p-2" asp-page-handler="Delete" asp-route-id="@obj.Id" onclick="return confirm('Are you sure you want to delete?')">
-                                                        <i class="fa fa-trash-o"></i> Disable
-                                                    </button>
-                                                }
-                                                else
-                                                {
-                                                    <button type="submit" class="btn btn-success p-2" asp-page-handler="Active" asp-route-id="@obj.Id" onclick="return confirm('Are you sure to revive this scheme?')">
-                                                        <i class="fa fa-recycle"></i> Enable
-                                                    </button>
-                                                }
-
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts {
+    @section Scripts {
 
-    <script src="~/js/schemeList.js" asp-append-version="true"></script>
-    
-    @{
-        <partial name="_ValidationScriptsPartial" />
+        <script src="~/js/schemeList.js" asp-append-version="true"></script>
+
+        @{
+            <partial name="_ValidationScriptsPartial" />
+            <partial name="_Notification" />
+        }
     }
-}

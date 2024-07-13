@@ -1,5 +1,6 @@
-﻿@{
-    var Company = Model;
+﻿@inject wbzf.DataAccess.Repository.IRepository.IUnitOfWork unitofwork;
+@{
+    var Company =unitofwork.company.GetCompany();
 }
 
 <!-- mobile menu start-->
@@ -50,8 +51,13 @@
                                    <a class="main-menu__link" href="#"><span>Programs</span></a>
                                     <!-- sub menu start-->
                                     <ul class="main-menu__sub-list">
-                                        <li><a href="@Company.url/Scholarship"><span>Scholarship</span></a></li>
-                                       
+                                @foreach (var item in unitofwork.scheme.GetAll(u => u.IsActive == true))
+                                {
+                                   @*  <li><a href="@Company.url/@item.Form_Url"><span>@item.Name</span></a></li>*@
+                                    <li><a href="@Company.url/CommonRegitrationForm?scheme_id=@item.Id"><span>@item.Name</span></a></li>
+
+                                }
+                                        
 
                                     </ul>
                                     <!-- sub menu end-->

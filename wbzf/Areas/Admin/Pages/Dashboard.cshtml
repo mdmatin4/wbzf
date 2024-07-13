@@ -1,8 +1,12 @@
 ﻿@page
 @using wbzf.Utility
+@using wbzf.Model
+@using wbzf.DataAccess.Repository.IRepository;
+@inject IUnitOfWork unitofwork;
 @model wbzf.Areas.Admin.Pages.DashboardModel
 @{
     ViewData["Title"] = "Dashboard";
+
 }
 <div class="row">
     <div class="col-xs-12">
@@ -23,99 +27,178 @@
 </div>
 
 <div class="row">
-    @if (User.IsInRole(SD.Donor))
-    {
-        <div class="col-lg-6">
-            <div class="card-box">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Fund</label>
+    <form method="post">
+        @if (Model.is_donor)
+        {
+            <div class="col-lg-6">
+                <div class="card-box">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Fund</label>
 
-                        <div class="col-md-10">
-                            @foreach (var item in Model.Funds)
+                            <div class="col-md-10">
+                                @foreach (var item in Model.Funds)
+                                {
+                                    <div class="radio radio-info radio-inline">
+
+                                        <input type="radio" asp-for="donation.accountId" value="@item.Id" />
+                                        <label asp-for="donation.accountId">
+                                            @item.Name
+                                        </label>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Amount</label>
+                            <div class="col-md-10">
+                                @*  <input type="number" class="form-control" asp-for=donation.donated_amount> *@
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Purpose</label>
+                            <div class="col-md-10">
+                                <select asp-items="Model.purposes" asp-for=donation.purposeId class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        @* <div class="form-group">
+                    <label class="col-md-2 control-label">Beneficiaries</label>
+                    <div class="col-md-10">
+                    <select multiple class="form-control" id="beneficiaries">
+                    <option>Beneficiary 1</option>
+                    <option>Beneficiary 2</option>
+                    </select>
+                    </div>
+                    </div>
+
+                    <div id="allocations">
+                    <!-- Dynamic allocation fields -->
+                    </div>
+                    *@
+                        <button type="submit" class="btn btn-primary">Donate Now</button>
+
+
+
+
+                    </form>
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-6"></div>
+
+        }
+        @if (Model.is_admin)
+        {
+            <div class="col-lg-3 col-md-6">
+                <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
+                    <i class="mdi mdi-account pull-right text-dark"></i>
+                    <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBCS Applicant</h6>
+                    <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbcs_applicant</span></h2>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
+                    <i class="mdi mdi-account pull-right text-dark"></i>
+                    <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBJS Applicant</h6>
+                    <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbjs_applicant</span></h2>
+                </div>
+            </div>
+
+        }
+        @if (Model.is_beneficiary)
+        {
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="card-box widget-box-two widget-two-primary">
+                        <i class="mdi mdi-layers widget-two-icon"></i>
+                        <div class="wigdet-two-content text-white">
+                            <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="User This Month">Application</p>
+                            @if (Model.appregList.Count() > 0)
                             {
-                                <div class="radio radio-info radio-inline">
-
-                                    <input type="radio" asp-for="donation.accountId" value="@item.Id" />
-                                    <label asp-for="donation.accountId">
-                                        @item.Name
-                                    </label>
-                                </div>
+                                <h2 class="text-white"><span data-plugin="counterup">@unitofwork.applicationRegister.GetAll(u => u.application_Status != SD.Draft).Count()</span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
+                                <p class="m-0"><b>Last: </b>@SD.Applied</p>
                             }
-
-
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Amount</label>
-                        <div class="col-md-10">
-                            <input type="number" class="form-control" asp-for=donation.donated_amount>
+                </div><!-- end col -->
+
+                <div class="col-sm-8">
+                    <div class="card-box">
+
+                        <div class="table-responsive">
+                            <table class="table m-0 table-colored-bordered table-bordered-inverse table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Purpose
+                                        </th>
+                                        <th>
+                                            Scheme
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th> Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.appregList.Count() > 0)
+                                    {
+                                        @foreach (var obj in Model.appregList)
+                                        {
+                                            <tr>
+                                                <td width="30%" scope="row">@obj.Purpose.Name</td>
+                                                <td width="50%" scope="row">@obj.Scheme.Name</td>
+                                                <td width="10%" scope="row">@obj.application_Status</td>
+                                                <td>
+                                                    <div class="w-75 btn-group" role="group">
+                                                        @if (obj.application_Status != SD.Draft)
+                                                        {
+                                                            <a class="btn btn-inverse text-white mx-2" href="/App/Preview/@($"{unitofwork.purpose.GetFirstOrDefault(u => u.Id == obj.PurposeId).Form_url}/{obj.Id}")">
+                                                                <i class="fa fa-info-circle"></i> Preview Application
+                                                            </a>
+                                                        }
+                                                        @if (obj.application_Status == SD.Draft)
+                                                        {
+                                                            <a class="btn btn-primary mx-2" href="/App/Applications/@($"{unitofwork.purpose.GetFirstOrDefault(u => u.Id == obj.PurposeId).Form_url}/{obj.Id}")"><i class="fa fa-pencil-square"></i> Complete your Application </a>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            No Data Found.
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Purpose</label>
-                        <div class="col-md-10">
-                            <select asp-items="Model.purposes" asp-for=donation.purposeId class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    @* <div class="form-group">
-                <label class="col-md-2 control-label">Beneficiaries</label>
-                <div class="col-md-10">
-                <select multiple class="form-control" id="beneficiaries">
-                <option>Beneficiary 1</option>
-                <option>Beneficiary 2</option>
-                </select>
                 </div>
-                </div>
-
-                <div id="allocations">
-                <!-- Dynamic allocation fields -->
-                </div>
-                *@
-                    <button type="submit" class="btn btn-primary">Donate Now</button>
-
-                    
-                    
-
-                </form>
-
-
-                
             </div>
-        </div>
-        <div class="col-lg-6"></div>
 
-    }
-
-    @if (User.IsInRole(SD.Admin))
-    {
-        <div class="col-lg-3 col-md-6">
-            <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
-                <i class="mdi mdi-account pull-right text-dark"></i>
-                <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBCS Applicant</h6>
-                <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbcs_applicant</span></h2>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card-box tilebox-two" style="border-left-color: #188ae2;">
-                <i class="mdi mdi-account pull-right text-dark"></i>
-                <h6 class="text-success text-uppercase m-b-15 m-t-10" style="color:#188ae2 !important">Total @SD.WBJS Applicant</h6>
-                <h2 class="m-b-10"><span data-plugin="counterup">@Model.total_wbjs_applicant</span></h2>
-            </div>
-        </div>
-
-    }
-
-
-
+        }
+    </form>
 </div>
-@section scripts{
+
+@section scripts {
 
     @{
         <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
+
     }
 
-            }
+}

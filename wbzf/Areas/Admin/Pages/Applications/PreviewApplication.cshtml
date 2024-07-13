@@ -1,0 +1,518 @@
+﻿@page "/App/Preview/{purpose}/{id}"
+@using wbzf.DataAccess.Repository.IRepository;
+@inject IUnitOfWork Iunitofwork
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.Applications.PreviewApplicationModel
+@{
+    var company = Iunitofwork.company.GetCompany();
+    var is_Beneficiary = User.IsInRole(SD.Beneficiary);
+    if (is_Beneficiary)
+    {
+        ViewData["Title"] = "Preview Application for " + Model.appReg.Scheme.Name;
+    }
+    else
+    {
+        ViewData["Title"] = "Preview Application of " + Model.appReg.Full_Name;
+    }
+
+}
+
+
+<input type="hidden" asp-for="appReg.Id" />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    Preview Application
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="box-body" id="printArea" style="border: 0px solid black; font-family: Calibri;
+            border: 0px solid black; height: auto;">
+                    <table width="100%" style="padding-left: 5px;padding-right: 10px;">
+
+                        <tr>
+                            <td>
+                                <div>
+                                    <table cellspacing="0" id="dgvStudentAdmitCard" style="width:100%;border-collapse:collapse;">
+                                        <tr>
+                                            <td style="border-color:Black;">
+
+                                                <br />
+                                                <div class="watermark" style="cursor: pointer; font-family: Calibri; font-size: 12px; height: 960px;padding-left: 10px;padding-right: 5px;padding-top: 10px;
+                                            border: 1px solid black;">
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <div class="row">
+                                                                    <div style="border-bottom: solid; border-bottom-color: black">
+                                                                        <div class="text-center">
+                                                                            <img style="align-self:center;width:auto;height:100px" src="@company.logo" />
+                                                                            <h5>
+                                                                                @company.name (@company.company_short_name)
+                                                                            </h5>
+                                                                            <h5>
+                                                                                @company.address, Contact :  @company.mobile
+
+                                                                            </h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                                                                    </div>
+                                                                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">
+                                                                        <h4 style="text-transform: uppercase; font-size: medium; background-color: darkgrey; font-style: oblique; font-weight: 900;">Application For @Model.appReg.Scheme.Name</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </table>
+                                                    <table width="100%"  style="font-size:small">
+                                                        <tr>
+                                                            <td colspan="12" align="right">
+                                                                <input type="image" id="schemeImage" class="required img-responsive user-img" asp-for="@Model.appReg.Photo_url" src="@Model.appReg.Photo_url" style="margin-right: 90px;  margin-top: 30px;margin-left: 720px; position: absolute; height: 150px; width: 150px;" alt="image">
+                                                                @*  <input type="image" id="schemeImage" class="required img-responsive user-img" asp-for="@Model.appReg.Photo_url" src="@Model.appReg.Photo_url" style="height: 100px; width: 100px;" alt="image">
+ *@
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Applicant Name &nbsp;: <b>
+                                                                    <span>@Model.appReg.Full_Name</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Gender  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span> @Model.appReg.Gender</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Date of Birth  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@(Model.appReg.DateofBirth.HasValue ? Model.appReg.DateofBirth.Value.ToString("dd/MM/yyyy") : "N/A")</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Category  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span> @Model.appReg.category</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Profession  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Profession.Name</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Aadhaar Number  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span> @Model.appReg.adhaarno</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Mobile Number  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.PhoneNumber</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Email  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span> @Model.appReg.Email</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Parent Type  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.parentType</span>
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        @if (Model.appReg.parentType == SD.Father)
+                                                        {
+                                                            <tr>
+                                                                <td colspan="4" align="left">
+                                                                    Father Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.Father_name</span>
+                                                                    </b>
+                                                                </td>
+                                                                <td colspan="4">
+                                                                    Father Occupation  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.fatherOccupation.Name</span>
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" align="left">
+                                                                    Family Income  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.fatherIncome</span>
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        else if (Model.appReg.parentType == SD.Mother)
+                                                        {
+                                                            <tr>
+
+                                                                <td colspan="4" align="left">
+                                                                    Mother Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.Mother_name</span>
+                                                                    </b>
+                                                                </td>
+
+                                                                <td colspan="4">
+                                                                    Mother Occupation  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.motherOccupation.Name</span>
+                                                                    </b>
+                                                                </td>
+
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" align="left">
+                                                                    Family Income  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.motherIncome</span>
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        else
+                                                        {
+                                                            <tr>
+
+                                                                <td colspan="4" align="left">
+                                                                    Guardian Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.guardianName</span>
+                                                                    </b>
+                                                                </td>
+
+                                                                <td colspan="4">
+                                                                    Guardian Occupation  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.guardianOccupation.Name</span>
+                                                                    </b>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" align="left">
+                                                                    Relation with Guardian  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.relation_with_guardian</span>
+                                                                    </b>
+                                                                </td>
+
+                                                                <td colspan="4">
+                                                                    Family Income  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.guardianIncome</span>
+                                                                    </b>
+                                                                </td>
+
+                                                            </tr>
+                                                        }
+                                                       @*  @if (Model.appReg.Purpose.Name ==)
+                                                        { *@
+                                                        <tr>
+
+                                                            <td colspan="4" align="left">
+                                                                Course Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.course_name</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                Course Duration  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.course_duration</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+
+                                                            <td colspan="4" align="left">
+                                                                Registration Number  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.course_name</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                Admission Date  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_admission_date?.ToString("dd/MM/yyyy")</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+
+                                                            <td colspan="4" align="left">
+                                                                Present Session / Class  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.present_class</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                Full Mark  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.full_marks</span>
+                                                                </b>
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Institute Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_Name</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4" align="left">
+                                                                Obtained Mark  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.obtain_marks</span>
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Institute Contact Number  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_Contact</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Obtained Percentage  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.percentage %</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Institute Address  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_Address</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4" align="left">
+                                                                Admission Fees  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_Admission_fees</span>
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Last Exam Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.last_exam</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Exam Fees  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Exam_fees</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Year Of Passing  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.passing_year</span>
+                                                                </b>
+                                                            </td>
+                                                            <td colspan="4">
+                                                                Tuition Fees  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Tuition_fees</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Passing From  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.past_institute</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                Other Fees  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Institute_Other_fees</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Any Past Scholarship?  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    @if (@Model.appReg.Is_Past_Scholar == true)
+                                                                    {
+                                                                        <span>Yes</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>No</span>
+                                                                    }
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        @* } *@
+                                                        @if (Model.appReg.Is_Past_Scholar==true)
+                                                        {
+                                                            <tr>
+                                                                @Model.appReg.Is_Past_Scholar?"Yes":"No"
+                                                                <td colspan="4" align="left">
+                                                                    Scholarship Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.Past_Scholar_Name</span>
+                                                                    </b>
+                                                                </td>
+                                                                <td colspan="4">
+                                                                    Scholarship Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                        <span>@Model.appReg.Past_Scholar_Amount</span>
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                1st Reference Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Ref1_Member_name</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                2nd Reference Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Ref2_Member_name</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                1st Reference Occupation  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.R1MemberOccupation.Name</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                2nd Reference Occupation  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.R2MemberOccupation.Name</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                1st Reference Contact No.  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Ref1_Member_Contact</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                2nd Reference Contact No.  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.Ref2_Member_Contact</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Bank Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.bankName</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                Branch Name  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.bankBranchName</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                Account Number  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.bankAcNo</span>
+                                                                </b>
+                                                            </td>
+
+                                                            <td colspan="4">
+                                                                IFSC Code  &nbsp;&nbsp;&nbsp;&nbsp;: <b>
+                                                                    <span>@Model.appReg.bankIFSC</span>
+                                                                </b>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+                                                    <table width="100%" cellpadding="5px">
+                                                        <tr >
+                                                            <td colspan="12" align="justify">
+                                                                <span style="font-style: italic; font-size: 14px;">* @company.terms_for_coaching</span>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6" align="left">
+                                                                <span style="font-style: italic; font-size: 14px;"> Date : @Model.appReg.created_at.ToString("dd/MM/yyyy")</span>
+
+                                                            </td>
+                                                            <td colspan="6" align="right">
+                                                                <div class="col-lg-6">
+                                                                    <span style="font-style: italic; font-size: 14px;"> Signature : </span>
+                                                                </div>  <div class="col-lg-6">
+                                                                    <input type="image" id="schemeImage" class="required img-responsive user-img" asp-for="@Model.appReg.sign_url" src="@Model.appReg.sign_url" style="height: 50px; width: 200px;" alt="image"></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4" align="left">
+                                                                <span style="font-style: italic; font-size: 14px;"> Place : @Model.appReg.Vill</span>
+                                                            </td>
+                                                        </tr>
+
+                                                    </table>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                    </table>
+
+                </div>
+
+                <div class="btn-group m-b-10 pull-right">
+                    <button type="button" class="btn btn-success btn-group-lg waves-effect waves-light" onclick="printPage()">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script src="~/js/print.js" asp-append-version="true"></script>
+
+}

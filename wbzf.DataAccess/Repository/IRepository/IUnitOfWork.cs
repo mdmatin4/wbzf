@@ -21,7 +21,7 @@ namespace wbzf.DataAccess.Repository.IRepository
         IAccountRepository account { get; }
         IAccountGatewaySetupRepository accountGatewaySetup { get; }
         IGallery gallery { get; }
-        IGalleryCategoryRepository galleryCategory { get;}
+        IGalleryCategoryRepository galleryCategory { get; }
         IMembersforHomeRepository membersforHome { get; }
         ITestimonialRepository testimonial { get; }
         INewsLinkRepository newsLink { get; }
@@ -29,7 +29,11 @@ namespace wbzf.DataAccess.Repository.IRepository
         IContactFormRepository contactForm { get; }
         ISponsorRepository sponsor { get; }
         IReportRepository report { get; }
-
+        IApplicationRegisterRepository applicationRegister { get; }
+        IApplicationProcessRepository applicationProcessing { get; }
+        IMainAccountRepository mainAccount { get; }
+        public ITransactionHistoryRepository transactionHistory { get; }
+        public ISanctionedApplicationRepository sanctionedApplication { get; }
         void Save();
     }
 }

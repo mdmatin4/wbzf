@@ -1,0 +1,155 @@
+﻿@page
+@using wbzf.Utility;
+@model wbzf.Areas.Admin.Pages.AccountManagement.MakePaymentModel
+@{
+    ViewData["Title"] = "Make Payment";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="page-title-box">
+            <h4 class="page-title"> @ViewData["Title"] </h4>
+            <ol class="breadcrumb p-0 m-0">
+                <li>
+                    <a asp-area="Admin" asp-page="/dashboard">Home</a>
+                </li>
+
+                <li class="active">
+                    @ViewData["Title"]
+                </li>
+
+            </ol>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<form method="post">
+    <div class="col-md-6">
+        <div class="panel panel-color panel-teal">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Make Payment
+                </h3>
+            </div>
+
+
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="@Model.Transactions.Accounts.Name">Account Name <span class="text-danger">*</span></label>
+
+                        <select id="account_Id" asp-for="@Model.Transactions.Account_Id" asp-items="@Model.AccountList" class="required form-control">
+                            <option disabled selected>--Please Select Account--</option>
+                        </select>
+                        <span asp-validation-for="@Model.Transactions.Accounts.Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Payment Purpose <span class="text-danger">*</span></label>
+
+                        <select id="payment_PurposeId" asp-for="@Model.Transactions.Transaction_Purpose" class="required form-control">
+                            <option disabled selected>--Please Select Payment Purpose--</option>
+                            <option value="@SD.Expence"> @SD.Expence</option>
+                            <option value="@SD.Salary"> @SD.Salary</option>
+
+                        </select>
+                        <span asp-validation-for="@Model.Transactions.Transaction_Purpose" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Pay To<span class="text-danger"> *</span></label>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="radio">
+                                <input type="radio" required checked name="rdTxnMode" value="registered" id="registered" />
+                                <label>Registered Member</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="radio">
+                                <input type="radio" required name="rdTxnMode" value="unregistered" id="unregistered" />
+                                <label>Un-Registered Member</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="payTo_Id" class="col-md-12">
+                    <div class="form-group">
+                        <select asp-for="@Model.Transactions.PayTo_Id" asp-items="@Model.userList" class="required form-control">
+                            <option disabled selected>--Please Select Member--</option>
+                        </select>
+                        <span asp-validation-for="@Model.Transactions.PayTo_Id" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Amount <span class="text-danger">*</span></label>
+                        <input type="number" min="0" asp-for="@Model.Transactions.Amount" class="required form-control" placeholder="Enter Amount" />
+                        <span asp-validation-for="@Model.Transactions.Amount" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="@Model.Transactions.transaction_fees">Transaction Charges </label>
+                        <input type="number" min="0" asp-for="@Model.Transactions.transaction_fees" class="form-control" placeholder="Enter Transaction Charges" />
+                        <span asp-validation-for="@Model.Transactions.transaction_fees" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <label asp-for="@Model.Transactions.Remarks">Remarks </label>
+                        <input type="text" asp-for="@Model.Transactions.Remarks" class="form-control" placeholder="Enter Remarks" />
+                        <span asp-validation-for="@Model.Transactions.Remarks" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 pull-right">
+                    <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var transactionChargesDiv = document.getElementById('payTo_Id');
+            var registered = document.getElementById('registered');
+            var unregistered = document.getElementById('unregistered');
+
+            function toggleTransactionCharges() {
+                if (registered.checked) {
+                    transactionChargesDiv.style.display = 'block';
+                } else {
+                    transactionChargesDiv.style.display = 'none';
+                }
+            }
+
+            unregistered.addEventListener('change', toggleTransactionCharges);
+            registered.addEventListener('change', toggleTransactionCharges);
+
+            // Initial check to set visibility on page load
+            toggleTransactionCharges();
+        });
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_Notification" />
+    }
+
+}

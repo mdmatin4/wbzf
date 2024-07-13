@@ -1,8 +1,12 @@
 ﻿@page
 @using wbzf.Utility;
+@using wbzf.Model.ViewModel;
 @model wbzf.Pages.CommonApplicationFormModel
 @{
-    ViewData["Title"]="Scholarship";
+    @if (Model.scheme != null)
+    {
+        ViewData["Title"] = "Beneficiary Registration";
+    }
 }
 
 <section class="promo-primary  promo-primary--shop">
@@ -16,7 +20,9 @@
                 <div class="align-container">
                     <div class="align-container__item">
                         <span class="promo-primary__pre-title">WBZF</span>
-                        <h1 class="promo-primary__title"><span>@ViewData["Title"]</span></h1>
+
+                        <h1 class="promo-primary__title"><span>Beneficiary </span><span> Registration </span></h1>
+
                     </div>
                 </div>
             </div>
@@ -28,10 +34,43 @@
 
     <div class="container">
         <div class="col-lg-12">
-            <div class="panel-body">
+            <div class="panel-body" style="padding-top:50px;">
 
+                <div class="panel panel-color panel-teal x">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Scheme Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
 
-                <div class="panel panel-color panel-teal">
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Apply For <span class="text-danger"></span></label>
+                                    @if (Model.scheme != null)
+                                    {
+                                        <input class="form__field" type="text" disabled asp-for=@Model.scheme.Name class="form-control" requried>
+                                        <input type="hidden" asp-for="InputModel.SchemeId" value="@Model.scheme.Id" />
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Purpose <span class="text-danger"></span></label>
+                                    @if (Model.scheme != null)
+                                    {
+                                        <input class="form__field" type="text" disabled asp-for="@Model.scheme.Purpose.Name" class="form-control" requried>
+                                        <input type="hidden" asp-for="InputModel.PurposeId" value="@Model.scheme.purposeId" />
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-color panel-teal x">
                     <div class="panel-heading">
 
 
@@ -40,382 +79,625 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
-                                    <label>Name of the Applicant <span class="text-danger">*</span></label>
-                                    <input type="text" asp-for=scholarshipApplication.Name class="form-control" requried="" placeholder="Enter Student's Name">
-                                    <span asp-validation-for="scholarshipApplication.Name" class=" text-danger"></span>
+                                    <label>Name of the Applicant <span class="text-danger">(*)</span></label>
+                                    <input class="form__field" required type="text" asp-for=InputModel.Full_Name class="form-control"  placeholder="Enter Applicant's Name">
+                                    <span asp-validation-for="InputModel.Full_Name" class=" text-danger"></span>
                                 </div>
                             </div>
-
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Name of Father / Mother / Guardian<span class="text-danger">*</span> </label>
-                                    <input type="text" asp-for=scholarshipApplication.guardain_name class="form-control" requried="" placeholder="Enter Husband/Guardian Name">
-                                    <span asp-validation-for="scholarshipApplication.guardain_name" class=" text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Mobile No </label>
-                                    <input type="text" asp-for=scholarshipApplication.Mobile class="form-control" requried="" placeholder="Enter Your Mobile No">
-                                    <span asp-validation-for="scholarshipApplication.Mobile" class=" text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Email<span class="text-danger">(*)</span></label>
-                                    <input type="text" asp-for=scholarshipApplication.Email class="form-control" requried="" placeholder="Enter Your Email">
-                                    <span asp-validation-for="scholarshipApplication.Email" class=" text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Whatsapp No</label>
-                                    <input type="text" asp-for=scholarshipApplication.Whatsappno class="form-control" requried="" placeholder="Enter WhatsApp Number">
-                                    <span asp-validation-for="scholarshipApplication.Whatsappno" class=" text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Aadhaar No</label>
-                                    <input asp-for="scholarshipApplication.aadharno" type="number" maxlength="12" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" placeholder="Enter Aadhaar Number">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Gender</label>
-                                    <select asp-for="scholarshipApplication.Gender" class="form-control">
-                                        <option selected="selected" value="Male">Male</option>
+                                    <select class="form__field" required asp-for="InputModel.Gender" class="form-control">
+                                        <option disabled selected>--Please Select Gender--</option>
+                                        <option value="Male">Male</option>
                                         <option value="Female">Female</option>
-                                        <option value="Otehrs">Others</option>
+                                        <option value="Others">Others</option>
 
                                     </select>
+                                    <span asp-validation-for="InputModel.Gender" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Date of Birth</label>
                                     <div>
                                         <div class="input-group">
-                                            <input asp-for="scholarshipApplication.DateOfBirth" type="text" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control datepicker" autocomplete="off">
+                                            <input type="date" required class="form__field" asp-for="InputModel.DateofBirth" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control datepicker" autocomplete="off">
                                             <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                            <span asp-validation-for="InputModel.DateofBirth" class="text-danger"></span>
                                         </div>
                                         <!-- input-group -->
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Aadhaar No</label>
+                                    <input class="form__field" required asp-for="InputModel.adhaarno" min="0" type="number" required maxlength="12" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" placeholder="Enter Aadhaar Number">
+                                    <span asp-validation-for="InputModel.adhaarno" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select asp-for="scholarshipApplication.category" class="form-control">
-                                        <option selected="selected" value="@SD.GEN">@SD.GEN</option>
+                                    <select class="form__field" required asp-for="InputModel.category" class="form-control">
+                                        <option disabled selected>--Please Select Category--</option>
+                                        <option value="@SD.GEN">@SD.GEN</option>
                                         <option value="@SD.OBC_A">@SD.OBC_A</option>
                                         <option value="@SD.OBC_B">@SD.OBC_B</option>
                                         <option value="@SD.SC">@SD.SC</option>
                                         <option value="@SD.ST">@SD.ST</option>
 
                                     </select>
+                                    <span asp-validation-for="InputModel.category" class="text-danger"></span>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Profession <span class="text-danger">(*)</span></label>
+                                    <select class="form__field" required asp-for="InputModel.ProfessionId" asp-items="@Model.professionlist" class="form-control select2">
+                                        <option disabled selected>--Please Select Profession--</option>
+                                    </select>
+                                    <span asp-validation-for="InputModel.ProfessionId" class=" text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Mobile No <span class="text-danger">(*)</span> </label>
+                                    <input class="form__field" required type="number" asp-for=InputModel.PhoneNumber min="0" maxlength="10" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="form-control" requried placeholder="Enter Your Mobile No">
+                                    <span asp-validation-for="InputModel.PhoneNumber" class=" text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Email<span class="text-danger">(*)</span></label>
+                                    <input class="form__field" asp-for=InputModel.Email class="form-control"  placeholder="Enter Your Email">
+                                    <span asp-validation-for="InputModel.Email" class=" text-danger"></span>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="panel panel-color panel-teal">
+                <div class="panel panel-color panel-teal x">
                     <div class="panel-heading">
-
-
-                        <h3 class="panel-title">Address</h3>
-
+                        <h3 class="panel-title">Family Details</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.Vill_Ward class="form-control" placeholder="House No/ Village/ Para / Ward">
-                                    <span asp-validation-for="scholarshipApplication.Vill_Ward" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.Road class="form-control" placeholder="Enter the Name of Road">
-                                    <span asp-validation-for="scholarshipApplication.Road" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.PostOffice class="form-control" placeholder="Enter your Post Office Name">
-                                    <span asp-validation-for="scholarshipApplication.PostOffice" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.PS class="form-control" placeholder="Enter your Police Station Name">
-                                    <span asp-validation-for="scholarshipApplication.PS" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.District class="form-control" placeholder="Enter your District Name">
-                                    <span asp-validation-for="scholarshipApplication.District" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-sm-6">
-                                <div class="form-group">
-                                    <input type="text" asp-for=scholarshipApplication.PIN class="form-control" placeholder="Enter Your PIN">
-                                    <span asp-validation-for="scholarshipApplication.PIN" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="panel panel-color panel-teal">
-                    <div class="panel-heading">
-
-
-                        <h3 class="panel-title">Upload Documents</h3>
-
-                    </div>
-                    <div class="panel-body">
-
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.admitcardUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.admitcardUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Madhyamik Admit Card</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.admitcardUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.admitcardUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.examResultUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.examResultUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Exam Result/ Score Card</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.examResultUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.examResultUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.admissionReceiptUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.admissionReceiptUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Admission Receipt</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.admissionReceiptUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.admissionReceiptUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.passbookUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.passbookUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Bank Passbook Front Page</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.passbookUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.passbookUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.admitcardUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.aadharCardUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Aadhaar Card</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.aadharCardUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.aadharCardUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="thumbnail">
-                                @if (Model.scholarshipApplication.incomeCertificateUrl != null)
-                                {
-                                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.incomeCertificateUrl" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-                                else
-                                {
-                                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
-
-                                }
-
-                                <div class="caption">
-                                    <h3>Income Certificate</h3>
-
-                                    <p>
-                                        <input type="file"
-                                               accept=".png,.jpg,.jpeg"
-                                               asp-for="scholarshipApplication.incomeCertificateUrl"
-                                               class="form-control"
-                                               style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                               onchange="photoSet(this,'studentPic')" />
-                                        <span asp-validation-for="scholarshipApplication.incomeCertificateUrl" class="text-danger"></span>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-
-
                         <div class="col-md-12">
-                            <div id="ContentPlaceHolder1_ContactUC2_divtermsandconditions" class="form-group">
-                                <div class="col-xs-12">
-                                    <div class="checkbox checkbox-success">
-                                        <input id="terms" type="checkbox" name="terms">
-                                        <label for="terms">@Model.company_terms</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="radio">
+                                                <input type="radio" name="radioInline" asp-for="InputModel.parentType" value="@SD.Father" onclick="showDetails()" checked>
+                                                <label>Father's Details</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="radio">
+                                                <input type="radio" name="radioInline" asp-for="InputModel.parentType" value="@SD.Mother" onclick="showDetails()">
+                                                <label>Mother's Details</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-4">
+                                            <div class="radio">
+                                                <input type="radio" name="radioInline" asp-for="InputModel.parentType" value="@SD.Guardian" onclick="showDetails()">
+                                                <label>Guardian's Details</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span id="terms_error" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-12">
+
+                                    <div id="mother_details">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form__field" required asp-for=InputModel.Mother_Name placeholder="Enter Mother's Name" />
+                                                    <span class="text-danger" asp-validation-for=InputModel.Mother_Name></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    @* <label>Family Income <span class="text-danger">(*)</span> </label> *@
+                                                    <input class="form__field" required type="number" asp-for="InputModel.motherIncome" min="0" class="form-control" placeholder="Enter Your Family Monthly Income">
+                                                    <span asp-validation-for="InputModel.motherIncome " class=" text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <select asp-for="InputModel.motherOccupationId" required asp-items="Model.professionlist" class="form__field">
+                                                        <option disabled selected>--Please Select Mother's Occupation--</option>
+                                                    </select>
+                                                    <span asp-validation-for="InputModel.motherOccupationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="father_details">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form__field" asp-for=InputModel.FatherName required placeholder="Enter Father's Name" />
+                                                    <span class="text-danger" asp-validation-for=InputModel.FatherName></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    @* <label>Family Income <span class="text-danger">(*)</span> </label> *@
+                                                    <input class="form__field" required type="number" asp-for="InputModel.fatherIncome" min="0" class="form-control" placeholder="Enter Your Family Monthly Income">
+                                                    <span asp-validation-for="InputModel.fatherIncome " class=" text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <select asp-for="InputModel.fatherOccupationId" required asp-items="Model.professionlist" class="form__field">
+                                                        <option disabled selected>--Please Select Father's Occupation--</option>
+                                                    </select>
+                                                    <span asp-validation-for="InputModel.fatherOccupationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="guardian_details">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form__field" required asp-for=InputModel.guardianName placeholder="Enter Guardian Name" />
+                                                    <span class="text-danger" asp-validation-for=InputModel.guardianName></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form__field" required asp-for=InputModel.relation_with_guardian placeholder="Enter relation with Guardian" />
+                                                    <span class="text-danger" asp-validation-for=InputModel.relation_with_guardian></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <select asp-for="InputModel.guardianOccupationId" required asp-items="Model.professionlist" class="form__field">
+                                                        <option disabled selected>--Please Select Guardian's Occupation--</option>
+                                                    </select>
+                                                    <span asp-validation-for="InputModel.guardianOccupationId" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    @* <label>Family Income <span class="text-danger">(*)</span> </label> *@
+                                                    <input class="form__field" required type="number" asp-for="InputModel.guardianIncome" min="0" class="form-control" placeholder="Enter Your Family Monthly Income">
+                                                    <span asp-validation-for="InputModel.guardianIncome " class=" text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.col -->
+                    <div class="panel panel-color panel-teal">
+                        <div class="panel-heading">
+
+
+                            <h3 class="panel-title">Address Details</h3>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>House No/ Village/ Para / Ward</label>
+                                        <input class="form__field" type="text" required asp-for=InputModel.Vill class="form-control" placeholder="House No/ Village/ Para / Ward">
+                                        <span asp-validation-for="InputModel.Vill" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Post Office</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.PostOffice class="form-control" placeholder="Enter your Post Office Name">
+                                        <span asp-validation-for="InputModel.PostOffice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Police Station</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.PoliceStation class="form-control" placeholder="Enter your Police Station Name">
+                                        <span asp-validation-for="InputModel.PoliceStation" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>District</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.District class="form-control" placeholder="Enter your District Name">
+                                        <span asp-validation-for="InputModel.District" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>State</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.State class="form-control" placeholder="Enter your State Name">
+                                        <span asp-validation-for="InputModel.State" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pin Code</label>
+                                        <input class="form__field" required type="number" asp-for=InputModel.PIN class="form-control" min="0" placeholder="Enter Your PIN" maxlength="6" oninput="javascript: if (this.value.length> this.maxLength) this.value = this.value.slice(0, this.maxLength);" requried>
+                                        <span asp-validation-for="InputModel.PIN" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
 
-
-                        </div>
-                        <div class="col-md-3 pull-right">
-                            <button type="submit" class="btn btn-block btn-md btn-success" asp-page-handler="Submit" style="font-size:medium">Save </button>
                         </div>
                     </div>
+
+
+
+                    <div class="panel panel-color panel-teal">
+                        <div class="panel-heading">
+
+
+                            <h3 class="panel-title">Bank Details</h3>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input class="form__field" required type="text" asp-for="InputModel.bankName" class="form-control" placeholder="Enter Bank Name">
+                                        <span asp-validation-for="InputModel.bankName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Branch Name</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.bankBranchName class="form-control" placeholder="Enter Branch Name">
+                                        <span asp-validation-for="InputModel.bankBranchName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Account Number</label>
+                                        <input class="form__field" required type="number" asp-for=InputModel.bankAcNo min="0" class="form-control" placeholder="Enter Bank Account Number">
+                                        <span asp-validation-for="InputModel.bankAcNo" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Bank IFSC Code</label>
+                                        <input class="form__field" required type="text" asp-for=InputModel.bankIFSC class="form-control" placeholder="Enter Bank IFSC Code">
+                                        <span asp-validation-for="InputModel.bankIFSC" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-color panel-teal">
+                        <div class="panel-heading">
+
+
+                            <h3 class="panel-title">Set Password</h3>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Password <span class="text-danger">(*)</span> </label>
+                                        <input class="form__field" required asp-for=InputModel.Password placeholder="Password" />
+                                        <span class="text-danger" asp-validation-for=InputModel.Password></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Confirm Password <span class="text-danger">(*)</span> </label>
+                                        <input class="form__field" required asp-for=InputModel.ConfirmPassword placeholder="Re-type Password" />
+                                        <span class="text-danger" asp-validation-for=InputModel.ConfirmPassword></span>
+                                    </div>
+                                    <span class="text-danger">@TempData["warning"]</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <div id="ContentPlaceHolder1_ContactUC2_divtermsandconditions" class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="checkbox checkbox-success">
+                                            <input id="terms" type="checkbox" class="required" name="terms">
+                                            <label for="terms">@Model.company_terms</label>
+                                        </div>
+                                        <span id="terms_error" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <button type="submit" class="form__submit d-block mx-auto" asp-page-handler="Submit" style="font-size:medium">Register as a Beneficiary</button>
+                            <div class="d-flex justify-content-center p-30 mx-auto">
+                                <p>Already registered?  </p>
+                                <a asp-area="Identity" asp-page="/Account/Login">
+                                    Click Here to Login
+                                </a>
+
+                            </div>
+
+                            <br />
+                        </div>
+                    </div>
+
+
+                    @* <div class="panel panel-color panel-teal">
+                    <div class="panel-heading">
+
+
+                    <h3 class="panel-title">Upload Documents</h3>
+
+                    </div>
+                    <div class="panel-body">
+
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.admitcardUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.admitcardUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Madhyamik Admit Card</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.admitcardUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.admitcardUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.examResultUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.examResultUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Exam Result/ Score Card</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.examResultUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.examResultUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.admissionReceiptUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.admissionReceiptUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Admission Receipt</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.admissionReceiptUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.admissionReceiptUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.passbookUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.passbookUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Bank Passbook Front Page</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.passbookUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.passbookUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.admitcardUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.aadharCardUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Aadhaar Card</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.aadharCardUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.aadharCardUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+                    <div class="thumbnail">
+                    @if (Model.scholarshipApplication.incomeCertificateUrl != null)
+                    {
+                    <img id="studentPic" class="img-responsive user-img" src="@Model.scholarshipApplication.incomeCertificateUrl" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+                    else
+                    {
+                    <img src="controller/Image/DemoPic.jpg" id="studentPic" class="img-responsive user-img" style="height: 120px; width: 120px;" alt="image">
+
+                    }
+
+                    <div class="caption">
+                    <h3>Income Certificate</h3>
+
+                    <p>
+                    <input type="file"
+                    accept=".png,.jpg,.jpeg"
+                    asp-for="scholarshipApplication.incomeCertificateUrl"
+                    class="form-control"
+                    style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                    onchange="photoSet(this,'studentPic')" />
+                    <span asp-validation-for="scholarshipApplication.incomeCertificateUrl" class="text-danger"></span>
+
+                    </p>
+                    </div>
+                    </div>
+                    </div>
+
+
+
+
+                    </div>
+                    </div> *@
+
                 </div>
+
 
             </div>
-
-
         </div>
     </div>
 </form>
 
-@section scripts{
+@section scripts {
     <script>
         $(document).ready(function () {
-            var checkid = $('#popup_stat').val();
-            viewElement(checkid);
-
-
-            $('#popup_stat').change(function () {
-                viewElement($(this).val());
-            });
-
+            $(".datepicker").datepicker();
         });
 
-        function viewElement(f) {
-            if (f == 'false') {
-                $('#image_area').hide();
-                return true;
+    </script>
+    <script>
+        window.onload = function () {
+            showDetails();
+        }
+
+        function hideAllDetails() {
+            document.getElementById('father_details').style.display = 'none';
+            document.getElementById('mother_details').style.display = 'none';
+            document.getElementById('guardian_details').style.display = 'none';
+        }
+
+        function showDetails() {
+            hideAllDetails();
+            var radios = document.getElementsByName('radioInline');
+            var value;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    value = radios[i].value;
+                    break;
+                }
             }
-            else if (f === 'true') {
-                $('#image_area').show();
-                return true;
+            if (value == '@SD.Father') {
+                document.getElementById('father_details').style.display = 'block';
+            } else if (value == '@SD.Mother') {
+                document.getElementById('mother_details').style.display = 'block';
+            } else if (value == '@SD.Guardian') {
+                document.getElementById('guardian_details').style.display = 'block';
             }
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            $('.form__submit').click(function (e) {
+                if (!$('#terms').is(':checked')) {
+                    e.preventDefault();
+                    $('#terms_error').text('Please agree to the terms and conditions before registering.');
+                } else {
+                    $('#terms_error').text('');
+                }
+            });
+        });</script>
+
     @{
         <partial name="_ValidationScriptsPartial" />
     }
